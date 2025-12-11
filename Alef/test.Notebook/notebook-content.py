@@ -22,10 +22,6 @@
 
 # CELL ********************
 
-# Welcome to your new notebook
-# Type here in the cell editor to add code!
-# Welcome to your new notebook
-# Type here in the cell editor to add code!
 from pyspark.sql import SparkSession
 
 spark = SparkSession.builder.getOrCreate()
@@ -48,7 +44,7 @@ df.show()
 
 # CELL ********************
 
-df.write.format("delta").mode("overwrite").save("Files/dummy_table")
+df.write.format("delta").saveAsTable("test_table")
 
 # METADATA ********************
 
@@ -59,41 +55,52 @@ df.write.format("delta").mode("overwrite").save("Files/dummy_table")
 
 # CELL ********************
 
-import sempy.fabric as fabric
-from sempy.fabric.exceptions import FabricHTTPException
+# df.write.format("delta").mode("overwrite").save("Files/dummy_table")
 
-# Replace these with real IDs
-WORKSPACE_ID = "d397507c-606e-40ce-ae37-864b642f4f05"
-ITEM_ID = "15222668-9f3f-483a-900c-ff9e6cf2e526"
+# METADATA ********************
 
-client = fabric.FabricRestClient()
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
 
-def check_fabric_shortcut_access():
-    url = f"v1/workspaces/{WORKSPACE_ID}/items/{ITEM_ID}/shortcuts"
+# CELL ********************
 
-    print(f"Checking access to: {url}")
+# import sempy.fabric as fabric
+# from sempy.fabric.exceptions import FabricHTTPException
 
-    try:
-        # GET list of shortcuts
-        response = client.get(url)
-        data = response.json()
+# # Replace these with real IDs
+# WORKSPACE_ID = "d397507c-606e-40ce-ae37-864b642f4f05"
+# ITEM_ID = "15222668-9f3f-483a-900c-ff9e6cf2e526"
 
-        print("SEMPy FabricRestClient access OK ✔")
-        print(f"Number of shortcuts: {len(data.get('value', []))}")
-        return True
+# client = fabric.FabricRestClient()
 
-    except FabricHTTPException as e:
-        print("❌ SEMPy does NOT have access to Fabric Shortcuts API")
-        print("Error:", e)
-        return False
+# def check_fabric_shortcut_access():
+#     url = f"v1/workspaces/{WORKSPACE_ID}/items/{ITEM_ID}/shortcuts"
 
-    except Exception as e:
-        print("❌ Unexpected error")
-        print(e)
-        return False
+#     print(f"Checking access to: {url}")
 
-# Run access test
-check_fabric_shortcut_access()
+#     try:
+#         # GET list of shortcuts
+#         response = client.get(url)
+#         data = response.json()
+
+#         print("SEMPy FabricRestClient access OK ✔")
+#         print(f"Number of shortcuts: {len(data.get('value', []))}")
+#         return True
+
+#     except FabricHTTPException as e:
+#         print("❌ SEMPy does NOT have access to Fabric Shortcuts API")
+#         print("Error:", e)
+#         return False
+
+#     except Exception as e:
+#         print("❌ Unexpected error")
+#         print(e)
+#         return False
+
+# # Run access test
+# check_fabric_shortcut_access()
 
 
 # METADATA ********************
