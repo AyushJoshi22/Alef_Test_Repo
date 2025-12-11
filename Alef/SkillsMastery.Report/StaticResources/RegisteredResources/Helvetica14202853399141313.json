@@ -1,0 +1,98 @@
+{
+  "name": "Helvetica",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "*": [
+          {
+            "fontSize": 12,
+            "fontFamily": "Helvetica",
+            "color": {
+              "solid": {}
+            }
+          }
+        ]
+      }
+    },
+    "barChart": {
+      "*": {}
+    },
+    "clusteredBarChart": {
+      "*": {}
+    },
+    "clusteredColumnChart": {
+      "*": {}
+    },
+    "columnChart": {
+      "*": {}
+    },
+    "comboChart": {
+      "*": {}
+    },
+    "dataDotClusteredColumnComboChart": {
+      "*": {}
+    },
+    "dataDotStackedColumnComboChart": {
+      "*": {}
+    },
+    "hundredPercentStackedBarChart": {
+      "*": {}
+    },
+    "hundredPercentStackedColumnChart": {
+      "*": {}
+    },
+    "lineStackedColumnComboChart": {
+      "*": {}
+    },
+    "lineClusteredColumnComboChart": {
+      "*": {}
+    },
+    "scatterChart": {
+      "*": {}
+    },
+    "pivotTable": {
+      "*": {
+        "total": [
+          {
+            "fontFamily": "Helvetica",
+            "fontSize": 12
+          }
+        ]
+      }
+    },
+    "ribbonChart": {
+      "*": {}
+    },
+    "areaChart": {
+      "*": {}
+    },
+    "lineChart": {
+      "*": {}
+    },
+    "stackedAreaChart": {
+      "*": {}
+    },
+    "waterfallChart": {
+      "*": {}
+    },
+    "tableEx": {
+      "*": {}
+    },
+    "slicer": {
+      "*": {}
+    },
+    "filterSlicer": {
+      "*": {}
+    },
+    "multiRowCard": {
+      "*": {}
+    }
+  },
+  "textClasses": {
+    "callout": {
+      "color": "#485465",
+      "fontFace": "'Helvetica Bold', Helvetica Bold, wf_segoe-ui_bold, signika",
+      "fontSize": 42
+    }
+  }
+}

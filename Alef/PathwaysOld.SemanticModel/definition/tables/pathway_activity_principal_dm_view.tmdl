@@ -1,0 +1,931 @@
+table pathway_activity_principal_dm_view
+	lineageTag: 850ce6f1-1bb3-4fac-a8a1-b6fedbda0f8e
+
+	measure 'Total Students' =
+			CALCULATE(
+			    DISTINCTCOUNT(pathway_activity_principal_dm_view[pathway_student_dw_id]),
+			    REMOVEFILTERS('Date')
+			    )
+		formatString: #,0
+		lineageTag: 58df7b6d-afae-4fcb-a224-91bce0728986
+
+	measure 'Total Onboarded' =
+			CALCULATE(
+			    DISTINCTCOUNTNOBLANK(pathway_activity_principal_dm_view[active_student_dw_id]),
+			    REMOVEFILTERS('Date')
+			)
+		formatString: #,0
+		lineageTag: 4215ffbb-4cb4-4f9c-97f3-f82fceaeee49
+
+	measure SumofTime = ```
+			
+			    CALCULATE(
+			        SUM('pathway_activity_principal_dm_view'[fle_total_time]),
+			        USERELATIONSHIP('Date'[Date],pathway_activity_principal_dm_view[fle_activity_date])
+			    )
+			```
+		lineageTag: a76e83fa-b8c5-4355-8b0d-5473fec0ad26
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure RatioOnboarded =
+			
+			VAR _ratio = ROUND(CALCULATE(DIVIDE ([Total Onboarded],[Total Path Recommended],0))*100,0)
+			RETURN "(" & _ratio & "%)"
+		lineageTag: a61909b4-4693-4461-828a-c8bda8d6bc31
+
+	measure AvgScore = ```
+			
+			var _avgscore = 
+			AVERAGEX(
+				KEEPFILTERS(VALUES(pathway_activity_principal_dm_view[level_dw_id_completed])),
+				CALCULATE([AvgScoreInput])
+			) 
+			return
+			_avgscore
+			```
+		formatString: 0.0
+		lineageTag: 4e6de8c5-2da3-4d54-9e20-05d0c3939b54
+
+	measure AverageTimeperDay =
+			
+			VAR _avgdaytime = AVERAGEX(
+			    KEEPFILTERS(
+			        VALUES(
+			                 'pathway_activity_principal_dm_view'[active_student_dw_id]
+			        )
+			    ),
+			    CALCULATE(
+			        SUM(
+			            'pathway_activity_principal_dm_view'[fle_total_time]
+			        ),
+			        ALL(
+			            'pathway_activity_principal_dm_view'[fle_activity_date]
+			        )
+			    )
+			)
+			RETURN
+			_avgdaytime
+		formatString: 0
+		lineageTag: eb68bd61-5409-4890-aa47-b9283d3f42b8
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "NLtoDAX"
+				}
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure LevelsCompletedperStudents =
+			AVERAGEX(
+			    KEEPFILTERS(
+			        VALUES(
+			            'pathway_activity_principal_dm_view'[flr_student_dw_id]
+			        )
+			    ),
+			    CALCULATE(
+			        DISTINCTCOUNTNOBLANK(
+			            'pathway_activity_principal_dm_view'[level_dw_id_completed]
+			        ),
+			        USERELATIONSHIP('Date'[Date], pathway_activity_principal_dm_view[level_completed_time - Copy]),
+			        pathway_activity_principal_dm_view[level_completed_time - Copy] >= pathway_activity_principal_dm_view[academic_year_start_date]
+			    )
+			)
+		formatString: 0.0
+		lineageTag: a287bec7-6723-46a5-a055-10ea5b888e96
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "NLtoDAX"
+				}
+
+		changedProperty = FormatString
+
+	measure LevelsCompleted = CALCULATE(DISTINCTCOUNTNOBLANK(pathway_activity_principal_dm_view[level_dw_id_completed]),USERELATIONSHIP('Date'[Date],pathway_activity_principal_dm_view[level_completed_time - Copy]))
+		formatString: 0
+		lineageTag: 550479c8-fa19-43b6-a3aa-b128cf4740c6
+
+	measure AvgTimePerStudentperDay =
+			AVERAGEX(
+			    SUMMARIZE(pathway_activity_principal_dm_view,
+			    pathway_activity_principal_dm_view[fle_activity_date],
+			    pathway_activity_principal_dm_view[active_student_dw_id],
+			    "TotalTime",[SumofTime]/60)
+			    ,[TotalTime]
+			    )
+		formatString: 0
+		lineageTag: d5e7efb3-b161-4582-9b77-7d14adcf5215
+
+	measure RatioActive =
+			
+			VAR _ratio = ROUND(CALCULATE(DIVIDE([Active Students],[Total Onboarded],0))*100,0)
+			RETURN "(" & _ratio & "%)"
+		lineageTag: fcb8e664-fd01-40fb-88c6-92ab1a7fe4a3
+
+	measure 'Active Students' =
+			CALCULATE(
+			    DISTINCTCOUNTNOBLANK(pathway_activity_principal_dm_view[active_student_dw_id])
+			)
+		formatString: 0
+		lineageTag: 0db3e5f1-00e3-4dd5-ae1f-65676309dcba
+
+	measure LevelsComppletion =
+			CALCULATE(
+			    DISTINCTCOUNTNOBLANK(pathway_activity_principal_dm_view[level_dw_id_completed]),
+			    USERELATIONSHIP('Date'[Date],pathway_activity_principal_dm_view[level_completed_time - Copy])
+			)
+		formatString: 0
+		lineageTag: 66407a69-0ed7-4b9a-94b0-4c06c9f1ce13
+
+	measure Bucket =
+			
+			VAR Weights =
+			    SUMMARIZE ( ALLSELECTED ( pathway_activity_principal_dm_view), pathway_activity_principal_dm_view[active_student_dw_id], "Wgt", IF (NOT ISBLANK([LevelsComppletion]),[LevelsComppletion],0 ))
+			VAR MinW = MINX ( Weights, [Wgt] )
+			VAR MaxW = MAXX ( Weights, [Wgt] )
+			VAR Floors = FLOOR(MaxW/3,1)
+			VAR Floorss = IF (Floors = 0, 1, Floors)
+			VAR CurrW = CALCULATE([LevelsCompletedperStudents])
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        CurrW < 1 , "0",
+			        CurrW <= Floorss, "1 - First",
+			        CurrW <= Floorss+Floorss,    "2 - Second",
+			        CurrW <= MaxW,    "3 - Third"
+			    )
+		lineageTag: cc5437d1-e605-4c71-8202-8ce2566eefb8
+
+	measure Bucket3Label =
+			
+			VAR Weights =
+			    SUMMARIZE ( ALLSELECTED ( pathway_activity_principal_dm_view), pathway_activity_principal_dm_view[active_student_dw_id], "Levels", COALESCE([LevelsComppletion],0))
+			VAR MinW = MINX ( Weights, [Levels] )
+			VAR MaxW = MAXX ( Weights, [Levels] )
+			VAR Floors = FLOOR(MaxW/3,1)
+			VAR Floorss = IF (Floors = 0, 1, Floors)
+			VAR Label1 = Floorss+Floorss+1
+			VAR Label2 = If(MaxW<Floorss+Floorss+1,Floorss+Floorss+1,MaxW)
+			VAR Labelf = IF(Label2=Label1,""," to " & Label2)
+			RETURN
+			Label1 & Labelf
+		lineageTag: 794fae2f-3814-4281-8526-a7860b87544e
+
+	measure Bucket2Label =
+			
+			VAR Weights =
+			    SUMMARIZE ( ALLSELECTED ( pathway_activity_principal_dm_view), pathway_activity_principal_dm_view[active_student_dw_id], "Levels", COALESCE([LevelsComppletion],0))
+			VAR MinW = MINX ( Weights, [Levels] )
+			VAR MaxW = MAXX ( Weights, [Levels] )
+			VAR Floors = FLOOR(MaxW/3,1)
+			VAR Floorss = IF (Floors = 0, 1, Floors)
+			VAR Label1 = Floorss+1
+			VAR Label2 = IF((Floorss+Floorss)=Label1,""," to " & Floors+Floorss)
+			RETURN
+			Label1 & Label2
+		lineageTag: bb22353e-8ef5-4323-abd9-8d30c142c01e
+
+	measure Bucket1Label =
+			
+			VAR Weights =
+			    SUMMARIZE ( ALLSELECTED ( pathway_activity_principal_dm_view), pathway_activity_principal_dm_view[active_student_dw_id], "Levels", COALESCE([LevelsComppletion],0))
+			VAR MinW = MINX ( Weights, [Levels] )
+			VAR MinWs = If(MinW=0,1,MinW)
+			VAR MaxW = MAXX ( Weights, [Levels] )
+			VAR Floors = FLOOR(MaxW/3,1)
+			VAR Floorss = IF (Floors = 0, 1, Floors)
+			VAR Label1 = If(MinWs<Floorss,MinWs,1)
+			VAR Label2 = IF(Floorss=Label1,""," to " & Floors)
+			RETURN
+			Label1 & Label2
+		lineageTag: 85ad6795-93b8-46a7-be81-4e978fcc0ce0
+
+	measure PreviousActiveStudents = ```
+			CALCULATE(
+			    [Active Students], 
+			     DATESINPERIOD('Date'[Date],
+			     MIN('Date'[Date])-1,
+			     -'Date'[DaysInterval]- 1,
+			     DAY )
+			)
+			```
+		formatString: 0
+		lineageTag: 03ecb3a4-3848-4b2d-b80b-5722c4b1c442
+
+	measure ActiveUsageDelta = DIVIDE(([Active Students]-[PreviousActiveStudents]),[PreviousActiveStudents])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: ecd68ded-b9b9-4c84-92d1-fa2519cff6d8
+
+	measure ActiveUsageSign =
+			IF(
+			    ISBLANK([ActiveUsageDelta])=TRUE,"",IF([ActiveUsageDelta]>0,"↑","↓")
+			)
+		lineageTag: d4b8303a-3749-4adc-9bd5-f2e5d0475690
+
+	measure AvgTimePerStudentperDayDelta = DIVIDE(([AvgTimePerStudentperDay]-[PreviousAvgTimePerStudentPerDay]),[PreviousAvgTimePerStudentPerDay])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 198768df-04bd-4db6-8fb0-8bec1d50f58c
+
+	measure PreviousAvgTimePerStudentPerDay = ```
+			CALCULATE(
+			    [AvgTimePerStudentperDay], 
+			     DATESINPERIOD('Date'[Date],
+			     MIN('Date'[Date])-1,
+			     -'Date'[DaysInterval]- 1,
+			     DAY )
+			)
+			```
+		lineageTag: 4d2ab8c4-77c1-4380-bd37-fff53c5b9df8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure AvgTimePerStudentPerDaySign =
+			IF(
+			    ISBLANK([AvgTimePerStudentperDayDelta])=TRUE,"",IF([AvgTimePerStudentperDayDelta]>0,"↑","↓")
+			)
+		lineageTag: b68d1230-92cc-4fdf-beb2-84f7fa65192d
+
+	measure PreviousAvgScore = ```
+			CALCULATE(
+			    [AvgScore], 
+			     DATESINPERIOD('Date'[Date],
+			     MIN('Date'[Date])-1,
+			     -'Date'[DaysInterval]- 1,
+			     DAY )
+			)
+			```
+		lineageTag: 0c2ffda0-2098-40df-a372-74bf554d6945
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure AvgScoreDelta = DIVIDE(([AvgScore]-[PreviousAvgScore]),[PreviousAvgScore])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: d15aa66f-6884-46a5-b54c-ac1a2d98f6b4
+
+	measure AvgScoreSign =
+			IF(
+			    ISBLANK([AvgScoreDelta])=TRUE,"",IF([AvgScoreDelta]>=0,"↑","↓")
+			)
+		lineageTag: 2295c484-fe67-4564-9f9d-a4b4fc68f4f9
+
+	measure PreviousLevelsCompletedPerStudent = ```
+			CALCULATE(
+			    [LevelsCompletedperStudents], 
+			     DATESINPERIOD('Date'[Date],
+			     MIN('Date'[Date])-1,
+			     -'Date'[DaysInterval]- 1,
+			     DAY )
+			)
+			```
+		lineageTag: 21bed9c6-7950-442d-8cfb-fa1eda542152
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure LevelsCompletedperStudentDelta = DIVIDE(([LevelsCompletedperStudents]-[PreviousLevelsCompletedPerStudent]),[PreviousLevelsCompletedPerStudent])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 2294d5b5-3579-4f27-a1d5-1d2fe476f28e
+
+	measure LevelsCompletedperStudentSign =
+			IF(
+			    ISBLANK([LevelsCompletedperStudentDelta])=TRUE,"",IF([LevelsCompletedperStudentDelta]>0,"↑","↓")
+			)
+		lineageTag: f734d747-73b5-41e8-92ca-0db5aa425aed
+
+	measure AvgScorePerLevel = ```
+			
+			var _avgscore = 
+			AVERAGEX(
+				KEEPFILTERS(VALUES(pathway_activity_principal_dm_view[level_dw_id_completed])),
+				CALCULATE([AvgScore])
+			) 
+			return
+			_avgscore
+			```
+		lineageTag: 35227312-b62b-4014-8609-f862b8d891b4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure AvgScoreInput =
+			CALCULATE(
+			    AVERAGE(pathway_activity_principal_dm_view[fle_total_score]),
+			pathway_activity_principal_dm_view[activity_type] = "INTERIM_CHECKPOINT",
+			--pathway_activity_principal_dm_view[plaa_activity_is_optional] = FALSE,
+			NOT ISBLANK(pathway_activity_principal_dm_view[level_dw_id_completed]),
+			pathway_activity_principal_dm_view[level_completed_time - Copy] >= pathway_activity_principal_dm_view[academic_year_start_date],
+			USERELATIONSHIP('Date'[Date],pathway_activity_principal_dm_view[level_completed_time - Copy])
+			)
+		lineageTag: 45174d12-226e-4e7e-b692-314bc3a5c8c9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure StudentsDomainBelow2 = ```
+			
+			 COUNTROWS(
+				FILTER(
+				SUMMARIZE(pathway_activity_principal_dm_view,
+			pathway_activity_principal_dm_view[flr_student_dw_id],
+			pathway_activity_principal_dm_view[level_dw_id_completed],
+			pathway_activity_principal_dm_view[grade_dif_group]
+			),
+			ISBLANK(pathway_activity_principal_dm_view[level_dw_id_completed]) = TRUE 
+			&& pathway_activity_principal_dm_view[grade_dif_group] = -2)
+			 )
+			```
+		formatString: 0
+		lineageTag: fe23ffcd-c20e-40b3-b063-b7b950d151a4
+
+	measure StudentsDomainAtGrade = ```
+			
+			 COUNTROWS(
+				FILTER(
+				SUMMARIZE(pathway_activity_principal_dm_view,
+			pathway_activity_principal_dm_view[flr_student_dw_id],
+			pathway_activity_principal_dm_view[level_dw_id_completed],
+			pathway_activity_principal_dm_view[grade_dif_group]
+			),
+			ISBLANK(pathway_activity_principal_dm_view[level_dw_id_completed]) = TRUE 
+			&& pathway_activity_principal_dm_view[grade_dif_group]=0)
+			 )
+			```
+		formatString: 0
+		lineageTag: 1a643227-1348-4c67-a10e-116e69904039
+
+	measure StudentsDomainBelow1 = ```
+			
+			 COUNTROWS(
+				FILTER(
+				SUMMARIZE(pathway_activity_principal_dm_view,
+			pathway_activity_principal_dm_view[flr_student_dw_id],
+			pathway_activity_principal_dm_view[level_dw_id_completed],
+			pathway_activity_principal_dm_view[grade_dif_group]
+			),
+			ISBLANK(pathway_activity_principal_dm_view[level_dw_id_completed]) = TRUE 
+			&& pathway_activity_principal_dm_view[grade_dif_group]=-1)
+			 )
+			```
+		formatString: 0
+		lineageTag: 3e0189df-b51d-4b5b-a44c-19b49f8332c3
+
+	measure StudentsDomainAboveLevel = ```
+			
+			 COUNTROWS(
+				FILTER(
+				SUMMARIZE(pathway_activity_principal_dm_view,
+			pathway_activity_principal_dm_view[flr_student_dw_id],
+			pathway_activity_principal_dm_view[level_dw_id_completed],
+			pathway_activity_principal_dm_view[grade_dif_group]
+			),
+			ISBLANK(pathway_activity_principal_dm_view[level_dw_id_completed]) = TRUE 
+			&& pathway_activity_principal_dm_view[grade_dif_group]=1)
+			 )
+			```
+		formatString: 0
+		lineageTag: 715ace2e-6d7e-4719-b626-be72d6704134
+
+	measure MinDate = CALCULATE(MIN(pathway_activity_principal_dm_view[flr_created_time]))
+		formatString: General Date
+		lineageTag: f3efc8f2-d3a9-4ab0-953f-ceb5cfbe6761
+
+	measure Bucket0Label = 0
+		formatString: 0
+		lineageTag: 5d004fd5-9497-4ae7-a490-3d4a52fa85b2
+
+	measure Domain1Label = MIN(pathway_activity_principal_dm_view[pathway_level_domain])
+		lineageTag: b94210b0-8685-401b-884a-a323d4e0a3b9
+
+	measure Domain1Data = [StudentsDomainAboveLevel]+[StudentsDomainAtGrade]+[StudentsDomainBelow2]+[StudentsDomainBelow1]
+		formatString: 0
+		lineageTag: 2f929814-e13b-4820-8839-9090096c99ed
+
+	measure Domain2Label = "Geometry"
+		lineageTag: 5f7e76e5-7dcc-4e9c-a4d8-41000b56f6da
+
+	measure Domain3Label = "Measurement Data & Statistics"
+		lineageTag: e73b612b-bfa3-422b-9986-d097edb97e20
+
+	measure Domain4Label = "Numbers & Operations"
+		lineageTag: 43817d4d-d61e-49fe-b920-92edcabba580
+
+	measure 'Total Path Recommended' =
+			CALCULATE(
+			    DISTINCTCOUNTNOBLANK(pathway_activity_principal_dm_view[flr_student_dw_id]),
+			    REMOVEFILTERS('Date')
+			)
+		formatString: 0
+		lineageTag: f5737116-3fb7-46e4-9697-92068a631d64
+
+	measure RatioPathRecommended =
+			
+			VAR _ratio = ROUND(CALCULATE(DIVIDE ([Total Path Recommended],[Total Students],0))*100,0)
+			RETURN "(" & _ratio & "%)"
+		lineageTag: d37b21d8-ca41-4228-8be3-1ca3992531fd
+
+	measure 'Placement Label' =
+			
+			var _subject_pacement = [FirstRecommendationPerSubject]
+			return
+			SWITCH(_subject_pacement,
+			1, "To get reccomended a Pathway Course appropriate to their level of subject knowledge All Students took an Adaptive Diagnostic Test (ADT) that identified their Placement",
+			2, "To get reccomended a Pathway Course appropriate to their level of subject knowledge All Students took an Adaptive Diagnostic Test (ADT) that identified their Placement",
+			3, "To get reccomended a Pathway Course appropriate to their level of subject knowledge All Students took an Adaptive Diagnostic Test (ADT) that identified their Placement",
+			5, "as result of Automatic Placement by Enrolled Grade",
+			6, "as result of Automatic Placement at Beginning of Course",
+			4, "as result of Manual Placement by Teacher"
+			)
+		lineageTag: 5bfe8bfd-9cbb-4772-a6c3-c0e20e22c545
+
+	measure Domains =
+			CALCULATE(
+			    COUNT(pathway_activity_principal_dm_view[pathway_level_domain]))
+		formatString: 0
+		lineageTag: 2d64c387-cafb-4eb1-ba08-5f94dfdb0bdf
+
+	measure SelectedSubject =
+			CALCULATE(
+			    MIN(pathway_activity_principal_dm_view[curr_subject_name])
+			)
+		lineageTag: e238a495-a042-4134-b91f-aee0b94c35c4
+
+	measure FirstRecommendationPerSubject = ```
+			
+			VAR FirstCreatedTimePerSubject = 
+			    CALCULATE(
+			        MIN(pathway_activity_principal_dm_view[flr_created_time]),
+			        ALLEXCEPT(pathway_activity_principal_dm_view, pathway_activity_principal_dm_view[curr_subject_name])
+			    )
+			VAR FirstRecommendation = 
+			    CALCULATE(
+			        FIRSTNONBLANK(pathway_activity_principal_dm_view[flr_recommendation_type], 1),
+			        pathway_activity_principal_dm_view[flr_created_time] = FirstCreatedTimePerSubject,
+			        ALLEXCEPT(pathway_activity_principal_dm_view, pathway_activity_principal_dm_view[curr_subject_name])
+			    )
+			RETURN
+			    FirstRecommendation
+			```
+		formatString: 0
+		lineageTag: 2198b5f9-5f58-44c8-a574-39f1fe0ba994
+
+	column tenant_id
+		dataType: string
+		lineageTag: ba1cd82e-34d2-418e-9316-9afa08b9d427
+		summarizeBy: none
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenant_name
+		dataType: string
+		lineageTag: 4a2ceaaa-2548-403e-adef-788e5b668df5
+		summarizeBy: none
+		sourceColumn: tenant_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column organisation_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2dffbbe6-d7f5-45c0-98d1-7892a99fa7f0
+		summarizeBy: sum
+		sourceColumn: organisation_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_organisation
+		dataType: string
+		lineageTag: 8af1186f-67e8-4582-8fed-edb258bf6795
+		summarizeBy: none
+		sourceColumn: school_organisation
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_composition
+		dataType: string
+		lineageTag: 78a3c209-f77a-4367-8fde-088587717375
+		summarizeBy: none
+		sourceColumn: school_composition
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: cf076b51-8833-4fc8-bb35-ec8591f76e63
+		summarizeBy: sum
+		sourceColumn: school_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_name
+		dataType: string
+		lineageTag: 1b07ee46-2e5d-49ce-94b9-4d839376657e
+		summarizeBy: none
+		sourceColumn: school_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_grade_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ee95516-8c3d-4cf6-8823-e5671d4da9b8
+		summarizeBy: sum
+		sourceColumn: student_grade_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column grade_name
+		dataType: int64
+		formatString: 0
+		lineageTag: 5e99dea0-1c88-40b4-b67f-ae6aef51d424
+		summarizeBy: sum
+		sourceColumn: grade_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 612d5c8a-7573-4f88-aaf3-d8098cd9258e
+		summarizeBy: sum
+		sourceColumn: class_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_title
+		dataType: string
+		lineageTag: acc4d41e-2481-4bc5-abe0-4c0862c700b4
+		summarizeBy: none
+		sourceColumn: class_title
+
+		annotation SummarizationSetBy = Automatic
+
+	column pathway_student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 640498c2-e71d-48ea-9bba-eb2a7c8bbec7
+		summarizeBy: sum
+		sourceColumn: pathway_student_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_special_needs
+		dataType: string
+		lineageTag: 9286803c-5db9-4504-94a3-e4e6dc4afe17
+		summarizeBy: none
+		sourceColumn: student_special_needs
+
+		annotation SummarizationSetBy = Automatic
+
+	column academic_year_end_year
+		dataType: double
+		lineageTag: fe02dc2a-9ed9-4e04-81f6-268087755204
+		summarizeBy: sum
+		sourceColumn: academic_year_end_year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column active_student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 231cc362-c616-49bd-b869-be7cc3c39bd2
+		summarizeBy: none
+		sourceColumn: active_student_dw_id
+
+		annotation SummarizationSetBy = User
+
+	column pathway_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8f9d9f70-cd3f-4612-8d64-602759697840
+		summarizeBy: sum
+		sourceColumn: pathway_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column pathway_name
+		dataType: string
+		lineageTag: acd72565-b3a9-47d9-bb3f-d4e22cdc1a3f
+		summarizeBy: none
+		sourceColumn: pathway_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column pathway_lang_code
+		dataType: string
+		lineageTag: c505259a-5785-467c-ad62-e915a17b4b52
+		summarizeBy: none
+		sourceColumn: pathway_lang_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column curr_subject_name
+		dataType: string
+		lineageTag: 6e60628a-6407-4e8c-b1b6-f502fc8cf801
+		summarizeBy: none
+		sourceColumn: curr_subject_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column pathway_level_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9b9aa661-c4cc-4fc7-ac93-f7f0d0ac6579
+		summarizeBy: sum
+		sourceColumn: pathway_level_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column pathway_level_domain
+		dataType: string
+		lineageTag: 6ddabbef-6b91-4e57-b745-37e4e5a7a603
+		summarizeBy: none
+		sourceColumn: pathway_level_domain
+
+		annotation SummarizationSetBy = Automatic
+
+	column pathway_level_grade
+		dataType: int64
+		formatString: 0
+		lineageTag: d35ce26d-f47a-458e-87c7-39e07648771a
+		summarizeBy: sum
+		sourceColumn: pathway_level_grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column flr_class_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: ebff3ad5-a901-4b93-b705-a469e24c313f
+		summarizeBy: sum
+		sourceColumn: flr_class_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column plaa_activity_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 566ddaad-8856-4d62-9cad-9a06a3e12748
+		summarizeBy: sum
+		sourceColumn: plaa_activity_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column flr_student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: ce42d099-4da4-485f-b41f-fc48aada2e4c
+		summarizeBy: none
+		sourceColumn: flr_student_dw_id
+
+		annotation SummarizationSetBy = User
+
+	column flr_created_time
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e0ca9430-e5d0-42fe-8e96-48b4c16c8d7c
+		summarizeBy: none
+		sourceColumn: flr_created_time
+
+		variation Variation
+			isDefault
+			relationship: 984155fb-8bd3-4d88-b044-02bfc072de1f
+			defaultHierarchy: LocalDateTable_c7b8a08c-25fc-43fb-8448-d51d11b42116.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column level_dw_id_completed
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e8fdd8b-8469-4d40-8673-273a2ff588f3
+		summarizeBy: none
+		sourceColumn: level_dw_id_completed
+
+		annotation SummarizationSetBy = User
+
+	column level_completed_time
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e1d39e50-af7e-4ea2-a369-5096d73c364c
+		summarizeBy: none
+		sourceColumn: level_completed_time
+
+		variation Variation
+			isDefault
+			relationship: 16d82bf5-78e1-435b-ba0f-b72adb41e6c2
+			defaultHierarchy: LocalDateTable_44470479-d0f5-43ba-ba2b-a0b2ac9e8b2e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column fle_total_time
+		dataType: double
+		lineageTag: 375372b2-616f-45b2-ba54-2fa833c0b65c
+		summarizeBy: sum
+		sourceColumn: fle_total_time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fle_activity_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 57c9df31-322c-4145-9af0-957e94b1ad78
+		summarizeBy: none
+		sourceColumn: fle_activity_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column fle_activity_time_local
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2bbcb7b0-cca6-491b-9e7c-f727b0208bf2
+		summarizeBy: none
+		sourceColumn: fle_activity_time_local
+
+		variation Variation
+			isDefault
+			relationship: 53caea14-2454-4e89-ae4c-f2de579106ac
+			defaultHierarchy: LocalDateTable_d4744552-541b-4f5a-8966-acae4120a802.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column fle_attempt
+		dataType: int64
+		formatString: 0
+		lineageTag: 0ec16884-a949-4fe2-a617-4ed643169305
+		summarizeBy: sum
+		sourceColumn: fle_attempt
+
+		annotation SummarizationSetBy = Automatic
+
+	column activity_type
+		dataType: string
+		lineageTag: 005e5b85-c6b8-4dfd-a136-5c9ab850a365
+		summarizeBy: none
+		sourceColumn: activity_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column LevelCompletionBins =
+			
+			IF([LevelsCompletedperStudents] <= 1, "1-2",
+			"2+")
+		lineageTag: 2bee6ff9-c45b-459c-92ab-9452d331d8e3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'level_completed_time - Copy'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5c048c8e-fdeb-4931-88c2-d0cca32d66bd
+		summarizeBy: none
+		sourceColumn: level_completed_time - Copy
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column GradeDiff = IF(NOT ISBLANK(pathway_activity_principal_dm_view[pathway_level_grade]),(pathway_activity_principal_dm_view[pathway_level_grade]-pathway_activity_principal_dm_view[grade_name]))
+		lineageTag: 25584d6c-8364-4c02-a588-aa41253d11e3
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column grade_dif
+		dataType: int64
+		formatString: 0
+		lineageTag: 9c884b5f-837a-40e7-9063-e08c6be74db5
+		summarizeBy: sum
+		sourceColumn: grade_dif
+
+		annotation SummarizationSetBy = Automatic
+
+	column grade_dif_group
+		dataType: int64
+		formatString: 0
+		lineageTag: e5019263-8585-4b8f-b78c-23a1f18f333c
+		summarizeBy: sum
+		sourceColumn: grade_dif_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_id
+		dataType: string
+		lineageTag: c44da712-3207-4776-9353-a9f781f59474
+		summarizeBy: none
+		sourceColumn: school_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_section_name
+		dataType: string
+		lineageTag: 1ba0fdbf-d834-411b-bb80-9e1d20409244
+		summarizeBy: none
+		sourceColumn: class_section_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column fle_total_score
+		dataType: double
+		lineageTag: 5193aef3-9f00-4df1-9a52-f0df1b5ff4d1
+		summarizeBy: sum
+		sourceColumn: fle_total_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column plaa_activity_is_optional
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 3fdc9f5f-148a-4971-bd07-f7d33f9e0858
+		summarizeBy: none
+		sourceColumn: plaa_activity_is_optional
+
+		annotation SummarizationSetBy = Automatic
+
+	column flr_recommendation_type
+		dataType: int64
+		formatString: 0
+		lineageTag: 3d399c04-791b-4638-9792-4e9d075f63fe
+		summarizeBy: sum
+		sourceColumn: flr_recommendation_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column academic_year_start_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 12088ed6-412d-44d3-a0aa-fa071323634a
+		summarizeBy: none
+		sourceColumn: academic_year_start_date
+
+		variation Variation
+			isDefault
+			relationship: 1f3ee5e6-aa5e-41f3-80a0-fb877b458080
+			defaultHierarchy: LocalDateTable_f76ee0f0-be28-444a-b860-32a99d309be8.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column student_id
+		dataType: string
+		lineageTag: 4949df96-9083-40bf-9966-5989a2213583
+		summarizeBy: none
+		sourceColumn: student_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column complted_activity_date_local
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1bee719f-26f2-4ba3-9ced-6a5bd95f0b48
+		summarizeBy: none
+		sourceColumn: complted_activity_date_local
+
+		variation Variation
+			isDefault
+			relationship: feb9e77b-5bf9-4878-964b-805b9e38f9a6
+			defaultHierarchy: LocalDateTable_a19d0923-d5e5-4db8-b930-2460a78fee24.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column fpac_activity_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 0334fa4e-242c-4ab7-9077-0a3672a1c825
+		summarizeBy: sum
+		sourceColumn: fpac_activity_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition pathway_activity_principal_dm_view = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    Workspace = Source{[workspaceId=Workspace]}[Data],
+				    Data = Workspace{[dataflowId=Pathwaydata]}[Data],
+				    pathway_activity_principal_dm_view1 = Data{[entity="pathway_activity_principal_dm_view"]}[Data],
+				    #"Duplicated Column" = Table.DuplicateColumn(pathway_activity_principal_dm_view1, "level_completed_time", "level_completed_time - Copy"),
+				    #"Extracted Date" = Table.TransformColumns(#"Duplicated Column",{{"level_completed_time - Copy", DateTime.Date, type date}})
+				in
+				    #"Extracted Date"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

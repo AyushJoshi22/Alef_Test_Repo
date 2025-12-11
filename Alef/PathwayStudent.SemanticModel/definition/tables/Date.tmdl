@@ -1,0 +1,93 @@
+table Date
+	lineageTag: 45066ba3-3aaf-47e0-8303-c7b24879ea1f
+	dataCategory: Time
+
+	measure Dataasof = "Data as of:"
+		lineageTag: 79210a68-8a46-4c15-85a6-21d2af239dcb
+
+	measure Minimdate = ```
+			
+			 CALCULATE(MIN('Date'[Date]), FILTER('Date', CONTAINS ('Date', 'Date'[WeeksFilter], "This Week")))
+			```
+		formatString: General Date
+		lineageTag: 625cbcda-acde-4db1-9290-aa8005fc9a65
+
+	measure Dash = " - "
+		lineageTag: 1ed17d46-5f73-4d64-a329-0629ea73ef0c
+
+	column Date
+		isKey
+		formatString: Long Date
+		lineageTag: ea8491ae-d28b-458b-b5e1-0bd4e1258ab1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Weeknum = WEEKNUM('Date'[Date],2)
+		formatString: 0
+		lineageTag: bed06bdb-76ae-44c2-8132-2eab556ed4b2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekStartDate =
+			
+			var weekSun = 'Date'[Date]-  WEEKDAY('Date'[Date],1)+1
+			var weekMon = 'Date'[Date]-  WEEKDAY('Date'[Date],2)+1
+			return
+			IF(YEAR('Date'[Date])=2021,weekSun,weekMon)
+		formatString: General Date
+		lineageTag: a73b7b55-a98e-40dd-b425-fa84cb0e509a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekEndDate = 'Date'[WeekStartDate]+6
+		formatString: General Date
+		lineageTag: 362a7d69-d2a0-4afa-b1f7-2e871a223b8a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Week = Format('Date'[WeekStartDate],"mmm")&" "&DAY('Date'[WeekStartDate])&" - "&Day('Date'[WeekStartDate]+6)&", "&year('Date'[Date])
+		lineageTag: 4b34f60e-c377-4a03-a663-eb5891ac754d
+		summarizeBy: none
+		sortByColumn: WeekStartDate
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Yearweek = IF ('Date'[WeekStartDate]<=Today(),YEAR('Date'[Date])*100+'Date'[Weeknum],Blank())
+		formatString: 0
+		lineageTag: 71337e93-ae02-4f03-af1d-1cf485d2d6a6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeeksFilter = IF('Date'[Weeknum]=WEEKNUM(Today()-1,2)&&Year('Date'[Date])=YEAR(TODAY()),"This Week",'Date'[Week])
+		lineageTag: 5d35c2b9-86fe-4431-b65b-c5ccb2180e88
+		summarizeBy: none
+		sortByColumn: WeekStartDate
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExcludeToday = IF ('Date'[Date]<TODAY(),1,0)
+		formatString: 0
+		lineageTag: 788859e8-31c5-4b00-94aa-ee962a5aad92
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Date-50ce2d56-373d-452e-bfa6-09b1b4a93b03 = calculated
+		mode: import
+		source = CALENDAR([MinMonth], TODAY()-1)
+
+	annotation PBI_Id = 4cf96e11068848b99f0fdd4580aeafd3
+

@@ -1,0 +1,49 @@
+table DimMonth_End
+	lineageTag: 23a1ae20-8a90-42b3-94ff-0a6dc7bd0063
+
+	column MonthStartDate
+		formatString: General Date
+		lineageTag: 379d2df8-3fbf-40e0-81fa-9e37e30ceb2a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimMonth[MonthStartDate]
+
+		variation Variation
+			isDefault
+			relationship: cda8383c-756f-45d1-ad77-0a32db4bbec2
+			defaultHierarchy: LocalDateTable_487646f1-6b4e-401a-a1c3-913a2b69117a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthKey
+		formatString: 0
+		lineageTag: ea834152-8d28-48b3-8743-7e38a83c969a
+		summarizeBy: count
+		isNameInferred
+		sourceColumn: DimMonth[MonthKey]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		lineageTag: 17f2444d-d520-425f-bf6e-d0129788ea95
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimMonth[MonthName]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNameFilter
+		lineageTag: 9faebe27-9bdc-4269-80bb-e93fd7ab85d6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimMonth[MonthNameFilter]
+		sortByColumn: MonthStartDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimMonth_End = calculated
+		mode: import
+		source = DimMonth
+
+	annotation PBI_Id = be13d17eb15a45dabf1c4cc2e8065442
+

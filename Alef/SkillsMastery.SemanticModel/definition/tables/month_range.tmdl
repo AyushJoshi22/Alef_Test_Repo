@@ -1,0 +1,65 @@
+table month_range
+	lineageTag: 74ee83ce-5bba-4f1a-9583-9d3c183cedb8
+
+	column range
+		dataType: string
+		lineageTag: 177463e1-8ee2-4fcb-975a-860c905a4f4f
+		summarizeBy: none
+		sourceColumn: range
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 158b47aa-3971-4807-bf82-1f2b502111db
+		summarizeBy: none
+		sourceColumn: Month
+
+		variation Variation
+			isDefault
+			relationship: 09c95ff3-6767-4d20-bf2e-d363a5eb95d2
+			defaultHierarchy: LocalDateTable_2a6c33bb-aea6-4d04-aef1-30a75cd228f8.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column MonthYear
+		dataType: string
+		lineageTag: 62f5ad4b-5c7d-4de2-b127-5e56244a20ca
+		summarizeBy: none
+		sourceColumn: MonthYear
+		sortByColumn: Month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition month_range = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"Workpsace" = Source{[workspaceId=Workspace]}[Data],
+				    #"Dataflow" = #"Workpsace"{[dataflowId=DataflowLessons]}[Data],
+				    fact_lessons_perf1 = #"Dataflow"{[entity="fact_lessons_perf"]}[Data],
+				    SelectedColumns = Table.SelectColumns(fact_lessons_perf1,{"week_start_date", "week_end_date"}),
+				    Distinctweeks = Table.Distinct(SelectedColumns),
+				    AddDates = Table.AddColumn(Distinctweeks, "Date", each List.Transform({Number.From([week_start_date])..Number.From([week_end_date])}, Date.From)),
+				    ExpandDates = Table.ExpandListColumn(AddDates, "Date"),
+				    DateFormat = Table.TransformColumnTypes(ExpandDates,{{"Date", type date}}),
+				    AddMonth = Table.AddColumn(DateFormat, "Month", each Date.StartOfMonth ([Date])),
+				    MonthFormat = Table.TransformColumnTypes(AddMonth,{{"Month", type date}}),
+				    DeleteDates = Table.RemoveColumns(MonthFormat,{"Date"}),
+				    DistinctTable = Table.Distinct(DeleteDates),
+				    FilterMonths = Table.SelectRows(DistinctTable, each [Month] <= Date.StartOfMonth(Date.From(DateTime.LocalNow()))),
+				    AddRange = Table.CombineColumns(Table.TransformColumnTypes(FilterMonths, {{"week_start_date", type text}, {"week_end_date", type text}}, "en-US"),{"week_start_date", "week_end_date"},Combiner.CombineTextByDelimiter("-", QuoteStyle.None),"range"),
+				    AddMonthYear = Table.AddColumn(AddRange, "MonthYear", each Text.Combine({Date.MonthName([Month]), Text.From(Date.Year([Month]))}, "-"))
+				in
+				    AddMonthYear
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

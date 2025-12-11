@@ -1,0 +1,249 @@
+table 'fact_lessons_perf (2)'
+	lineageTag: f896ef10-0fa1-499a-8919-29a7cb31aaea
+
+	measure Students = DISTINCTCOUNT('fact_lessons_perf (2)'[student_dw_id])
+		formatString: 0
+		lineageTag: e38598f3-932e-4035-8cc2-882e19095904
+
+	measure StudentAverageScore = AVERAGE('fact_lessons_perf (2)'[average_score])
+		lineageTag: 758ca998-bea7-439b-a848-45514830eacb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure AverageScoreperStudent = ```
+			
+			AVERAGEX(
+				KEEPFILTERS(VALUES('fact_lessons_perf (2)'[student_dw_id])),
+				CALCULATE([StudentAverageScore])
+			) 
+			```
+		lineageTag: 1b206fa9-75ce-4d6f-84dc-410edf1ce124
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure MeetsStudents =
+			If([AverageScoreperStudent]>=70,
+			CALCULATE(DISTINCTCOUNT('fact_lessons_perf (2)'[student_dw_id]))
+			,0)
+		formatString: 0
+		lineageTag: 53f98673-3164-4025-b900-a586ac587e01
+
+	measure StudentScore
+		lineageTag: 65755524-35f4-4865-a23a-c1b3a383219e
+
+	measure StudentsDistrMeets = ```
+			
+			 COUNTROWS(
+				FILTER(
+				SUMMARIZE('fact_lessons_perf (2)',
+			'fact_lessons_perf (2)'[student_dw_id],
+			"AvgScores",[AverageScoreperStudent]),
+			[AvgScores]>=70)
+			 )
+			```
+		formatString: 0
+		lineageTag: 15b05e9f-bea5-4501-9c8e-d8332279fabd
+
+	measure StudentDistrBelow =
+			COUNTROWS(
+				FILTER(
+				SUMMARIZE('fact_lessons_perf (2)',
+			'fact_lessons_perf (2)'[student_dw_id],
+			"AvgScores",[AverageScoreperStudent]),
+			[AvgScores]<50)
+			 )
+		formatString: 0
+		lineageTag: 2ec56e70-c178-4fe9-abae-5a3f7a7a358d
+
+	measure StudentsDistrApproaching = ```
+			
+			 COUNTROWS(
+				FILTER(
+				SUMMARIZE('fact_lessons_perf (2)',
+			'fact_lessons_perf (2)'[student_dw_id],
+			"AvgScores",[AverageScoreperStudent]),
+			[AvgScores]<70&&[AvgScores]>=50)
+			 )
+			```
+		formatString: 0
+		lineageTag: 4a63853e-a06d-4510-b4c3-aad15cf2b2ce
+
+	measure TotalStudents = [StudentDistrBelow]+[StudentsDistrApproaching]+[StudentsDistrMeets]
+		formatString: 0
+		lineageTag: 5140647e-f02d-4878-904e-4d6cb4a54c45
+
+	measure RatioStudentMeets = [StudentsMeets]/[StudentsTotal]
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 1727e52b-7902-45a8-95f1-0daae5f99d52
+
+		changedProperty = FormatString
+
+	measure RatioStudentBelow = [StudentsBelow]/[StudentsTotal]
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 171ac39b-2699-4763-93e3-d1382f72b19a
+
+		changedProperty = FormatString
+
+	measure RatioStudentApproaching = [StudentsApproaching]/[StudentsTotal]
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 076dce5c-c94b-482b-b214-ce3d2ae938a8
+
+		changedProperty = FormatString
+
+	column school_id
+		dataType: string
+		lineageTag: 8a7f9aa5-407c-44e6-b59d-930b96754bfd
+		summarizeBy: none
+		sourceColumn: school_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_name
+		dataType: string
+		lineageTag: 3b48d595-d4bb-404c-b535-bc30451390e5
+		summarizeBy: none
+		sourceColumn: school_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4a92a59b-4e38-4fa3-bed5-5489bcc761ed
+		summarizeBy: sum
+		sourceColumn: class_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_title
+		dataType: string
+		lineageTag: b16cde4c-09ac-4ea0-95c3-35bfb7273672
+		summarizeBy: none
+		sourceColumn: class_title
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_gen_subject
+		dataType: string
+		lineageTag: 969e0406-fcf4-4d4f-b31d-05a2306197b3
+		summarizeBy: none
+		sourceColumn: class_gen_subject
+
+		annotation SummarizationSetBy = Automatic
+
+	column average_score
+		dataType: double
+		lineageTag: 45768aad-f5fe-4e20-b525-a6d6563a9942
+		summarizeBy: sum
+		sourceColumn: average_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column student_id
+		dataType: string
+		lineageTag: d1436c7b-8072-4a62-9afa-468c5b43d72d
+		summarizeBy: none
+		sourceColumn: student_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4b52df06-2198-4da4-ac48-51df1f0af1ed
+		summarizeBy: sum
+		sourceColumn: student_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5fc4a9e1-c897-4173-a1b4-cf60914fd1b1
+		summarizeBy: sum
+		sourceColumn: school_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column grade_k12grade
+		dataType: int64
+		formatString: 0
+		lineageTag: 463a9c08-fe62-4e9a-98c0-31e43786ad11
+		summarizeBy: sum
+		sourceColumn: grade_k12grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column completed_lessons
+		dataType: int64
+		formatString: 0
+		lineageTag: 0488eb49-6eaa-4506-82ba-1abd7cc83112
+		summarizeBy: sum
+		sourceColumn: completed_lessons
+
+		annotation SummarizationSetBy = Automatic
+
+	column week_start_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b3543321-c92a-48f2-9d30-8b0308f6358a
+		summarizeBy: none
+		sourceColumn: week_start_date
+
+		variation Variation
+			isDefault
+			relationship: 2ddece98-24c5-4a05-9c00-db7bb049f621
+			defaultHierarchy: LocalDateTable_e4d44889-b356-4e48-8dc4-e90ab3f431df.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column week_end_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 55a0452b-22f4-4182-9ed8-114b06916fdd
+		summarizeBy: none
+		sourceColumn: week_end_date
+
+		variation Variation
+			isDefault
+			relationship: 1c8af57e-06e7-4d6b-bba7-ea69d826f50a
+			defaultHierarchy: LocalDateTable_3b78368f-56d6-4626-b6c4-f73c6ec0706c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column index_column
+		dataType: string
+		lineageTag: 37edb4ea-390c-42d5-aa6b-f2d58ed4b3ed
+		summarizeBy: none
+		sourceColumn: index_column
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'fact_lessons_perf (2)-d131bc88-7ed3-4e13-aab9-69da7ad732c4' = m
+		mode: import
+		source = ```
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"Workspaces" = Source{[workspaceId=Workspace]}[Data],
+				    #"Dataflows" = #"Workspaces"{[dataflowId=DataflowStudents]}[Data],
+				    Dataset = #"Dataflows"{[entity="fact_lessons_perf"]}[Data],
+				    #"Kept First Rows" = if 
+				     FilterRows <= 0 
+				    then 
+				     Dataset
+				    else 
+				     Table.FirstN(Dataset, FilterRows)
+				in
+				    #"Kept First Rows"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

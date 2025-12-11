@@ -1,0 +1,26 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["teacher_absentees","WorkspaceId","Teachers_name","org_dim_week"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+ref table teacher_absentees
+ref table DateTableTemplate_a1397d82-14f6-410f-bee1-903c28c0e896
+ref table LocalDateTable_85f688e5-3566-436e-97cb-5058c66ef5d1
+ref table LocalDateTable_99267a56-2b65-4fb4-8188-af65a4c51527
+ref table Date
+ref table LocalDateTable_449875f1-36b0-41f0-9dbc-26405303ce90
+ref table LocalDateTable_2da28308-bad1-4f5f-b085-2197f05e812f
+ref table org_dim_week
+ref table LocalDateTable_bc217680-47bc-485e-91d5-57fc8b842ccc
+
+ref role school
+
+ref cultureInfo en-US
+

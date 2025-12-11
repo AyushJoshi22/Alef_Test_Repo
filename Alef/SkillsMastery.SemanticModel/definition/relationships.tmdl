@@ -1,0 +1,31 @@
+relationship 57fedb3c-b6c6-4ff1-8882-1bf70ad8cef6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_lessons_perf.max_local_date
+	toColumn: LocalDateTable_af46d647-be9c-40a6-95b9-d45868a0de5e.Date
+
+relationship 2ddece98-24c5-4a05-9c00-db7bb049f621
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'fact_lessons_perf (2)'.week_start_date
+	toColumn: LocalDateTable_e4d44889-b356-4e48-8dc4-e90ab3f431df.Date
+
+relationship 1c8af57e-06e7-4d6b-bba7-ea69d826f50a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'fact_lessons_perf (2)'.week_end_date
+	toColumn: LocalDateTable_3b78368f-56d6-4626-b6c4-f73c6ec0706c.Date
+
+relationship df192ac7-7314-3921-365b-7d27c85efaa9
+	toCardinality: many
+	fromColumn: 'fact_lessons_perf (2)'.index_column
+	toColumn: fact_lessons_perf.index_column
+
+relationship 09c95ff3-6767-4d20-bf2e-d363a5eb95d2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: month_range.Month
+	toColumn: LocalDateTable_2a6c33bb-aea6-4d04-aef1-30a75cd228f8.Date
+
+relationship 80df6a4a-259b-f7f8-755c-4aadcaaa8572
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: month_range.range
+	toColumn: fact_lessons_perf.range
+

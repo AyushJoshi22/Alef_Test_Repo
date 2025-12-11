@@ -1,0 +1,17 @@
+expression FilterRows = 1000 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
+	lineageTag: 17523196-7a24-4c2b-9f35-eea1c9c2ca14
+
+	annotation PBI_ResultType = Number
+
+expression WorkspaceID = "a5f0c46e-748b-4616-8d20-e50b216e3f5e" meta [IsParameterQuery=true, List={"a5f0c46e-748b-4616-8d20-e50b216e3f5e", "d0d5ce2a-826e-47d5-a35f-5d2e9a497276", "7bbb17d8-30b9-4def-8550-9902e089b604"}, DefaultValue="a5f0c46e-748b-4616-8d20-e50b216e3f5e", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 002ec722-e5f4-4deb-b711-6ba6c133d024
+
+	annotation PBI_ResultType = Text
+
+expression Student_absent = "3d4f3bd3-51be-44ac-8082-6cf1c8aa8d54" meta [IsParameterQuery=true, List={"3d4f3bd3-51be-44ac-8082-6cf1c8aa8d54", "77a25ef4-c92e-4354-9a5e-61227f8f9684", "fb0ad418-88a2-4e98-b173-ad0a1a016fc2"}, DefaultValue="3d4f3bd3-51be-44ac-8082-6cf1c8aa8d54", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: e1c4ccc9-b7c9-4cc9-9af6-c238959103e3
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+

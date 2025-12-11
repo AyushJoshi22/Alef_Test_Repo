@@ -1,0 +1,21 @@
+expression Workspace = "a5f0c46e-748b-4616-8d20-e50b216e3f5e" meta [IsParameterQuery=true, List={"a5f0c46e-748b-4616-8d20-e50b216e3f5e", "7bbb17d8-30b9-4def-8550-9902e089b604"}, DefaultValue="a5f0c46e-748b-4616-8d20-e50b216e3f5e", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: ac67dac6-4249-424b-8082-c19b4328ea5c
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression Dataflow = "4e479df7-06ce-4d7e-a8da-05d5a8ae6890" meta [IsParameterQuery=true, List={"4e479df7-06ce-4d7e-a8da-05d5a8ae6890", "b450a1a4-4419-47d8-b800-27b7d92bf732"}, DefaultValue="4e479df7-06ce-4d7e-a8da-05d5a8ae6890", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 8d7b24df-e144-417a-b0ae-f5ee72e68745
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression FilterRows = 1000 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
+	lineageTag: 2c79de62-fd32-4bef-be01-fe7d926aec5d
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Number
+

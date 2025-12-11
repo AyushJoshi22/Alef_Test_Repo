@@ -1,0 +1,2452 @@
+cultureInfo en-US
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "school_performance": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "School_performance"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "school performance": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "School_performance": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "performance": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "school presentation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "school recital": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "school enactment": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "presentation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "recital": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "enactment": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "school act": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "school routine": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "school concert": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "school show": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        }
+			      ]
+			    },
+			    "school_performance.school_id": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "School_performance",
+			          "ConceptualProperty": "school_id"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "school id": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "school_id": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "school": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "school identification": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "school identity": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "school identifier": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "school credential": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "seminary": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "conservatory": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "faculty": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "department": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "university": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "college": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        }
+			      ]
+			    },
+			    "school_performance.school_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "School_performance",
+			          "ConceptualProperty": "school_name"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "school name": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "school_name": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "school": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "school nickname": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "school title": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "school label": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "school tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "academy name": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.6
+			          }
+			        },
+			        {
+			          "schoolhouse name": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.6
+			          }
+			        },
+			        {
+			          "college name": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        },
+			        {
+			          "institute name": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        },
+			        {
+			          "university name": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        },
+			        {
+			          "seminary": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        }
+			      ]
+			    },
+			    "school_performance.class_gen_subject": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "School_performance",
+			          "ConceptualProperty": "class_gen_subject"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "class gen subject": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "class_gen_subject": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "gen subject": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "classification gen subject": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.609
+			          }
+			        },
+			        {
+			          "category gen subject": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.609
+			          }
+			        },
+			        {
+			          "genre gen subject": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.609
+			          }
+			        },
+			        {
+			          "course gen subject": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "grade gen subject": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "lecture gen subject": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "lesson gen subject": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "period gen subject": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "rank gen subject": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "class gen topic": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        }
+			      ]
+			    },
+			    "school_performance.average_score": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "School_performance",
+			          "ConceptualProperty": "average_score"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "average score": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "average_score": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "score": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "average notch": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "average slash": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "average groove": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "average nick": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "average cut": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "average mark": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "notch": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "slash": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "groove": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "nick": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        }
+			      ]
+			    },
+			    "school_performance.completion_rate": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "School_performance",
+			          "ConceptualProperty": "CompletionRate"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "completion rate": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "CompletionRate": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "rate": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "completion degree": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "completion frequency": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "completion percentage": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "completion ratio": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "completion quotient": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "degree": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "frequency": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "ratio": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "quotient": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "completion amount": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        }
+			      ]
+			    },
+			    "school_performance.average_score1": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "School_performance",
+			          "ConceptualProperty": "Average Score"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "average score": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "score": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "average notch": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "average slash": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "average groove": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "average nick": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "average cut": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "average mark": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "notch": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "slash": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "groove": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "nick": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        }
+			      ]
+			    },
+			    "school_performance.average_score_average_per_lo_to_finish": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "School_performance",
+			          "ConceptualProperty": "Average Score average per lo_to_finish"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "average score average per lo_to_finish": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "Score": {
+			            "State": "Suggested",
+			            "Weight": 0.873
+			          }
+			        },
+			        {
+			          "Class Score": {
+			            "State": "Suggested",
+			            "Weight": 0.873
+			          }
+			        },
+			        {
+			          "average classification score": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.609
+			          }
+			        },
+			        {
+			          "average category score": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.609
+			          }
+			        },
+			        {
+			          "average genre score": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.609
+			          }
+			        },
+			        {
+			          "classification score": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.6
+			          }
+			        },
+			        {
+			          "category score": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.6
+			          }
+			        },
+			        {
+			          "genre score": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.6
+			          }
+			        },
+			        {
+			          "average course score": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "average grade score": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "average lecture score": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "average lesson score": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "Average Class Score": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "school_performance.subjects_total": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "School_performance",
+			          "ConceptualProperty": "SubjectsTotal"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "subjects total": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "SubjectsTotal": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "subject aggregate": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "subject overall": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        }
+			      ]
+			    },
+			    "school_performance.subjects_rank": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "School_performance",
+			          "ConceptualProperty": "SubjectsRank"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "subjects rank": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "SubjectsRank": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        }
+			      ]
+			    },
+			    "school_performance.subjects_list": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "School_performance",
+			          "ConceptualProperty": "SubjectsList"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "subjects list": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "SubjectsList": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "subject chronology": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "subject directory": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "subject catalog": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "subject catalogue": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "subject inventory": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "subject record": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "topic": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "substance": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "theme": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "focus": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "Subject": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "school_performance.grades_total": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "School_performance",
+			          "ConceptualProperty": "GradesTotal"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "grades total": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "GradesTotal": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "grade aggregate": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "grade overall": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        }
+			      ]
+			    },
+			    "school_performance.grades_rank": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "School_performance",
+			          "ConceptualProperty": "GradesRank"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "grades rank": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "GradesRank": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        }
+			      ]
+			    },
+			    "school_performance.grades_list": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "School_performance",
+			          "ConceptualProperty": "GradesList"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "grades list": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "GradesList": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "grade chronology": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "grade directory": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "grade catalog": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "grade catalogue": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "grade inventory": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "grade record": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "marks": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "result": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "evaluation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.466
+			          }
+			        },
+			        {
+			          "rating": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.452
+			          }
+			        },
+			        {
+			          "Grade": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  },
+			  "Relationships": {
+			    "school_performance_has_grades_total": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.grades_total": {
+			          "Target": {
+			            "Entity": "school_performance.grades_total"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.grades_total"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_subjects_list": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.subjects_list": {
+			          "Target": {
+			            "Entity": "school_performance.subjects_list"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.subjects_list"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_subjects_rank": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.subjects_rank": {
+			          "Target": {
+			            "Entity": "school_performance.subjects_rank"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.subjects_rank"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_subjects_total": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.subjects_total": {
+			          "Target": {
+			            "Entity": "school_performance.subjects_total"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.subjects_total"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_average_score_average_per_lo_to_finish": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.average_score_average_per_lo_to_finish": {
+			          "Target": {
+			            "Entity": "school_performance.average_score_average_per_lo_to_finish"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.average_score_average_per_lo_to_finish"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_average_score1": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.average_score1": {
+			          "Target": {
+			            "Entity": "school_performance.average_score1"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.average_score1"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_completion_rate": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.completion_rate": {
+			          "Target": {
+			            "Entity": "school_performance.completion_rate"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.completion_rate"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_teacher_name": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.teacher_name": {
+			          "Target": {
+			            "Entity": "school_performance.teacher_name"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.teacher_name"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        },
+			        {
+			          "Verb": {
+			            "Subject": {
+			              "Role": "school_performance.teacher_name"
+			            },
+			            "Verbs": [
+			              {
+			                "teach": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Object": {
+			              "Role": "school_performance"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.75
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance.teacher_name"
+			            },
+			            "Object": {
+			              "Role": "school_performance"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_class_student_assigned_per_mlo": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.class_student_assigned_per_mlo": {
+			          "Target": {
+			            "Entity": "school_performance.class_student_assigned_per_mlo"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.class_student_assigned_per_mlo"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_total_inprogress_student": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.total_inprogress_student": {
+			          "Target": {
+			            "Entity": "school_performance.total_inprogress_student"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.total_inprogress_student"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_average_score": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.average_score": {
+			          "Target": {
+			            "Entity": "school_performance.average_score"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.average_score"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_total_completed_student": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.total_completed_student": {
+			          "Target": {
+			            "Entity": "school_performance.total_completed_student"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.total_completed_student"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_school_grade_uid": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.school_grade_uid": {
+			          "Target": {
+			            "Entity": "school_performance.school_grade_uid"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.school_grade_uid"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_teacher_id": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.teacher_id": {
+			          "Target": {
+			            "Entity": "school_performance.teacher_id"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.teacher_id"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        },
+			        {
+			          "Verb": {
+			            "Subject": {
+			              "Role": "school_performance.teacher_id"
+			            },
+			            "Verbs": [
+			              {
+			                "teach": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Object": {
+			              "Role": "school_performance"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.75
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance.teacher_id"
+			            },
+			            "Object": {
+			              "Role": "school_performance"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_lo_to_finish": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.lo_to_finish": {
+			          "Target": {
+			            "Entity": "school_performance.lo_to_finish"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.lo_to_finish"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_section_name": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.section_name": {
+			          "Target": {
+			            "Entity": "school_performance.section_name"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.section_name"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_section_dw_id": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.section_dw_id": {
+			          "Target": {
+			            "Entity": "school_performance.section_dw_id"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.section_dw_id"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_curr_grade_name": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.curr_grade_name": {
+			          "Target": {
+			            "Entity": "school_performance.curr_grade_name"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.curr_grade_name"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_class_title": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.class_title": {
+			          "Target": {
+			            "Entity": "school_performance.class_title"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.class_title"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_class_gen_subject": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.class_gen_subject": {
+			          "Target": {
+			            "Entity": "school_performance.class_gen_subject"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.class_gen_subject"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_week_end_date": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.week_end_date": {
+			          "Target": {
+			            "Entity": "school_performance.week_end_date"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.week_end_date"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_week_start_date": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.week_start_date": {
+			          "Target": {
+			            "Entity": "school_performance.week_start_date"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.week_start_date"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_term_academic_period_order": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.term_academic_period_order": {
+			          "Target": {
+			            "Entity": "school_performance.term_academic_period_order"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.term_academic_period_order"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_school_name": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.school_name": {
+			          "Target": {
+			            "Entity": "school_performance.school_name"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.school_name"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_school_id": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.school_id": {
+			          "Target": {
+			            "Entity": "school_performance.school_id"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.school_id"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_is_ended_on_week_end_date": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.week_end_date": {
+			          "Target": {
+			            "Entity": "school_performance.week_end_date"
+			          }
+			        }
+			      },
+			      "SemanticSlots": {
+			        "When": {
+			          "Role": "school_performance.week_end_date"
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Verb": {
+			            "Verbs": [
+			              {
+			                "end": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Object": {
+			              "Role": "school_performance"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.9
+			        }
+			      ]
+			    },
+			    "school_performance_is_started_on_week_start_date": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.week_start_date": {
+			          "Target": {
+			            "Entity": "school_performance.week_start_date"
+			          }
+			        }
+			      },
+			      "SemanticSlots": {
+			        "When": {
+			          "Role": "school_performance.week_start_date"
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Verb": {
+			            "Verbs": [
+			              {
+			                "start": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Object": {
+			              "Role": "school_performance"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.9
+			        }
+			      ]
+			    },
+			    "school_performance_has_grades_rank": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.grades_rank": {
+			          "Target": {
+			            "Entity": "school_performance.grades_rank"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.grades_rank"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "school_performance_has_grades_list": {
+			      "Binding": {
+			        "ConceptualEntity": "School_performance"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "school_performance": {
+			          "Target": {
+			            "Entity": "school_performance"
+			          }
+			        },
+			        "school_performance.grades_list": {
+			          "Target": {
+			            "Entity": "school_performance.grades_list"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "school_performance"
+			            },
+			            "Object": {
+			              "Role": "school_performance.grades_list"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+

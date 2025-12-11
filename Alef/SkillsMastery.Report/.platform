@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "SkillsMastery"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "18b01718-d2c8-a907-48d0-b64b0f47fe0b"
+  }
+}

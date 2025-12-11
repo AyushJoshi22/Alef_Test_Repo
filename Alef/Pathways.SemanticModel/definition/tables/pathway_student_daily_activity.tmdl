@@ -1,0 +1,115 @@
+table pathway_student_daily_activity
+	lineageTag: b0bad0cb-3e38-49b5-bf43-ef22044e04eb
+
+	measure DaysActive =
+			
+			VAR _subject = SELECTEDVALUE(pathway_nlf_principal_dm_view[subject_name])
+			RETURN
+			IF(
+			    ISBLANK(_subject),
+			    CALCULATE(
+			        DISTINCTCOUNT(pathway_student_daily_activity[datest]),
+			        ALL(LevelsCompleted[subject_name])
+			    ),
+			    CALCULATE(
+			        DISTINCTCOUNT(pathway_student_daily_activity[datest]),
+			        pathway_student_daily_activity[class_gen_subject] = _subject
+			    )
+			)
+		formatString: 0
+		lineageTag: 37b436ac-b719-4d38-9ea6-cbf1bb3a60f1
+
+	measure AvgDaysActive =
+			
+			VAR _startDate = SELECTEDVALUE(DimMonth_Start[MonthStartDate])
+			VAR _endDate   = SELECTEDVALUE(DimMonth_End[MonthStartDate])
+			
+			VAR StudentMonthSet =
+			    SUMMARIZE(
+			        FILTER(
+			        ALL(pathway_student_daily_activity),
+			        pathway_student_daily_activity[datemonth] >= _startDate
+			        && pathway_student_daily_activity[datemonth] <= _endDate
+			        ),
+			        pathway_student_daily_activity[student_dw_id],
+			        pathway_student_daily_activity[datemonth]
+			    )
+			RETURN
+			    AVERAGEX(
+			        StudentMonthSet,
+			        CALCULATE(
+			            [DaysActive]
+			        )
+			    )
+		formatString: 0.00
+		lineageTag: abfcdd73-d009-4b05-ac9f-c1fbee1b4672
+
+	column student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: bb35206f-6da4-454e-8938-08b5f462c3f3
+		summarizeBy: none
+		sourceColumn: student_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_gen_subject
+		dataType: string
+		lineageTag: ba5518c9-daba-481e-bcbd-93f5072e75e1
+		summarizeBy: none
+		sourceColumn: class_gen_subject
+
+		annotation SummarizationSetBy = Automatic
+
+	column datest
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8bfbf304-c98e-489b-8452-d6027430d3ce
+		summarizeBy: none
+		sourceColumn: datest
+
+		variation Variation
+			isDefault
+			relationship: 0b33c17f-40b0-48bc-b7b8-12ef8d2e6900
+			defaultHierarchy: LocalDateTable_6bd9f612-45e2-4090-ad49-ca2f7891e7d5.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column datemonth
+		dataType: dateTime
+		formatString: m/d/yy
+		lineageTag: d47a512e-fae7-4c41-bf51-3ce4e2f3884d
+		summarizeBy: none
+		sourceColumn: datemonth
+
+		variation Variation
+			isDefault
+			relationship: 27ed406e-1cf3-443b-85b0-6d2fa5715271
+			defaultHierarchy: LocalDateTable_bd5c502b-7151-45be-9ef3-6ff943347443.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition pathway_student_daily_activity = m
+		mode: import
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"a5f0c46e-748b-4616-8d20-e50b216e3f5e" = Workspaces{[workspaceId=Workspace]}[Data],
+				    #"945a180a-eff5-4071-b116-7b568a473d16" = #"a5f0c46e-748b-4616-8d20-e50b216e3f5e"{[dataflowId=Dailyview]}[Data],
+				    pathway_student_daily_activity_ = #"945a180a-eff5-4071-b116-7b568a473d16"{[entity="pathway_student_daily_activity",version=""]}[Data],
+				    #"Added Custom" = Table.AddColumn(pathway_student_daily_activity_, "datemonth", each Date.StartOfMonth([datest])),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"datemonth", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

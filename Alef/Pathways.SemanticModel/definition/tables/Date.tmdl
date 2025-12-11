@@ -1,0 +1,65 @@
+table Date
+	lineageTag: 0ec6db95-5944-4bcd-89c2-08f629444221
+
+	measure DaysInterval = DATEDIFF( MIN ('Date'[Date]), MAX('Date'[Date]),DAY)
+		formatString: 0
+		lineageTag: c4def6c1-be59-490a-9699-ec051d67266f
+
+	column Date
+		formatString: Short Date
+		lineageTag: 38695a96-3486-405b-9405-43e11415d458
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: 39a1b501-6d1f-4c0b-a843-ce5172fca078
+			defaultHierarchy: LocalDateTable_7c1afe32-c381-47ad-b6c0-e8ca03595b2d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthStartDate = STARTOFMONTH('Date'[Date])
+		formatString: General Date
+		lineageTag: 6eac72c5-1b5d-4458-bafa-d22a0574bad9
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: ecbe7602-3e58-4716-8225-6da11250272b
+			defaultHierarchy: LocalDateTable_df76436a-050f-41e4-8709-8d070da48b7e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthKey = YEAR('Date'[Date])&MONTH('Date'[Date])
+		dataType: int64
+		formatString: 0
+		lineageTag: e3366fb7-0c9e-4bfe-9f86-0ecb80bcd80d
+		summarizeBy: count
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName = FORMAT('Date'[Date],"mmm yyyy")
+		lineageTag: e4144fd8-9e1c-4bde-b486-7e07e5ef157e
+		summarizeBy: none
+		sortByColumn: MonthKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNameFilter =
+			IF (
+			    'Date'[MonthStartDate] = DATE ( YEAR ( TODAY() ), MONTH ( TODAY()-1 ), 1 ),
+			    "Current Month",
+			    'Date'[MonthName]
+			)
+		lineageTag: ef412213-af2a-4186-ae18-8c5d7e5cc845
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Date = calculated
+		mode: import
+		source = CALENDAR([MinMonth],TODAY()-1)
+
+	annotation PBI_Id = 69f25b8824714e5d92f1aa0838bddb4a
+

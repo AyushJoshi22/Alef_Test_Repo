@@ -1,0 +1,7 @@
+role School
+	modelPermission: read
+
+	tablePermission School_performance = [school_id] = USERPRINCIPALNAME()
+
+	annotation PBI_Id = 1eeec26a579549b987c1f66598ee91ee
+

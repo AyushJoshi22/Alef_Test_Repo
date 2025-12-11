@@ -1,0 +1,282 @@
+table School_performance
+	lineageTag: 3ccf3955-ef2f-4650-b9ee-8080d343a165
+
+	measure CompletionRate = ROUNDUP(SUM(School_performance[completed_lessons])/SUM(School_performance[class_total_students]),3)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 0d3c135c-0954-4543-a608-2514e4204a19
+
+		changedProperty = FormatString
+
+	measure 'Average Score' = AVERAGE(School_performance[average_score])
+		lineageTag: 54408877-1bb5-4375-93f7-5aa745c0fc65
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Score average per lo_to_finish' = ```
+			
+			var avg_score = AVERAGEX(
+				KEEPFILTERS(VALUES(School_performance[grade])),
+				CALCULATE([Average Score])
+			) 
+			return
+			if (ISBLANK(avg_score),0,avg_score)
+			```
+		formatString: 0.0
+		lineageTag: 22bf9559-39b2-4c97-a37d-5bc6199f8dde
+
+		changedProperty = FormatString
+
+	measure SubjectsTotal = DISTINCTCOUNT(School_performance[class_gen_subject])
+		formatString: 0
+		lineageTag: 3c7ba6f8-9979-49ba-b7a8-b31d7649ecc0
+
+	measure SubjectsRank = RANKX (ALLSELECTED ( School_performance[class_gen_subject]),[SubjectsTotal],,DESC )
+		formatString: 0
+		lineageTag: 4d8dbf19-00c4-42d1-b939-bb5a3e8504e4
+
+	measure SubjectsList = ```
+			
+			CONCATENATEX( 
+			    --FILTER (
+			         VALUES ( School_performance[class_gen_subject]),
+			    -- [SubjectsRank] = 1 ),  
+			   School_performance[class_gen_subject], " | ",School_performance[class_gen_subject], ASC
+			)
+			```
+		lineageTag: c5f92547-6886-4c70-82aa-3692e4be3d00
+
+	measure GradesTotal = DISTINCTCOUNT(School_performance[IntGrade])
+		formatString: 0
+		lineageTag: c974d05e-a0f4-4820-aafc-8939e9c5638e
+
+	measure GradesRank =
+			
+			RANKX (ALLSELECTED  (School_performance[IntGrade]),[GradesTotal],,DESC )
+		formatString: 0
+		lineageTag: 481bd487-fa12-4d4e-a71e-9513beaba683
+
+	measure GradesList = ```
+			CALCULATE(
+			CONCATENATEX( 
+			    VALUES ( School_performance[IntGrade]),
+			  School_performance[IntGrade], " | ",School_performance[IntGrade], ASC
+			))
+			```
+		lineageTag: 6e9248fe-3963-4452-b5a9-bb3f13e25b16
+
+	measure 'Teacher Login' = ```
+			
+			    DIVIDE(
+			        SUM(School_performance[active_days]), 
+			        SUM(School_performance[week_days]))
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 800682bc-386a-454a-b899-9e8bcadf4a51
+
+		changedProperty = FormatString
+
+	measure 'active_days total for week' = ```
+			
+			    CALCULATE(
+			        SUM(School_performance[active_days]),
+			        ALLSELECTED(School_performance[class_gen_subject], School_performance[grade])  -- Consider only the filtered subjects and grades
+			    )
+			```
+		formatString: 0
+		lineageTag: 556145e7-4d76-4fa9-863f-10381b04e169
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "TotalForSelectedCategory"
+				}
+
+		changedProperty = FormatString
+
+	measure 'total_days total for week' = ```
+			
+			    CALCULATE(
+			        SUM(School_performance[week_days]),
+			        ALLSELECTED(School_performance[class_gen_subject], School_performance[grade])  -- Consider only the filtered subjects and grades
+			    )
+			```
+		formatString: 0
+		lineageTag: 5013787f-3ada-492d-8592-45feca375079
+
+	column school_id
+		dataType: string
+		lineageTag: 1566e8f2-b21e-45cc-b58b-0b2dfbb68361
+		summarizeBy: none
+		sourceColumn: school_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_name
+		dataType: string
+		lineageTag: 8309fab3-62cf-4b4c-81ed-0dd95444068d
+		summarizeBy: none
+		sourceColumn: school_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_gen_subject
+		dataType: string
+		lineageTag: c4a2aebf-593a-4bde-b2af-9198ffec92bd
+		summarizeBy: none
+		sourceColumn: class_gen_subject
+
+		annotation SummarizationSetBy = Automatic
+
+	column average_score
+		dataType: double
+		lineageTag: e7b08d68-ec0d-4ef2-b5f3-ba24ecffc11d
+		summarizeBy: sum
+		sourceColumn: average_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IntGrade = INT(School_performance[grade])
+		formatString: 0
+		lineageTag: 95373269-5d1b-4873-8fec-ae7c45f6bb33
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 85fc0564-5d69-4bba-a7ad-4b0a43a1f6c2
+		summarizeBy: sum
+		sourceColumn: school_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenant_name
+		dataType: string
+		lineageTag: adffc29b-56a3-459e-8a35-eebf31f8daed
+		summarizeBy: none
+		sourceColumn: tenant_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column organisation_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c2d5d8a-245c-41f3-8cda-21728bf7ce87
+		summarizeBy: sum
+		sourceColumn: organisation_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column teacher_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 147bc783-af09-4530-925f-f7ceab7ec4ed
+		summarizeBy: sum
+		sourceColumn: teacher_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column teacher_id
+		dataType: string
+		lineageTag: 9c87a3b3-c78e-4a3c-92f6-457cb7b1320b
+		summarizeBy: none
+		sourceColumn: teacher_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column grade
+		dataType: int64
+		formatString: 0
+		lineageTag: 60f50a81-36bf-4db8-8c0a-784497931db8
+		summarizeBy: sum
+		sourceColumn: grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column week
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2452cb1c-b25d-4af3-8ad6-832a6cb8247a
+		summarizeBy: none
+		sourceColumn: week
+
+		annotation SummarizationSetBy = Automatic
+
+	column active_days
+		dataType: int64
+		formatString: 0
+		lineageTag: 3308c0e0-0c40-411a-aa68-c5e29b9d52ee
+		summarizeBy: sum
+		sourceColumn: active_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column week_days
+		dataType: int64
+		formatString: 0
+		lineageTag: c2b16a36-4321-4860-9afa-b02b27dba4bc
+		summarizeBy: sum
+		sourceColumn: week_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column completed_lessons
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d7e53c8-0bfb-4318-bb8c-2d36421b39c8
+		summarizeBy: sum
+		sourceColumn: completed_lessons
+
+		annotation SummarizationSetBy = Automatic
+
+	column teacher_name
+		dataType: string
+		lineageTag: d4bad384-5851-4dcc-ae2b-fcaf06ff8c57
+		summarizeBy: none
+		sourceColumn: teacher_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_total_students
+		dataType: int64
+		formatString: 0
+		lineageTag: 0368343d-2ceb-4502-9593-e6dd8dd3595c
+		summarizeBy: sum
+		sourceColumn: class_total_students
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekFormat = Format(School_performance[week],"mmm")&" "&DAY(School_performance[week])&" - "&Day(School_performance[week]+6)&", "&year(School_performance[week])
+		lineageTag: 96d370be-a3b5-4d71-a4a9-75dcafcb8ccf
+		summarizeBy: none
+		sortByColumn: week
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition School_performance-680876ce-6792-4ff2-913b-922993bc4943 = m
+		mode: import
+		source = ```
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"Workspace" = Source{[workspaceId=workspace]}[Data],
+				    #"Dataflow" = #"Workspace"{[dataflowId=dataflow]}[Data],
+				    School_performance = #"Dataflow"{[entity="Merge"]}[Data],
+				    #"Kept First Rows" = if 
+				     FilterRows <= 0 
+				    then 
+				     School_performance
+				    else 
+				     Table.FirstN(School_performance, FilterRows)
+				in
+				    #"Kept First Rows"
+				```
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navigation
+

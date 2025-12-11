@@ -1,0 +1,336 @@
+table fact_lessons_perf
+	lineageTag: dbaa7f5f-6e7d-4e5e-b3d0-c46294e540ee
+
+	measure 'Average Score' = SUM(fact_lessons_perf[total_score])/SUM(fact_lessons_perf[total_completed_students_wth_score])
+		lineageTag: 511c5ca4-0bde-42f8-a70f-3b040252c483
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Score average per lo_to_finish' = ```
+			
+			AVERAGEX(
+				KEEPFILTERS(VALUES(fact_lessons_perf[lo_to_finish])),
+				CALCULATE(SUM(fact_lessons_perf[total_score]))/CALCULATE(SUM(fact_lessons_perf[total_completed_students_wth_score]))
+			) 
+			```
+		formatString: 0.0
+		lineageTag: d1234671-6bd5-4fd6-a318-c3c52a5f2d53
+
+		changedProperty = FormatString
+
+	measure Color = IF ([Average Score average per lo_to_finish]>=70,"#70BF42","#FF6D6D")
+		lineageTag: ea07d213-8ba4-4802-8acb-20fc13cbfe1a
+
+	measure Zero = 0
+		formatString: 0
+		lineageTag: bf15c518-3fa0-4d4e-924d-5a066ac1a21c
+
+	measure Zero2 = 0
+		formatString: 0
+		lineageTag: e78626b7-03f8-4c9c-9e56-4b79995d7d91
+
+	measure 'Learning Objectives' =
+			CALCULATE(DISTINCTCOUNT(fact_lessons_perf[lo_title]),
+			                             fact_lessons_perf[total_score]>0)
+		formatString: #,0
+		lineageTag: 438d9c7b-a9ab-48f5-a799-fffb4cd77e70
+
+		changedProperty = FormatString
+
+	measure Zero3 = 0
+		formatString: 0
+		lineageTag: 425983e3-87ee-47d1-b606-e217ef94d25c
+
+	measure Zero4 = 0
+		formatString: 0
+		lineageTag: cb0644db-bb44-4317-95f3-7aa10f312854
+
+	measure StudentsTotal = ```
+			
+			var lesson_select = SELECTEDVALUE(fact_lessons_perf[lo_title],FALSE())
+			return 
+			IF(lesson_select=FALSE,[Students],[StudentsLessons])
+			```
+		formatString: #,0
+		lineageTag: 7e2f0e83-caed-473c-8a36-feb5b818eeac
+
+		changedProperty = FormatString
+
+	measure StudentsMeetsLessons = CALCULATE(SUM(fact_lessons_perf[meets_completed_students]))
+		formatString: 0
+		lineageTag: b0f41e57-010b-4008-a25f-e77a87ba40e7
+
+	measure StudentsBelowLessons = CALCULATE(SUM(fact_lessons_perf[below_completed_students]))
+		formatString: 0
+		lineageTag: 5f2b1f3b-a083-43c3-93d2-05e790b0b8af
+
+	measure StudentsApproachingLessons = CALCULATE(SUM(fact_lessons_perf[approaching_completed_students]))
+		formatString: 0
+		lineageTag: 28d9b761-2824-4e72-a3b2-26b60f1e51c1
+
+	measure StudentsLessons = [StudentsBelowLessons]+[StudentsApproachingLessons]+[StudentsMeetsLessons]
+		formatString: 0
+		lineageTag: 5cdc4be4-1d39-4a28-9356-59cd1b6e58f8
+
+	measure StudentsMeets = ```
+			
+			var lesson_select = SELECTEDVALUE(fact_lessons_perf[lo_title],FALSE())
+			return 
+			IF(lesson_select=FALSE,[StudentsDistrMeets],[StudentsMeetsLessons])
+			```
+		formatString: 0
+		lineageTag: b9c436a4-9a8c-472e-8acb-bdafccd587b5
+
+	measure StudentsBelow = ```
+			
+			var lesson_select = SELECTEDVALUE(fact_lessons_perf[lo_title],FALSE())
+			return 
+			IF(lesson_select=FALSE,[StudentDistrBelow],[StudentsBelowLessons])
+			```
+		formatString: 0
+		lineageTag: a667bad4-f74a-4db7-9459-371ae0245d5c
+
+	measure StudentsApproaching = ```
+			
+			var lesson_select = SELECTEDVALUE(fact_lessons_perf[lo_title],FALSE())
+			return 
+			IF(lesson_select=FALSE,[StudentsDistrApproaching],[StudentsApproachingLessons])
+			```
+		formatString: 0
+		lineageTag: 230c1632-039d-4f9a-b845-fcb8fd97fe28
+
+	measure Completions = [StudentsBelowLessons]+[StudentsApproachingLessons]+[StudentsMeetsLessons]
+		formatString: #,0
+		lineageTag: 40752cb6-535f-4f64-af8d-89cd6e11933b
+
+		changedProperty = FormatString
+
+	measure RatioCompletionsMeets = [StudentsMeetsLessons]/[Completions]
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: add6ed43-2a93-4203-81f7-f2aee32ad08a
+
+		changedProperty = FormatString
+
+	measure RatioCompletionsBelow = [StudentsBelowLessons]/[Completions]
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: cf9bc725-f2d7-445c-8063-7ad02eb32e85
+
+		changedProperty = FormatString
+
+	measure RatioCompletionsApproaching = [StudentsApproachingLessons]/[Completions]
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 2b87e510-ffc0-4d7e-a6e9-f9606d85d2f2
+
+		changedProperty = FormatString
+
+	measure One = 1
+		formatString: 0
+		lineageTag: dbbd8ce4-5b3c-4c59-b775-b30d46ddefd0
+
+	measure 'Total Lessons' = DISTINCTCOUNT(fact_lessons_perf[lo_to_finish])
+		formatString: 0
+		lineageTag: 113d5b60-184f-42fd-96d3-e6dffacf8c1a
+
+	measure TotalSchoolStudents = ```
+			
+			SUMX(
+				KEEPFILTERS(VALUES(fact_lessons_perf[section_dw_id])),
+				CALCULATE(MAX(fact_lessons_perf[class_students_assigned_per_mlo]))
+			) 
+			```
+		formatString: 0
+		lineageTag: 015e5bd2-07f0-42de-bd9d-f7a2471c2e61
+
+	measure 'Average Score with Parameter' =
+			
+			VAR __lessons_bellow_Traget = IF([Average Score average per lo_to_finish] <70,[Average Score average per lo_to_finish])
+			RETURN
+			SWITCH(
+			    TRUE,
+			    Parameter[Parameter Value] = 0, [Average Score average per lo_to_finish],
+			    Parameter[Parameter Value] = 1, __lessons_bellow_Traget
+			)
+		formatString: 0
+		lineageTag: 2bdf2aa0-59bd-434f-a9f7-328e730c4ffe
+
+	column school_id
+		dataType: string
+		lineageTag: bd779da8-8fd8-4587-8ce7-0b9556b6bc15
+		summarizeBy: none
+		sourceColumn: school_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_name
+		dataType: string
+		lineageTag: 0b3d657d-940b-47fa-addb-e929c526a8db
+		summarizeBy: none
+		sourceColumn: school_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_gen_subject
+		dataType: string
+		lineageTag: b18873dc-72c9-40be-af73-403337967969
+		summarizeBy: none
+		sourceColumn: class_gen_subject
+
+		annotation SummarizationSetBy = Automatic
+
+	column grade_name
+		dataType: int64
+		formatString: 0
+		lineageTag: 3d060532-f5d9-4f33-b492-c660bbfb81b6
+		summarizeBy: sum
+		sourceColumn: grade_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column lo_to_finish
+		dataType: int64
+		formatString: 0
+		lineageTag: cd3cb2a0-b793-4e9c-9056-656e77b23d9a
+		summarizeBy: sum
+		sourceColumn: lo_to_finish
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_grade_uid
+		dataType: string
+		lineageTag: 3eefc03a-cfff-44d3-82f3-acd7dc41f3d4
+		summarizeBy: none
+		sourceColumn: school_grade_uid
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_completed_students
+		dataType: int64
+		formatString: #,0
+		lineageTag: 77e00d9a-1bcc-486b-a1f5-fb73650a0a40
+		summarizeBy: sum
+		sourceColumn: total_completed_students
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column below_completed_students
+		dataType: int64
+		formatString: 0
+		lineageTag: 0fc2b650-e842-49fe-8e97-f8979c505395
+		summarizeBy: sum
+		sourceColumn: below_completed_students
+
+		annotation SummarizationSetBy = Automatic
+
+	column approaching_completed_students
+		dataType: int64
+		formatString: 0
+		lineageTag: 04808ad8-8d88-4af1-bb04-157c3ace2ae1
+		summarizeBy: sum
+		sourceColumn: approaching_completed_students
+
+		annotation SummarizationSetBy = Automatic
+
+	column meets_completed_students
+		dataType: int64
+		formatString: 0
+		lineageTag: 200c532a-a729-443b-a5c2-02b7f8cdfeb6
+		summarizeBy: sum
+		sourceColumn: meets_completed_students
+
+		annotation SummarizationSetBy = Automatic
+
+	column lo_title
+		dataType: string
+		lineageTag: 74984b36-e080-4a4b-a31e-155fe411b25d
+		summarizeBy: none
+		sourceColumn: lo_title
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_local_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 52762b01-6d82-47a0-a1df-293ec1fe6f50
+		summarizeBy: none
+		sourceColumn: max_local_date
+
+		variation Variation
+			isDefault
+			relationship: 57fedb3c-b6c6-4ff1-8882-1bf70ad8cef6
+			defaultHierarchy: LocalDateTable_af46d647-be9c-40a6-95b9-d45868a0de5e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d362b0f4-d0bd-4a0c-b0e8-f53804e4dcde
+		summarizeBy: sum
+		sourceColumn: school_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_completed_students_wth_score
+		dataType: int64
+		formatString: 0
+		lineageTag: 534e179d-d83b-4b6e-822b-1e9f052937c3
+		summarizeBy: sum
+		sourceColumn: total_completed_students_wth_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column index_column
+		dataType: string
+		lineageTag: ed08d999-8579-46ea-bc27-0a327f28fd0a
+		summarizeBy: none
+		sourceColumn: index_column
+
+		annotation SummarizationSetBy = Automatic
+
+	column range
+		dataType: string
+		lineageTag: 09ff1fd5-58e3-48b6-a6dd-ec102e2e831f
+		summarizeBy: none
+		sourceColumn: range
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_score
+		dataType: double
+		lineageTag: fa12b9e9-f7e3-40f3-9120-dc4d5e21b918
+		summarizeBy: sum
+		sourceColumn: total_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_lessons_perf-988c83e4-d693-4d37-bfec-c2df1035a734 = m
+		mode: import
+		source = ```
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"Workpsace" = Source{[workspaceId=Workspace]}[Data],
+				    #"Dataflow" = #"Workpsace"{[dataflowId=DataflowLessons]}[Data],
+				    fact_lessons_perf1 = #"Dataflow"{[entity="fact_lessons_perf"]}[Data],
+				    GradenameType = Table.TransformColumnTypes(fact_lessons_perf1,{{"grade_name", Int64.Type}}),
+				    AddRange = Table.CombineColumns(Table.TransformColumnTypes(GradenameType, {{"week_start_date", type text}, {"week_end_date", type text}}, "en-US"),{"week_start_date", "week_end_date"},Combiner.CombineTextByDelimiter("-", QuoteStyle.None),"range"),
+				    //#"Added Custom" = Table.AddColumn(fact_lessons_perf1, "ClassTerm", each Text.From([class_dw_id])&Text.From([term_academic_period_order])),
+				    //#"Split Column by Delimiter" = Table.SplitColumn(fact_lessons_perf1, "lo_title", Splitter.SplitTextByEachDelimiter({" - "}, QuoteStyle.Csv, false), {"lo_title.1", "lo_title.2"}),
+				    //#"Changed Type" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"lo_title.1", type text}, {"lo_title.2", type text}})
+				    #"Kept First Rows" = if 
+				    FilterRows <= 0 
+				    then 
+				     AddRange
+				    else 
+				     Table.FirstN(AddRange, FilterRows)
+				in
+				    #"Kept First Rows"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

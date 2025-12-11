@@ -1,0 +1,169 @@
+table LevelsCompleted
+	lineageTag: 1f2d1aff-f7eb-490e-8aca-836df69b7c34
+
+	measure HistogramStudents = ```
+			
+			VAR _binStart = MAX(DynamicBins[BinStart])
+			VAR _binEnd = MAX(DynamicBins[BinEnd])
+			VAR _subject = SELECTEDVALUE(pathway_nlf_principal_dm_view[subject_name])
+			VAR _startDate = SELECTEDVALUE(DimMonth_Start[MonthStartDate])
+			VAR _endDate   = SELECTEDVALUE(DimMonth_End[MonthStartDate])
+			VAR _filteredLevels =
+			    FILTER(
+			        LevelsCompleted,
+			        LevelsCompleted[month] >=  _startDate
+			        && LevelsCompleted[month] <= _endDate
+			    )
+			VAR _studentTotals =
+			    SUMMARIZE(
+			        _filteredLevels,
+			        LevelsCompleted[active_student_dw_id],
+			        "TotalLevels", SUM(LevelsCompleted[LevelsCompleted])
+			    )
+			VAR _studentTotalsSubject =
+			    SUMMARIZE(
+			        _filteredLevels,
+			        LevelsCompleted[active_student_dw_id],
+			        LevelsCompleted[subject_name],
+			        "TotalLevels", SUM(LevelsCompleted[LevelsCompleted])
+			    )  
+			RETURN 
+			IF( 
+			    ISBLANK(_subject), 
+			        CALCULATE( 
+			            COUNTROWS( FILTER(_studentTotals, 
+			                [TotalLevels] >= _binStart 
+			                && [TotalLevels] <= _binEnd) ) 
+			                ),
+			        CALCULATE(
+			            COUNTROWS(
+			             FILTER(
+			                 _studentTotalsSubject, 
+			                 [TotalLevels] >= _binStart 
+			                 && [TotalLevels] <= _binEnd 
+			                 && [subject_name] = _subject ) 
+			                 ) 
+			    ))
+			```
+		formatString: 0
+		lineageTag: 584f7d4e-28b1-465d-9ede-0d4aaeff66ee
+
+	column active_student_dw_id
+		formatString: 0
+		lineageTag: bce3e3a3-c8d0-4150-a170-f7e596b2eb62
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: pathway_nlf_principal_dm_view[active_student_dw_id]
+
+		annotation SummarizationSetBy = Automatic
+
+	column subject_name
+		lineageTag: dc8f222b-484e-49c9-bf89-d7c384bb64bd
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: pathway_nlf_principal_dm_view[subject_name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column level_proficiency_tier
+		lineageTag: fafd7a8c-01df-4fff-8742-a0cd6b57d01c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: pathway_nlf_principal_dm_view[level_proficiency_tier]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LevelsCompleted
+		formatString: 0
+		lineageTag: 6967b8f3-fe35-461b-b23d-af7a26439ad2
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [LevelsCompleted]
+
+		annotation SummarizationSetBy = Automatic
+
+	column LevelBucket =
+			
+			VAR LevelCount = LevelsCompleted[LevelsCompleted]
+			VAR BucketStart = FLOOR((LevelCount-1), 5) +1
+			VAR BucketEnd = BucketStart + 4
+			RETURN
+			IF(
+			    ISBLANK(LevelCount),
+			    "No Levels",
+			    BucketStart & " - " & BucketEnd
+			)
+		lineageTag: 18c02b8c-1be6-4b5f-ba4b-05acfe38d769
+		summarizeBy: none
+		sortByColumn: BucketSort
+
+		annotation SummarizationSetBy = Automatic
+
+	column BucketSort =
+			
+			FLOOR(LevelsCompleted[LevelsCompleted] / 5, 1) * 5
+		formatString: 0
+		lineageTag: 0fea4897-2f21-45ff-b793-3b4e2bb9099d
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column BucketStart =
+			
+			IF (
+			    ISBLANK(LevelsCompleted[LevelsCompleted]),
+			    BLANK(),
+			    FLOOR(LevelsCompleted[LevelsCompleted] - 1, 5) + 1
+			)
+		formatString: 0
+		lineageTag: 559fe808-a743-4334-9b30-9dcdaaa58a8f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Levels Practiced' =
+			
+			IF (
+			    ISBLANK(LevelsCompleted[LevelsCompleted]),
+			    "No Levels",
+			    FORMAT([BucketStart], "0") & " - " & FORMAT([BucketStart] + 4, "0")
+			)
+		lineageTag: 895cce89-d982-446d-83a4-a9a282a181c1
+		summarizeBy: none
+		sortByColumn: BucketStart
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		formatString: General Date
+		lineageTag: 34ba6273-30b6-4af7-a8b3-35c104b8fa5f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: pathway_nlf_principal_dm_view[month]
+
+		variation Variation
+			isDefault
+			relationship: 16ad8dca-69f7-4ce3-8307-1b74258b7c2a
+			defaultHierarchy: LocalDateTable_9842d367-7afb-4e09-9463-6dc01598a9be.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition LevelsCompleted = calculated
+		mode: import
+		source =
+				
+				CALCULATETABLE(
+				SUMMARIZE(
+				    pathway_nlf_principal_dm_view,
+				    pathway_nlf_principal_dm_view[active_student_dw_id],
+				    pathway_nlf_principal_dm_view[subject_name],
+				    pathway_nlf_principal_dm_view[level_proficiency_tier],
+				    pathway_nlf_principal_dm_view[month],
+				    "LevelsCompleted", COUNTROWS(VALUES(pathway_nlf_principal_dm_view[level_dw_id]))
+				),
+				NOT ISBLANK(pathway_nlf_principal_dm_view[active_student_dw_id]),
+				NOT ISBLANK(pathway_nlf_principal_dm_view[level_proficiency_tier])
+				)
+
+	annotation PBI_Id = 60b690adc3a147f2baefd89537898aed
+

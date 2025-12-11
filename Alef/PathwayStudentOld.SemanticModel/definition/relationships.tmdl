@@ -1,0 +1,36 @@
+relationship b1ce9c45-27ef-4e6f-b18a-7bb8d75673a0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Merge.academic_year_start_date
+	toColumn: LocalDateTable_abd35901-85eb-4b1e-b355-497c70971c61.Date
+
+relationship 3812f4a9-02c5-44db-9541-60a0066851cc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Merge.flr_created_time
+	toColumn: LocalDateTable_e40ae7d0-d841-4761-b33e-8680c334194a.Date
+
+relationship 5a261306-2b2b-4674-a11f-f6d267d0862a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Merge.fle_activity_time_local
+	toColumn: LocalDateTable_e1891e40-cd29-4344-9ee4-3dc432cc1918.Date
+
+relationship f98744a0-5aed-41e1-b94d-07b84d3af7e3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Merge.level_completed_time
+	toColumn: LocalDateTable_aadd2272-6ad2-48ec-8c6c-8932ea70fef0.Date
+
+relationship 356a69a6-4342-7647-bbf7-1630aea4d53e
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromColumn: Merge.'level_completed_time - Copy'
+	toColumn: Date.Date
+
+relationship 2502b301-a83c-4def-82e0-c5dcc7251234
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Merge.fle_activity_date
+	toColumn: LocalDateTable_9a882ee5-ada0-447f-a8d6-aef703479bb5.Date
+
+relationship 24b9b2fe-a072-da58-df7d-6ccf27780715
+	crossFilteringBehavior: bothDirections
+	fromColumn: Merge.complted_activity_date_local
+	toColumn: Date.Date
+

@@ -1,0 +1,86 @@
+table student_no_guard_name
+	lineageTag: e1d318c9-5ddc-4c00-ad05-a91080eeb6ed
+
+	column student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 729805ba-b17a-4773-a0a1-05a1daa64dc4
+		summarizeBy: sum
+		sourceColumn: student_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_id
+		dataType: string
+		lineageTag: 3a05ecf4-26f8-46ad-b02f-05c5c579207c
+		summarizeBy: none
+		sourceColumn: student_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_id
+		dataType: string
+		lineageTag: 94bc173e-4337-47c7-8384-994f46271d43
+		summarizeBy: none
+		sourceColumn: school_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_name
+		dataType: string
+		lineageTag: 377dcccd-a6b8-4f4a-a4b9-0e15eb772a00
+		summarizeBy: none
+		sourceColumn: school_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column grade_name
+		dataType: int64
+		formatString: 0
+		lineageTag: d787ed99-caff-4833-88d4-9c072b4bad2b
+		summarizeBy: sum
+		sourceColumn: grade_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column section_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 95de8760-76ce-418c-8e21-e4da94bd7ee8
+		summarizeBy: sum
+		sourceColumn: section_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column section_name
+		dataType: string
+		lineageTag: bd7cec7b-5eea-4d5f-8a81-75ce3ff9dd38
+		summarizeBy: none
+		sourceColumn: section_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_name
+		dataType: string
+		lineageTag: 0296dc90-5a97-427d-9663-0379a9f97bac
+		summarizeBy: none
+		sourceColumn: student_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition student_no_guard_name-96f2146e-f25f-48c8-84b1-2bc2c573154d = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"a5f0c46e-748b-4616-8d20-e50b216e3f5e" = Source{[workspaceId=Workspace]}[Data],
+				    #"fc62dcc7-ef7e-4d0a-891f-4466df19cf3c" = #"a5f0c46e-748b-4616-8d20-e50b216e3f5e"{[dataflowId=Dataflow]}[Data],
+				    student_no_guard_name1 = #"fc62dcc7-ef7e-4d0a-891f-4466df19cf3c"{[entity="student_no_guard_name"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(student_no_guard_name1,{{"grade_name", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

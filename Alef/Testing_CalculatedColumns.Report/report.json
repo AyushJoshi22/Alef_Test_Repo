@@ -1,0 +1,87 @@
+{
+  "config": "{\"version\":\"5.67\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY25SU10\",\"type\":2,\"version\":{\"visual\":\"2.1.0\",\"report\":\"3.0.0\",\"page\":\"2.3.0\"}}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true,\"useEnhancedTooltips\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}],\"outspacePane\":[{\"properties\":{\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY25SU10",
+            "path": "BaseThemes/CY25SU10.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Page 1",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "9eb0d72167618c9af24f",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"218b62e1d1033968c976\",\"layouts\":[{\"id\":0,\"position\":{\"x\":304.79258034366234,\"y\":28.160184053490543,\"z\":3000,\"width\":265.03702638579335,\"height\":117.61018045869581,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"Retail_Sales_Data.Total Revenue\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"r\",\"Entity\":\"Retail_Sales_Data\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Total Revenue\"},\"Name\":\"Retail_Sales_Data.Total Revenue\",\"NativeReferenceName\":\"Total Revenue1\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Total Revenue\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 117.61,
+          "width": 265.04,
+          "x": 304.79,
+          "y": 28.16,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"47aabec194cd6c9dbb69\",\"layouts\":[{\"id\":0,\"position\":{\"x\":24.84722122366813,\"y\":159.02221583147602,\"z\":5000,\"width\":265.03702638579335,\"height\":115.9536990437846,\"tabOrder\":5000}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"Sum(Retail_Sales_Data.Total_Sale_Amount)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"r\",\"Entity\":\"Retail_Sales_Data\",\"Type\":0}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Total_Sale_Amount\"}},\"Function\":0},\"Name\":\"Sum(Retail_Sales_Data.Total_Sale_Amount)\",\"NativeReferenceName\":\"Sum of Total_Sale_Amount1\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Total_Sale_Amount\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 115.95,
+          "width": 265.04,
+          "x": 24.85,
+          "y": 159.02,
+          "z": 5000.00
+        },
+        {
+          "config": "{\"name\":\"48485ffe177ef17eda0d\",\"layouts\":[{\"id\":0,\"position\":{\"x\":61.289812351714716,\"y\":314.7314688331296,\"z\":0,\"width\":578.1120138040118,\"height\":367.7388741102883,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"clusteredColumnChart\",\"projections\":{\"Category\":[{\"queryRef\":\"Retail_Sales_Data.Category\",\"active\":true}],\"Y\":[{\"queryRef\":\"Sum(Retail_Sales_Data.Quantity_Sold)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"r\",\"Entity\":\"Retail_Sales_Data\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Category\"},\"Name\":\"Retail_Sales_Data.Category\",\"NativeReferenceName\":\"Category\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Quantity_Sold\"}},\"Function\":0},\"Name\":\"Sum(Retail_Sales_Data.Quantity_Sold)\",\"NativeReferenceName\":\"Sum of Quantity_Sold\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Quantity_Sold\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 367.74,
+          "width": 578.11,
+          "x": 61.29,
+          "y": 314.73,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"4b1fe640074f6d5fb7fb\",\"layouts\":[{\"id\":0,\"position\":{\"x\":601.3027536127687,\"y\":28.160184053490543,\"z\":4000,\"width\":646.0277518153713,\"height\":260.06758214105975,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"clusteredBarChart\",\"projections\":{\"Category\":[{\"queryRef\":\"Retail_Sales_Data.Category\",\"active\":true}],\"Y\":[{\"queryRef\":\"Sum(Retail_Sales_Data.Total_Sale_Amount)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"r\",\"Entity\":\"Retail_Sales_Data\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Category\"},\"Name\":\"Retail_Sales_Data.Category\",\"NativeReferenceName\":\"Category\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Total_Sale_Amount\"}},\"Function\":0},\"Name\":\"Sum(Retail_Sales_Data.Total_Sale_Amount)\",\"NativeReferenceName\":\"Sum of Total_Sale_Amount1\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Total_Sale_Amount\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 260.07,
+          "width": 646.03,
+          "x": 601.30,
+          "y": 28.16,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"e3bc4fc54dd711972595\",\"layouts\":[{\"id\":0,\"position\":{\"x\":24.84722122366813,\"y\":28.160184053490543,\"z\":2000,\"width\":265.03702638579335,\"height\":129.20555036307425,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"Retail_Sales_Data.Average Selling Price\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"r\",\"Entity\":\"Retail_Sales_Data\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Average Selling Price\"},\"Name\":\"Retail_Sales_Data.Average Selling Price\",\"NativeReferenceName\":\"Average Selling Price1\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Average Selling Price\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 129.21,
+          "width": 265.04,
+          "x": 24.85,
+          "y": 28.16,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"e9d66071905432dc71ad\",\"layouts\":[{\"id\":0,\"position\":{\"x\":655.9666403048386,\"y\":314.7314688331296,\"z\":1000,\"width\":576.4555323891005,\"height\":367.7388741102883,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"donutChart\",\"projections\":{\"Category\":[{\"queryRef\":\"Retail_Sales_Data.Payment_Method\",\"active\":true}],\"Y\":[{\"queryRef\":\"Sum(Retail_Sales_Data.Quantity_Sold)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"r\",\"Entity\":\"Retail_Sales_Data\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Payment_Method\"},\"Name\":\"Retail_Sales_Data.Payment_Method\",\"NativeReferenceName\":\"Payment_Method\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Quantity_Sold\"}},\"Function\":0},\"Name\":\"Sum(Retail_Sales_Data.Quantity_Sold)\",\"NativeReferenceName\":\"Sum of Quantity_Sold\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"Quantity_Sold\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 367.74,
+          "width": 576.46,
+          "x": 655.97,
+          "y": 314.73,
+          "z": 1000.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}

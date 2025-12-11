@@ -1,0 +1,9 @@
+role School
+	modelPermission: read
+
+	tablePermission ip_student_level = [school_id] = USERPRINCIPALNAME()
+
+	tablePermission org_dim_week = org_dim_week[school_id] = USERPRINCIPALNAME()
+
+	annotation PBI_Id = f4a59bc280ad4f948c7791c3406ef15e
+

@@ -1,0 +1,11 @@
+relationship dab8cfe4-823e-e71e-fb15-dcf0b30fe4d1
+	crossFilteringBehavior: bothDirections
+	fromColumn: pathway_class_agg.activity_date
+	toColumn: Date.Date
+
+relationship 440697f0-0a30-728d-5dd3-e754e9bc9cf8
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: pathway_class_teacher_name.class_dw_id
+	toColumn: pathway_class_agg.class_dw_id
+

@@ -1,0 +1,345 @@
+table ip_student_level
+	lineageTag: f25d2fec-adad-4bd0-89cc-79a0c23f1a35
+
+	measure CompletionRate = ```
+			
+			VAR SelectedWeeks = VALUES(org_dim_week[week])  
+			VAR completedlessons=
+			        CALCULATE(
+			        SUM(ip_student_level[completed_lessons]),
+			        KEEPFILTERS(ip_student_level[week] IN SelectedWeeks) 
+			    )
+			VAR totallessons =
+			    CALCULATE(
+			        SUM(ip_student_level[total_lessons]),
+			        KEEPFILTERS(ip_student_level[week] IN SelectedWeeks) 
+			    )
+			RETURN
+			    DIVIDE(completedlessons, totallessons, 0)
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 3daac452-b3d1-4137-979f-8602566d9422
+
+		changedProperty = FormatString
+
+		changedProperty = IsHidden
+
+	measure AvgScore = ```
+			
+			VAR SelectedWeeks = VALUES(org_dim_week[week]) 
+			
+			VAR avg_score_lesson =
+			    CALCULATE(
+			        SUMX(ip_student_level, ip_student_level[average_score] * ip_student_level[completed_lessons]),
+			        KEEPFILTERS(ip_student_level[week] IN SelectedWeeks) 
+			    )
+			VAR completedlessons =
+			    CALCULATE(
+			        SUM(ip_student_level[completed_lessons]),
+			        KEEPFILTERS(ip_student_level[week] IN SelectedWeeks) 
+			    )
+			RETURN
+			    DIVIDE(avg_score_lesson, completedlessons, 0)
+			```
+		lineageTag: d2a59bb5-0329-43e3-bcba-ce078390973f
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Health Score' = [AvgScore]*0.4+100*[CompletionRate]*0.4+100*[Login Ratio]*0.2
+		lineageTag: 0b68a589-ce22-4e73-9138-a94d20fa3790
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure RankGrade = RANKX(ALLEXCEPT(ip_student_level,ip_student_level[school_id]),SUM(ip_student_level[grade_name]),,ASC,Skip)
+		formatString: 0
+		lineageTag: 4366e031-9d26-4f9f-a93b-7c7cb0cbeadd
+
+		changedProperty = IsHidden
+
+	measure 'Login Ratio' = ```
+			
+			  divide([TotalActiveDays], [TotalDaysIncludingMissing],0)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 2dd6d134-7126-4012-bdb3-a3ba6db3298e
+
+		changedProperty = FormatString
+
+	measure StartWeek = MIN(ip_student_level[week])
+		formatString: General Date
+		lineageTag: 6c9136b2-05c3-4095-a5a3-3a4a4cd6449c
+
+	measure TotalDaysIncludingMissing = ```
+			
+			VAR SelectedWeeks =  VALUES(org_dim_week[week]) 
+			
+			VAR CurrentSchoolsBasedOnFactActivity =
+			    CALCULATETABLE(
+			        VALUES(ip_student_level[school_dw_id]),
+			        KEEPFILTERS(ip_student_level[week] IN SelectedWeeks) 
+			    )
+			
+			RETURN
+			    CALCULATE(
+			        SUM(org_dim_week[week_days]),           
+			        REMOVEFILTERS(org_dim_week[week]),      
+			        KEEPFILTERS(org_dim_week[school_dw_id] IN CurrentSchoolsBasedOnFactActivity) 
+			    )
+			```
+		formatString: 0
+		lineageTag: 92d0c7b0-f5a6-41c6-bd6b-6120d29b39fb
+
+	measure TotalActiveDays = ```
+			
+			VAR SelectedWeeks = VALUES(org_dim_week[week])  
+			VAR active_days =
+			    CALCULATE(
+			        SUM(ip_student_level[active_days]),
+			        KEEPFILTERS(ip_student_level[week] IN SelectedWeeks) 
+			    )
+			RETURN COALESCE(active_days,0)
+			```
+		formatString: 0
+		lineageTag: ed2e0385-3b78-4756-81b3-ec7e7228e6a9
+
+	measure Ranknew = ```
+			
+			VAR StudentsWithScoresByGradeTableVar =
+			    CALCULATETABLE (
+			        ADDCOLUMNS (
+			            SUMMARIZE (
+			                ip_student_level,
+			                ip_student_level[grade_name],
+			                ip_student_level[student_dw_id],
+			                ip_student_level[student_name], 
+			                ip_student_level[school_name]   
+			            ),
+			            "PreCalculatedHealthScore", [Health Score]
+			        ),
+			        ALLSELECTED(ip_student_level)
+			    )
+			VAR TableToRankForCurrentGrade =
+			    FILTER (
+			        StudentsWithScoresByGradeTableVar,
+			        [grade_name] = MAX (ip_student_level[grade_name]) 
+			    )
+			
+			VAR HealthScoreOfStudentInVisual = [Health Score]
+			
+			RETURN
+			    IF (
+			        NOT ISBLANK ( HealthScoreOfStudentInVisual),
+			        RANKX (
+			            TableToRankForCurrentGrade, 
+			            [PreCalculatedHealthScore],
+			            HealthScoreOfStudentInVisual,
+			            DESC,
+			            DENSE
+			        )
+			    )
+			```
+		formatString: 0
+		lineageTag: 887a0f0d-1a8d-4854-b2f9-bb7b777633ab
+
+	column student_id
+		dataType: string
+		lineageTag: d6aafc2c-2a29-405f-9afe-b7698a1ced5f
+		summarizeBy: none
+		sourceColumn: student_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: f8bedcff-4a50-4574-b597-a13c4ce24a9b
+		summarizeBy: none
+		sourceColumn: student_dw_id
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = User
+
+	column school_id
+		dataType: string
+		lineageTag: cf192691-9232-4de3-b558-435d4babb483
+		summarizeBy: none
+		sourceColumn: school_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a73b195c-c320-4a43-a69e-a7aecb7ae8bb
+		summarizeBy: none
+		sourceColumn: school_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_lessons
+		dataType: int64
+		formatString: 0
+		lineageTag: 91b078d0-5ab8-4ba0-add2-1eeaffd1f2b3
+		summarizeBy: sum
+		sourceColumn: total_lessons
+
+		annotation SummarizationSetBy = Automatic
+
+	column completed_lessons
+		dataType: int64
+		formatString: 0
+		lineageTag: eebf8b47-830d-4fc3-8fc7-e1ddb02d8694
+		summarizeBy: sum
+		sourceColumn: completed_lessons
+
+		annotation SummarizationSetBy = Automatic
+
+	column average_score
+		dataType: double
+		lineageTag: c4fb5f4e-b721-4a6e-9c23-26748f59a5a9
+		summarizeBy: sum
+		sourceColumn: average_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column section_name
+		dataType: string
+		lineageTag: 24f7f6eb-9184-40b4-91e4-d5c6375addcf
+		summarizeBy: none
+		sourceColumn: section_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_name
+		dataType: string
+		lineageTag: 569164c1-ee6d-42e8-8189-41b1fff0a1a2
+		summarizeBy: none
+		sourceColumn: school_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_section_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: dcb20f24-ce89-450f-89a4-9b82813e39fa
+		summarizeBy: sum
+		sourceColumn: student_section_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenant_name
+		dataType: string
+		lineageTag: 257b10df-a533-48e9-88fe-5b46860017e8
+		summarizeBy: none
+		sourceColumn: tenant_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column organisation_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: f4ab0d8a-2afe-4f15-8529-62d4b4a6e0ac
+		summarizeBy: sum
+		sourceColumn: organisation_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column grade_name
+		dataType: int64
+		formatString: 0
+		lineageTag: 89020142-e6a2-4d78-9e9b-c44acca30c46
+		summarizeBy: sum
+		sourceColumn: grade_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_grade_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d7b02f00-8171-4450-946c-e5ddba641e3d
+		summarizeBy: sum
+		sourceColumn: student_grade_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column week
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: bbda8334-bc52-4102-beaa-5905a12d9996
+		summarizeBy: none
+		sourceColumn: week
+
+		variation Variation
+			isDefault
+			relationship: 01ccc40b-0af0-4bc1-805a-d4caf22d2a68
+			defaultHierarchy: LocalDateTable_c48d5f6d-43b6-4686-acad-8421ef8fe166.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column active_days
+		dataType: int64
+		formatString: 0
+		lineageTag: 2018f2e0-9d7e-45c8-b237-e15c8a510da8
+		summarizeBy: sum
+		sourceColumn: active_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column week_days
+		dataType: int64
+		formatString: 0
+		lineageTag: 8da4563b-70d6-4904-98a0-2ca28c8e7eae
+		summarizeBy: sum
+		sourceColumn: week_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_name
+		dataType: string
+		lineageTag: 91a4f842-1528-4896-b5f6-b89a9b44543e
+		summarizeBy: none
+		sourceColumn: student_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column TodayWeek
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f8821848-fafb-4ca9-ba65-4a271cd01786
+		summarizeBy: none
+		sourceColumn: TodayWeek
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weeks
+		dataType: string
+		lineageTag: 32da5d82-787a-4ae1-be45-55095a5a8340
+		summarizeBy: none
+		sourceColumn: Weeks
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ip_student_level-de6f5c5f-fec1-4331-bda5-d7c31000d989 = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows([]),
+				    #"Workspace" = Source{[workspaceId=workspace]}[Data],
+				    #"Dataflow" = #"Workspace"{[dataflowId=ip_student_df]}[Data],
+				    ip_student_name = #"Dataflow"{[entity="Merge"]}[Data]
+				in
+				    ip_student_name
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Exception
+
+	annotation PBI_NavigationStepName = Navigation
+

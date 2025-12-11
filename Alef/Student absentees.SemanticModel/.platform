@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Student absentees"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "2a32d274-7e6b-a2cb-4f05-cb126cb7eede"
+  }
+}

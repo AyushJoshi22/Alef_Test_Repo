@@ -1,0 +1,19 @@
+expression workspace = "a5f0c46e-748b-4616-8d20-e50b216e3f5e" meta [IsParameterQuery=true, List={"a5f0c46e-748b-4616-8d20-e50b216e3f5e", "d0d5ce2a-826e-47d5-a35f-5d2e9a497276", "7bbb17d8-30b9-4def-8550-9902e089b604"}, DefaultValue="a5f0c46e-748b-4616-8d20-e50b216e3f5e", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 9882378a-26d9-4d14-8c0c-096f0af36997
+
+	annotation PBI_ResultType = Text
+
+expression ip_student_df = "0fc16f77-af47-4209-9d67-f40f3e4c9482" meta [IsParameterQuery=true, List={"d5c8face-a0de-4a8b-88b7-c485b4d61c3f", "6a8faf79-c22e-4831-beff-1600b24c7bb6", "1312b3c9-233a-43d0-b01f-414e59ceaa73", "0fc16f77-af47-4209-9d67-f40f3e4c9482"}, DefaultValue="0fc16f77-af47-4209-9d67-f40f3e4c9482", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 6c0e4f88-9b7f-48d8-9613-1e8082524ee5
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+
+expression school_dim_week = "daf1796b-c6f3-46ce-b14f-0e7214f3eb78" meta [IsParameterQuery=true, List={"daf1796b-c6f3-46ce-b14f-0e7214f3eb78", "af669b27-8300-45fc-b323-11e31768df84"}, DefaultValue="daf1796b-c6f3-46ce-b14f-0e7214f3eb78", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 60c6e21b-83ad-4834-a306-81747432571e
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,308 @@
+table teacher_absentees
+	lineageTag: 5f03360a-61c0-4605-9510-dd6c83927921
+
+	measure 'Total Days Absent' = SUM(teacher_absentees[total_absent_days])
+		formatString: 0
+		lineageTag: 4152ec43-1e08-47eb-872e-10786b9c0405
+
+	measure MaxDate =
+			TODAY()-1 //the last day of report - we don't use the calc below because of rls filters max date to be to the begin of week
+			//CALCULATE(MAX('Date'[Date]),ALL(teacher_absentees))
+		formatString: General Date
+		lineageTag: 33f95616-8139-4607-8c38-0c6a2c6accd7
+
+	measure 'Days from last login' = ```
+			
+			var 
+			days = DATEDIFF(MAX(teacher_absentees[teacher_onboarding.teacher_last_login_date]),[MaxDate],DAY)
+			return
+			if (days<0,0,days)
+			```
+		formatString: 0
+		lineageTag: 9ca91580-4238-4f53-8edd-254bb8f7aa9d
+
+	measure MinDate = CALCULATE(MIN(teacher_absentees[week_start_date]),ALL(teacher_absentees))
+		formatString: General Date
+		lineageTag: de38b64b-e907-4145-95e6-044f46adde10
+
+	measure 'total rows' =
+			
+			var _rows = DISTINCTCOUNT(teacher_absentees[teacher_id])
+			return
+			if (ISBLANK(_rows),0,_rows)
+		formatString: #,0
+		lineageTag: 05ed3349-44bd-4ac5-b343-4d6fa4f80829
+
+		changedProperty = FormatString
+
+	measure DaysRank = RANKX (ALLSELECTED ( teacher_absentees[week_start_date]),[Total Days Absent],,DESC )
+		formatString: 0
+		lineageTag: 2fa1b8af-8a07-4a90-a3c0-01bf43c6480d
+
+	measure 'Days absent' = ```
+			
+			CONCATENATEX( 
+			    FILTER ( VALUES ( teacher_absentees[absent_days]), [DaysRank] = 1 ),  
+			   teacher_absentees[absent_days], "|",teacher_absentees[absent_days], ASC
+			)
+			```
+		lineageTag: 498164a0-7700-415c-b754-0911f0052642
+
+	measure TotalDaysIncludingMissing = ```
+			
+			VAR SelectedWeeks = VALUES(teacher_absentees[week_start_date])  -- Get the selected weeks
+			
+			-- Get the unique list of schools for the selected weeks
+			VAR CurrentSchool = 
+			    CALCULATETABLE(
+			        VALUES(teacher_absentees[school_dw_id]),
+			        teacher_absentees[week_start_date] IN SelectedWeeks
+			    )
+			
+			RETURN
+			    SUMX(
+			        FILTER(
+			            org_dim_week,
+			            org_dim_week[week] IN SelectedWeeks &&  -- Include all weeks in SelectedWeeks
+			            org_dim_week[school_dw_id] IN CurrentSchool   -- Ensure we are only summing total_days for relevant schools
+			        ),
+			        org_dim_week[week_days]  -- Sum the total days from Table2
+			    ) 
+			//+
+			//SUMX(
+			// FILTER(
+			//org_dim_week,
+			//NOT(org_dim_week[Weeknum] IN SelectedWeeks) &&  -- Handle weeks that were not selected
+			//org_dim_week[school_dw_id] IN CurrentSchool   -- Ensure we are only summing total_days for relevant schools
+			//),
+			//org_dim_week[week_days]  -- Sum the total days from Table2
+			// )
+			```
+		formatString: 0
+		lineageTag: f2cf208b-e01c-4d7d-8032-7bea40024844
+
+	measure 'Login %' = ```
+			DIVIDE(
+			    ([TotalDaysIncludingMissing]-[Total Days Absent]),
+			    [TotalDaysIncludingMissing],
+			    0
+			)  
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: a92ef9a3-b2b2-41c7-b2b4-7a6dcd122919
+
+	column tenant_name
+		dataType: string
+		lineageTag: 7c1e39f1-f8a9-422d-9e75-c08f6242bd25
+		summarizeBy: none
+		sourceColumn: tenant_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_name
+		dataType: string
+		lineageTag: 66be6c44-696f-4900-9e85-0a56303b8435
+		summarizeBy: none
+		sourceColumn: school_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_id
+		dataType: string
+		lineageTag: af4e65fb-1fc3-49a4-9cb1-db70893f03ea
+		summarizeBy: none
+		sourceColumn: school_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column teacher_id
+		dataType: string
+		lineageTag: 46d67fe2-ab59-4d51-b104-ee3253938d0c
+		summarizeBy: none
+		sourceColumn: teacher_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column academic_year_start_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1894081b-8b29-469e-8fd1-90feccfeadc5
+		summarizeBy: none
+		sourceColumn: academic_year_start_date
+
+		variation Variation
+			isDefault
+			relationship: ffe0b3a5-58eb-45d8-94a9-92842ad0e75d
+			defaultHierarchy: LocalDateTable_85f688e5-3566-436e-97cb-5058c66ef5d1.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column academic_year_end_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9b23f4a2-d706-4b97-9d9c-6629941c1000
+		summarizeBy: none
+		sourceColumn: academic_year_end_date
+
+		variation Variation
+			isDefault
+			relationship: d307677c-02fc-493d-9721-d228fb8c3a0d
+			defaultHierarchy: LocalDateTable_99267a56-2b65-4fb4-8188-af65a4c51527.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Last Login Date' = FORMAT(teacher_absentees[teacher_onboarding.teacher_last_login_date],"dd-mm-yyyy")
+		lineageTag: 9c2dc9c8-b54e-4b5e-8a3d-cc20db0b07d7
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column academic_year
+		dataType: string
+		lineageTag: a811451c-bbf0-4111-85f8-435d6be68b52
+		summarizeBy: none
+		sourceColumn: academic_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column teacher_name
+		dataType: string
+		lineageTag: f1e3f5ce-c411-4625-b104-75d6414dda83
+		summarizeBy: none
+		sourceColumn: teacher_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8568b9f8-67a5-41a7-ab1c-e272f95103ed
+		summarizeBy: sum
+		sourceColumn: school_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column available_teacher_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 34f86bb9-6c28-47bf-ae2b-d195adba7c0b
+		summarizeBy: sum
+		sourceColumn: available_teacher_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'teacher_onboarding.teacher_last_login_date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6ab12dee-5874-47a2-8daa-a89bb8c7fcea
+		summarizeBy: none
+		sourceColumn: teacher_onboarding.teacher_last_login_date
+
+		variation Variation
+			isDefault
+			relationship: d37f861f-ad6e-495f-9501-40514235e8b0
+			defaultHierarchy: LocalDateTable_449875f1-36b0-41f0-9dbc-26405303ce90.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'teacher_onboarding.teacher_status'
+		dataType: int64
+		formatString: 0
+		lineageTag: dae2199f-79f6-418e-a2b0-b13002eafc9a
+		summarizeBy: sum
+		sourceColumn: teacher_onboarding.teacher_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column teacher_first_created_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 76326198-bdec-42b0-a810-6a27476627dc
+		summarizeBy: none
+		sourceColumn: teacher_first_created_date
+
+		variation Variation
+			isDefault
+			relationship: ddb2ee03-d329-4452-ab9c-db4672e40e7c
+			defaultHierarchy: LocalDateTable_2da28308-bad1-4f5f-b085-2197f05e812f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'teacher_onboarding.status'
+		dataType: string
+		lineageTag: ee67167e-6b8f-4547-9a26-c3522ed66bd1
+		summarizeBy: none
+		sourceColumn: teacher_onboarding.status
+
+		annotation SummarizationSetBy = Automatic
+
+	column week_start_date
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 7d81f30f-6b0e-411a-ac96-e669b8470d42
+		summarizeBy: none
+		sourceColumn: week_start_date
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column absent_days
+		dataType: string
+		lineageTag: 2af77480-f317-4d50-ac2d-8cbc932d29b7
+		summarizeBy: none
+		sourceColumn: absent_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_absent_days
+		dataType: int64
+		formatString: 0
+		lineageTag: 76285608-2ea4-4a1c-9f47-8540cdeda189
+		summarizeBy: sum
+		sourceColumn: total_absent_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column teacher_current_status
+		dataType: int64
+		formatString: 0
+		lineageTag: c3baa953-c546-4b6c-92d8-c76d5316e428
+		summarizeBy: sum
+		sourceColumn: teacher_current_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Append.email'
+		dataType: string
+		lineageTag: d5aea5cb-00cc-4e3b-ae48-8623d7956178
+		summarizeBy: none
+		sourceColumn: Append.email
+
+		annotation SummarizationSetBy = Automatic
+
+	partition teacher_absentees-d434373d-e2cb-44e0-89f9-e3bb2e0e21c9 = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows([]),
+				    #"Workspace" = Source{[workspaceId=WorkspaceId]}[Data],
+				    #"Dataflow" = #"Workspace" {[dataflowId=Teachers_name]}[Data],
+				    teacher_absentees =  #"Dataflow"{[entity="teacher_absentees_name"]}[Data]
+				in
+				    teacher_absentees
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

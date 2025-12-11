@@ -1,0 +1,21 @@
+/// set the Id according to workpsace
+expression WorkspaceId = "a5f0c46e-748b-4616-8d20-e50b216e3f5e" meta [IsParameterQuery=true, List={"a5f0c46e-748b-4616-8d20-e50b216e3f5e", "d0d5ce2a-826e-47d5-a35f-5d2e9a497276", "7bbb17d8-30b9-4def-8550-9902e089b604"}, DefaultValue="a5f0c46e-748b-4616-8d20-e50b216e3f5e", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 2504b626-fc22-4b99-bf75-d883bb6fd949
+
+	annotation PBI_ResultType = Text
+
+/// Set the dataflow according to workpsace
+expression Dataflow = "15000a4c-e319-47ca-b220-f8e9112863f4" meta [IsParameterQuery=true, List={"15000a4c-e319-47ca-b220-f8e9112863f4", "071c09bc-9d63-4513-885a-a2593debd60a"}, DefaultValue="15000a4c-e319-47ca-b220-f8e9112863f4", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: f09ad4f2-2dec-47da-ac1f-86f02446bda4
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+
+expression FilterRows = 1000 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=false]
+	lineageTag: 315256c8-9f8e-4c3c-9590-e301e7a3123a
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Number
+

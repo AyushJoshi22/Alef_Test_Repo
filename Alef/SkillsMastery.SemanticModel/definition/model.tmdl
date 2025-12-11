@@ -1,0 +1,26 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["fact_lessons_perf","fact_lessons_perf (2)","Workspace","DataflowLessons","DataflowStudents","FilterRows","month_range"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+ref table fact_lessons_perf
+ref table DateTableTemplate_84044361-4b0c-4e54-946d-d6b07e64babf
+ref table 'fact_lessons_perf (2)'
+ref table LocalDateTable_af46d647-be9c-40a6-95b9-d45868a0de5e
+ref table LocalDateTable_e4d44889-b356-4e48-8dc4-e90ab3f431df
+ref table LocalDateTable_3b78368f-56d6-4626-b6c4-f73c6ec0706c
+ref table Parameter
+ref table month_range
+ref table LocalDateTable_2a6c33bb-aea6-4d04-aef1-30a75cd228f8
+
+ref role School
+
+ref cultureInfo en-US
+

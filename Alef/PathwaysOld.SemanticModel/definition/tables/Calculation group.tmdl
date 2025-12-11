@@ -1,0 +1,39 @@
+table 'Calculation group'
+	lineageTag: 9c55d468-9f6b-4920-9ec4-1ea9a6db451a
+
+	calculationGroup
+
+		calculationItem NO = SELECTEDMEASURE()
+
+		calculationItem YES = ```
+				IF(
+				    CALCULATE(
+				        ISCROSSFILTERED('pathway_activity_principal_dm_view'[curr_subject_name]),
+				        ALLEXCEPT(pathway_activity_principal_dm_view,pathway_activity_principal_dm_view[curr_subject_name])
+				        ),
+				     SELECTEDMEASURE(),
+				     CALCULATE(
+				        SELECTEDMEASURE(),
+				        school_default_pathway_subject[school_id] = USERPRINCIPALNAME()
+				     )     
+				)
+				```
+
+	column DEFAULTSUBJECT
+		dataType: string
+		lineageTag: 7745c2e9-70ec-4d8d-bfae-ed9983b20e07
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		formatString: 0
+		lineageTag: 3f6ee6de-22d3-406c-b2be-3e72ee35b077
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+

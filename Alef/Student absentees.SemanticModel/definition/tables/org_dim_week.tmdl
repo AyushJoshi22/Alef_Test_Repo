@@ -1,0 +1,78 @@
+table org_dim_week
+	lineageTag: 1bf63b1d-b759-4b5e-b2c3-7aa0101c3593
+
+	column organisation_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 35dc961f-12b8-4f80-8de4-a6bee74f2d5d
+		summarizeBy: sum
+		sourceColumn: organisation_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 23719220-62db-406b-b945-81c7eb390e0d
+		summarizeBy: sum
+		sourceColumn: school_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_id
+		dataType: string
+		lineageTag: 79b5a1b1-a989-450d-bfde-d2f129faffc5
+		summarizeBy: none
+		sourceColumn: school_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_name
+		dataType: string
+		lineageTag: c7e9c706-ac72-4b75-8e44-088257bb1380
+		summarizeBy: none
+		sourceColumn: school_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column week
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 57b31022-cb93-4762-a932-1dab8c74d227
+		summarizeBy: none
+		sourceColumn: week
+
+		variation Variation
+			isDefault
+			relationship: 8e1e0f78-7dcb-4df7-a005-2d47bcf74310
+			defaultHierarchy: LocalDateTable_27ebc20a-7139-47bd-a4d0-bc96b3d1cfa8.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column week_days
+		dataType: int64
+		formatString: 0
+		lineageTag: 893f192c-da0b-423d-b9b8-6a7597983977
+		summarizeBy: sum
+		sourceColumn: week_days
+
+		annotation SummarizationSetBy = Automatic
+
+	partition org_dim_week = m
+		mode: import
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"a5f0c46e-748b-4616-8d20-e50b216e3f5e" = Workspaces{[workspaceId="a5f0c46e-748b-4616-8d20-e50b216e3f5e"]}[Data],
+				    #"daf1796b-c6f3-46ce-b14f-0e7214f3eb78" = #"a5f0c46e-748b-4616-8d20-e50b216e3f5e"{[dataflowId="daf1796b-c6f3-46ce-b14f-0e7214f3eb78"]}[Data],
+				    org_dim_week_ = #"daf1796b-c6f3-46ce-b14f-0e7214f3eb78"{[entity="org_dim_week",version=""]}[Data]
+				in
+				    org_dim_week_
+

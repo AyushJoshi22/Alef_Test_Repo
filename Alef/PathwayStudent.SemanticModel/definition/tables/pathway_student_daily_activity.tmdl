@@ -1,0 +1,77 @@
+table pathway_student_daily_activity
+	lineageTag: 3f48e72a-0410-4a85-9a8e-da64cf2767ad
+
+	measure DaysActive =
+			
+			VAR _subject = SELECTEDVALUE('Merge'[subject_name])
+			RETURN
+			IF(
+			    ISBLANK(_subject),
+			    CALCULATE(
+			        DISTINCTCOUNT(pathway_student_daily_activity[datest]),
+			        ALL(pathway_student_daily_activity[class_gen_subject])
+			    ),
+			    CALCULATE(
+			        DISTINCTCOUNT(pathway_student_daily_activity[datest]),
+			        'pathway_student_daily_activity'[class_gen_subject] = _subject
+			    )
+			)
+		formatString: 0
+		lineageTag: 94e84df9-4f1d-4cce-993f-47c10a13524c
+
+	column student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 13321c0f-0723-4955-945c-49d00c0ce32a
+		summarizeBy: none
+		sourceColumn: student_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_gen_subject
+		dataType: string
+		lineageTag: 980674cc-6cec-4c72-b090-c70a229168e9
+		summarizeBy: none
+		sourceColumn: class_gen_subject
+
+		annotation SummarizationSetBy = Automatic
+
+	column datest
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 92dce61e-1558-4ef6-aaaf-e9c6353dfc63
+		summarizeBy: none
+		sourceColumn: datest
+
+		variation Variation
+			isDefault
+			relationship: 82fff40f-0736-479b-a4a9-9891f9234768
+			defaultHierarchy: LocalDateTable_f6edbbbc-521f-4d38-a34d-ddcd9ea7a493.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition pathway_student_daily_activity = m
+		mode: import
+		source = ```
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"a5f0c46e-748b-4616-8d20-e50b216e3f5e" = Workspaces{[workspaceId=WorkspaceId]}[Data],
+				    #"945a180a-eff5-4071-b116-7b568a473d16" = #"a5f0c46e-748b-4616-8d20-e50b216e3f5e"{[dataflowId=Dailyview]}[Data],
+				    pathway_student_daily_activity_ = #"945a180a-eff5-4071-b116-7b568a473d16"{[entity="pathway_student_daily_activity",version=""]}[Data],
+				    #"Kept First Rows" = if 
+				     FilterRows = 0 
+				    then 
+				     pathway_student_daily_activity_
+				    else 
+				     Table.FirstN(pathway_student_daily_activity_, FilterRows)
+				in
+				    #"Kept First Rows"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

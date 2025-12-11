@@ -1,0 +1,423 @@
+table pathway_nlf_principal_dm_view
+	lineageTag: 06e5e208-8941-4473-8672-49fc364f3f01
+
+	measure TotalStudents =
+			CALCULATE(
+			    DISTINCTCOUNT(pathway_nlf_principal_dm_view[pathway_student_dw_id])
+			)
+		formatString: #,0
+		lineageTag: d2dbacd2-0bcd-44db-89bc-c7ce7c5201e6
+
+	measure PlacedStudents =
+			CALCULATE(
+			    DISTINCTCOUNTNOBLANK(pathway_nlf_principal_dm_view[placed_student_dw_id])
+			)
+		formatString: #,0
+		lineageTag: 118ab4c7-4ef3-4831-a7cc-b1085ad21bb3
+
+	measure StartedStudents =
+			CALCULATE(
+			    DISTINCTCOUNTNOBLANK(pathway_nlf_principal_dm_view[started_student_dw_id]),
+			    REMOVEFILTERS('Date')
+			)
+		formatString: #,0
+		lineageTag: a00d5e4d-f15a-412e-a749-233954b868f7
+
+	measure RatioPlaced =
+			
+			VAR _ratio = ROUND(CALCULATE(DIVIDE ([PlacedStudents],[TotalStudents],0))*100,0)
+			RETURN "(" & _ratio & "%)"
+		lineageTag: 6f106cb9-0c61-4e05-9f03-3c8312dac3f7
+
+	measure StartedRatio =
+			
+			VAR _ratio = ROUND(CALCULATE(DIVIDE ([StartedStudents],[PlacedStudents],0))*100,0)
+			RETURN "(" & _ratio & "%)"
+		lineageTag: 7ac570db-7145-46d6-8c74-e56cf48cf7a8
+
+	measure ActiveStudents = ```
+			
+			    CALCULATE(
+			    DISTINCTCOUNTNOBLANK(pathway_nlf_principal_dm_view[active_student_dw_id])
+			    )
+			```
+		formatString: 0
+		lineageTag: c3d8c327-2099-4156-98da-f56bc3087d68
+
+	measure ActiveRatio =
+			
+			VAR _ratio = ROUND(CALCULATE(DIVIDE([ActiveStudentsCalendar],[StartedStudents],0))*100,0)
+			RETURN "(" & _ratio & "%)"
+		lineageTag: ef4ed7cf-6bdd-47e7-a97f-f71000cb3dc9
+
+	measure SkillstoReview = ```
+			CALCULATE(
+			    SUM(pathway_nlf_principal_dm_view[skills_to_review])
+			) 
+			```
+		formatString: #,0
+		lineageTag: 3282df9f-baa8-41b8-aaa2-a2cc3567f12e
+
+	measure LevelsPracticed =
+			
+			CALCULATE(COUNT(pathway_nlf_principal_dm_view[level_dw_id]),
+			    FILTER (
+			        pathway_nlf_principal_dm_view,
+			        NOT ISBLANK ( pathway_nlf_principal_dm_view[level_proficiency_tier] )
+			    )
+			)
+		formatString: 0
+		lineageTag: 0401f9a6-8344-4f4c-86f9-de8b2862b582
+
+	measure ActiveRatiofromPlaced = ```
+			
+			VAR _ratio = CALCULATE(DIVIDE([ActiveStudentsCalendar],[PlacedStudents],0))
+			RETURN _ratio 
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 12eaab3f-118e-4600-a1c8-693e7e9a4db3
+
+	measure ActiveReminderfromPlaced = 1-[ActiveRatiofromPlaced]
+		formatString: 0
+		lineageTag: ed118d64-b40f-4ceb-aa78-bb188bb1a650
+
+	measure 'Levels Completed' = DISTINCTCOUNT(pathway_nlf_principal_dm_view[level_dw_id])
+		formatString: 0
+		lineageTag: 2a26cbfe-e606-4d8f-8a54-f5f587875652
+
+	measure LevelsPracticedCalendar = ```
+			
+			 VAR _startDate = SELECTEDVALUE( DimMonth_Start[MonthStartDate] )
+			VAR _endDate   = SELECTEDVALUE( DimMonth_End[MonthStartDate] )
+			
+			// VAR _minDate = MINX( ALL( DimMonth ), DimMonth[MonthStartDate] )
+			// VAR _maxDate = MAXX( ALL( DimMonth ), DimMonth[MonthStartDate] )
+			
+			// VAR _s = IF( ISBLANK(_startDate), _minDate, _startDate )
+			// VAR _e = IF( ISBLANK(_endDate),   _maxDate, _endDate )
+			
+			// VAR _startFinal = MIN( _s, _e )
+			// VAR _endFinal   = MAX( _s, _e )
+			
+			RETURN CALCULATE(
+			    COALESCE([LevelsPracticed],0), 
+			    FILTER(pathway_nlf_principal_dm_view,
+			     pathway_nlf_principal_dm_view[month] >= _startDate &&
+			     pathway_nlf_principal_dm_view[month] <= _endDate)
+			)
+			```
+		formatString: 0
+		lineageTag: 3c4069cd-1c4c-42ed-8f07-2c40e698866a
+
+	measure MinMonth = CALCULATE(MIN(pathway_nlf_principal_dm_view[month]))
+		formatString: General Date
+		lineageTag: 0983463e-08d8-4a90-a776-08939aea3772
+
+	measure ActiveStudentsDebug =
+			
+			VAR _minmonth = CALCULATE(
+			    MIN('Date'[Date]),
+			KEEPFILTERS('Date'[Date])
+			)
+			VAR _maxmonth = CALCULATE(
+			    MAX('Date'[Date])
+			)
+			RETURN
+			_minmonth
+			// CALCULATE(
+			//     DISTINCTCOUNTNOBLANK(pathway_nlf_principal_dm_view[active_student_dw_id]),
+			//     KEEPFILTERS(
+			//         DATESBETWEEN('Date'[Date], _minmonth, _maxmonth)
+			//     )
+			// )
+		formatString: General Date
+		lineageTag: 006b88b5-f498-44d0-89b3-4572c74431cd
+
+	measure PlacedInactive = [PlacedStudents] - [ActiveStudentsCalendar]
+		formatString: 0
+		lineageTag: 917177d8-e445-41a3-b57b-8a4c820c5f3f
+
+	measure numOfGrades = DISTINCTCOUNTNOBLANK(pathway_nlf_principal_dm_view[grade_name])
+		formatString: 0
+		lineageTag: 0ada02f3-9ad9-4196-9baf-2be27a563909
+
+	measure ActiveStudentsCalendar = ```
+			
+			VAR _startDate = SELECTEDVALUE( DimMonth_Start[MonthStartDate] )
+			VAR _endDate   = SELECTEDVALUE( DimMonth_End[MonthStartDate] )
+			
+			// VAR _minDate = MINX( ALL( DimMonth ), DimMonth[MonthStartDate] )
+			// VAR _maxDate = MAXX( ALL( DimMonth ), DimMonth[MonthStartDate] )
+			
+			// VAR _s = IF( ISBLANK(_startDate), _minDate, _startDate )
+			// VAR _e = IF( ISBLANK(_endDate),   _maxDate, _endDate )
+			
+			// VAR _startFinal = MIN( _s, _e )
+			// VAR _endFinal   = MAX( _s, _e )
+			
+			RETURN CALCULATE(
+			    [ActiveStudents], 
+			    FILTER(pathway_nlf_principal_dm_view,
+			     pathway_nlf_principal_dm_view[month] >= _startDate &&
+			     pathway_nlf_principal_dm_view[month] <= _endDate)
+			)
+			```
+		formatString: #,0
+		lineageTag: f3110b4d-2066-4716-98d1-3e27916e2d8f
+
+	column school_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5fba658d-57c1-482a-87cd-803840b31388
+		summarizeBy: sum
+		sourceColumn: school_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_id
+		dataType: string
+		lineageTag: ecf7e39b-6793-45ef-a785-a094ba1d3ebd
+		summarizeBy: none
+		sourceColumn: school_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_name
+		dataType: string
+		lineageTag: 3380b434-d5f3-4f67-b48d-e1c693de0b4f
+		summarizeBy: none
+		sourceColumn: school_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenant_timezone
+		dataType: string
+		lineageTag: fb941a1b-417e-4801-b5e7-629992f54186
+		summarizeBy: none
+		sourceColumn: tenant_timezone
+
+		annotation SummarizationSetBy = Automatic
+
+	column academic_year_start_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f599cb84-94f7-4f61-a403-7ff26ba3b055
+		summarizeBy: none
+		sourceColumn: academic_year_start_date
+
+		variation Variation
+			isDefault
+			relationship: b421bed3-eff6-4f90-8ea8-787f07652bed
+			defaultHierarchy: LocalDateTable_cd554d8b-78d8-47cf-897a-843a8327ed16.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column academic_year_end_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ced25206-aadd-404f-b4f9-153aab921c89
+		summarizeBy: none
+		sourceColumn: academic_year_end_date
+
+		variation Variation
+			isDefault
+			relationship: a7b43ad4-33db-48bd-8c3f-68d96cb541ca
+			defaultHierarchy: LocalDateTable_1bb6fee4-f24f-43e7-b712-7746608f6124.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column pathway_student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c0485410-00c8-4af7-b1fe-80947668e17f
+		summarizeBy: sum
+		sourceColumn: pathway_student_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_grade_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: f20c241b-47b5-403f-9c37-27bd07a1d72d
+		summarizeBy: sum
+		sourceColumn: student_grade_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column grade_name
+		dataType: int64
+		formatString: 0
+		lineageTag: ff9935f0-2718-45b5-bf86-a8b58c81a640
+		summarizeBy: sum
+		sourceColumn: grade_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column grade_id
+		dataType: string
+		lineageTag: dc0b9544-b65e-44c6-8b8d-62816b01ef18
+		summarizeBy: none
+		sourceColumn: grade_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column section_alias
+		dataType: string
+		lineageTag: cf658e48-cf67-4c3a-b246-c268a6d5b6a5
+		summarizeBy: none
+		sourceColumn: section_alias
+
+		annotation SummarizationSetBy = Automatic
+
+	column subject_name
+		dataType: string
+		lineageTag: 6dcfdc14-f265-44f1-965d-64fc1dc504d0
+		summarizeBy: none
+		sourceColumn: subject_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_material_id
+		dataType: string
+		lineageTag: 96da74e7-4986-4fd4-b9b3-54882cb578e4
+		summarizeBy: none
+		sourceColumn: class_material_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column placed_student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 468d0875-6b19-4b5f-8c61-aa97d61f67c3
+		summarizeBy: sum
+		sourceColumn: placed_student_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column active_student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 21fd0fac-3b54-4e91-9d99-585133dd1b26
+		summarizeBy: none
+		sourceColumn: active_student_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column course_id
+		dataType: string
+		lineageTag: 4a1b87a1-302a-4c19-966e-38b1565c560a
+		summarizeBy: none
+		sourceColumn: course_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column level_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a23c79df-5e3f-4013-af58-bc530d3f7cca
+		summarizeBy: sum
+		sourceColumn: level_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: dateTime
+		formatString: mmmm yyyy
+		lineageTag: 321979bb-b398-4f0a-aaac-8fed8cbdfed3
+		summarizeBy: none
+		sourceColumn: month
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column level_proficiency_tier
+		dataType: string
+		lineageTag: 74797807-fde3-4440-9913-5761ba424997
+		summarizeBy: none
+		sourceColumn: level_proficiency_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column skills_to_review
+		dataType: int64
+		formatString: 0
+		lineageTag: ceeb56a7-809a-488e-9d07-ad8f0c346a91
+		summarizeBy: sum
+		sourceColumn: skills_to_review
+
+		annotation SummarizationSetBy = Automatic
+
+	column domain
+		dataType: string
+		lineageTag: df9b2768-0f7e-49ab-87fe-5c8ab7e34bd3
+		summarizeBy: none
+		sourceColumn: domain
+
+		annotation SummarizationSetBy = Automatic
+
+	column level_name
+		dataType: string
+		lineageTag: fd187ab9-2aa8-4788-9a00-97f18a310137
+		summarizeBy: none
+		sourceColumn: level_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column skills_started
+		dataType: int64
+		formatString: 0
+		lineageTag: da3c510b-7049-4add-a1bf-de5236f8483a
+		summarizeBy: sum
+		sourceColumn: skills_started
+
+		annotation SummarizationSetBy = Automatic
+
+	column started_student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: eec0e4a6-2b35-495d-a12e-7767d1553c4e
+		summarizeBy: sum
+		sourceColumn: started_student_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column skills_active
+		dataType: int64
+		formatString: 0
+		lineageTag: bac2b08c-612e-4dbb-bba6-aa720142c1a4
+		summarizeBy: sum
+		sourceColumn: skills_active
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_id
+		dataType: string
+		lineageTag: d42f6b2c-9c0c-4959-9818-94a70e597dd5
+		summarizeBy: none
+		sourceColumn: student_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition pathway_nlf_principal_dm_view = m
+		mode: import
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"a5f0c46e-748b-4616-8d20-e50b216e3f5e" = Workspaces{[workspaceId=Workspace]}[Data],
+				    #"9813d941-dbb1-4964-ae9f-93d84718481b" = #"a5f0c46e-748b-4616-8d20-e50b216e3f5e"{[dataflowId=Pathwaydata]}[Data],
+				    pathway_nlf_principal_dm_view_ = #"9813d941-dbb1-4964-ae9f-93d84718481b"{[entity="pathway_nlf_principal_dm_view",version=""]}[Data]
+				in
+				    pathway_nlf_principal_dm_view_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

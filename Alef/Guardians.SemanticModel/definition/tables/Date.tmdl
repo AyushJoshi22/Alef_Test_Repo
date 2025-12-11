@@ -1,0 +1,71 @@
+table Date
+	lineageTag: c5f96dac-fe45-4f57-ab45-0ad905b5f2f1
+
+	column Date
+		formatString: General Date
+		lineageTag: 23bf81a4-2fa5-4355-9cd1-6309bae8ebe9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: cab4ae78-4455-4697-a476-8e9041601c45
+			defaultHierarchy: LocalDateTable_a07a3b5d-bda6-488b-abdd-2cb30dc636ad.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weeknum = WEEKNUM('Date'[Date])
+		formatString: 0
+		lineageTag: 3a2b4038-a721-43b1-8547-fd46bdb995ae
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year = Year('Date'[Date])
+		formatString: 0
+		lineageTag: 7401b9e2-379e-4c8c-9f8f-0a560a3d0d47
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekStartDate = 'Date'[Date]-  WEEKDAY('Date'[Date],1)+1
+		formatString: d mmmm\, yyyy
+		lineageTag: d812e92c-996c-470e-b52d-520595e62a11
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: e5efc1b5-0eef-4212-a3a4-137e7994334f
+			defaultHierarchy: LocalDateTable_f8f9347f-d1b3-400a-9ff0-104a127d2db1.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column DateMonth = DATE(YEAR('Date'[Date]), MONTH('Date'[Date]), 1)
+		formatString: mmmm yyyy
+		lineageTag: dff0db9c-d624-48f8-9b49-b544658a8800
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 9461cb38-5c24-4dcb-bca5-44787c563b6a
+			defaultHierarchy: LocalDateTable_54b71c12-15db-4780-8e65-5fdc6edeed0c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition Date-fb66887c-5ed6-4cc7-be48-89327b59cf4f = calculated
+		mode: import
+		source = CALENDAR(DATE(2018,1,1),Today()-1)
+
+	annotation PBI_Id = cf2dc14148aa4b8ba0bb1914bae42f37
+

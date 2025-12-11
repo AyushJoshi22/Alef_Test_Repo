@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Pathways"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "3cd882e8-e179-a7db-41c3-f6fe7b409cd8"
+  }
+}

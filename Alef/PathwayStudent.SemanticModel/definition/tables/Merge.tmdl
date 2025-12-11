@@ -1,0 +1,338 @@
+table Merge
+	lineageTag: dbd672dc-9885-42e5-b1e8-5b93e6225360
+
+	measure PracticingLevels = ```
+			
+			 CALCULATE(
+			    COUNT('Merge'[level_dw_id]),
+			    'Merge'[level_proficiency_tier] = "PRACTICING"
+			 )
+			```
+		formatString: 0
+		lineageTag: 910d938a-4d9e-49c6-8590-e9bbdec10020
+
+	measure ProfcientLevels = ```
+			
+			 CALCULATE(
+			    COUNT('Merge'[level_dw_id]),
+			    'Merge'[level_proficiency_tier] = "PROFICIENT"
+			 )
+			```
+		formatString: 0
+		lineageTag: 9940562d-7918-4145-a1e6-51e1d490e26f
+
+	measure SuperproLevels = ```
+			
+			 CALCULATE(
+			    COUNT('Merge'[level_dw_id]),
+			    'Merge'[level_proficiency_tier] = "SUPER_PRO"
+			 )
+			```
+		formatString: 0
+		lineageTag: 93a3149f-eb29-434d-b49b-c6f35365e85d
+
+	measure AreasofConcern =
+			
+			CALCULATE(
+			SUM('Merge'[skills_to_review])
+			)
+		formatString: 0
+		lineageTag: df91e92b-55ec-43b4-82ea-b1187423edcd
+
+	measure SkilsLearned =
+			CALCULATE(
+			    SUM('Merge'[skills_active])
+			)
+		formatString: 0
+		lineageTag: 169d21a5-c400-4785-b4a8-5eb033748dea
+
+	measure ExploringLevels = ```
+			
+			 CALCULATE(
+			    COUNT('Merge'[level_dw_id]),
+			    'Merge'[level_proficiency_tier] = "EXPLORING"
+			 )
+			```
+		formatString: 0
+		lineageTag: 57b82b2e-67b6-4ad3-95d1-cf6f8a207d7d
+
+	measure MinMonth = MIN('Merge'[month])
+		formatString: General Date
+		lineageTag: 8560e0c7-9a6f-47e2-a30e-1389c5ac138b
+
+	column school_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 7482d622-7244-4abf-9002-e939d5da9b24
+		summarizeBy: sum
+		sourceColumn: school_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_id
+		dataType: string
+		lineageTag: 5cdf5070-e3e4-4ac5-8c30-005a649ae2ad
+		summarizeBy: none
+		sourceColumn: school_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_name
+		dataType: string
+		lineageTag: 1cac3ff6-04c4-43d5-ab93-4b3fdc157418
+		summarizeBy: none
+		sourceColumn: school_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenant_timezone
+		dataType: string
+		lineageTag: 54166f78-80e3-4d51-9d4a-4b72430770a9
+		summarizeBy: none
+		sourceColumn: tenant_timezone
+
+		annotation SummarizationSetBy = Automatic
+
+	column academic_year_start_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e0f7620e-f9d7-4137-b5ff-9551291135db
+		summarizeBy: none
+		sourceColumn: academic_year_start_date
+
+		variation Variation
+			isDefault
+			relationship: 7ccf7746-98f7-4942-9eff-028edc6b6f00
+			defaultHierarchy: LocalDateTable_f20db319-31cb-435e-a9dc-8054d3747d54.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column academic_year_end_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9872a329-7182-4715-ac5a-ab3e0eba729b
+		summarizeBy: none
+		sourceColumn: academic_year_end_date
+
+		variation Variation
+			isDefault
+			relationship: 8594f8e2-ea96-4676-9913-7127c1bd37ba
+			defaultHierarchy: LocalDateTable_40536bd5-ecfd-4bd3-9383-0b7abe174ac5.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column pathway_student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 7c9c8b39-74a2-4a4b-b10a-305b5a219f51
+		summarizeBy: sum
+		sourceColumn: pathway_student_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_id
+		dataType: string
+		lineageTag: 0f6b1198-7403-4ba0-bf0d-85fb1e86b0ab
+		summarizeBy: none
+		sourceColumn: student_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_grade_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 994f61d4-c220-430f-a730-2d0477ced327
+		summarizeBy: sum
+		sourceColumn: student_grade_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column grade_name
+		dataType: int64
+		formatString: 0
+		lineageTag: 4421e823-6470-43e6-ad05-f7946990c38f
+		summarizeBy: sum
+		sourceColumn: grade_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column grade_id
+		dataType: string
+		lineageTag: 7e6205fc-5462-4fa9-b672-f7fd20284756
+		summarizeBy: none
+		sourceColumn: grade_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column section_alias
+		dataType: string
+		lineageTag: d2cf21bb-4fd9-42a1-8486-8ee616ca44ed
+		summarizeBy: none
+		sourceColumn: section_alias
+
+		annotation SummarizationSetBy = Automatic
+
+	column subject_name
+		dataType: string
+		lineageTag: e646febb-8481-4ce4-956f-8a183ebafdd7
+		summarizeBy: none
+		sourceColumn: subject_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_material_id
+		dataType: string
+		lineageTag: 7daa47ff-1f59-4040-87c3-2bf450f066c9
+		summarizeBy: none
+		sourceColumn: class_material_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column placed_student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9803c131-af0d-47e4-b259-30c02986b68e
+		summarizeBy: sum
+		sourceColumn: placed_student_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column started_student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8572c227-a746-4b52-ab1f-a10e98496262
+		summarizeBy: sum
+		sourceColumn: started_student_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column active_student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 37eac374-eb6b-4b68-ba89-c3d226748900
+		summarizeBy: none
+		sourceColumn: active_student_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column course_id
+		dataType: string
+		lineageTag: dc124723-4211-4904-b2b2-031d26a1e831
+		summarizeBy: none
+		sourceColumn: course_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column level_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 61002052-dd2c-4849-90da-389b34d0d62a
+		summarizeBy: sum
+		sourceColumn: level_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: dateTime
+		formatString: mmmm yyyy
+		lineageTag: c1721c82-f748-474a-a859-c0655e5b0781
+		summarizeBy: none
+		sourceColumn: month
+
+		variation Variation
+			isDefault
+			relationship: 4dcfdb76-fd13-4bed-91a2-cead797b3b38
+			defaultHierarchy: LocalDateTable_050e599e-b19a-4009-894a-401ead6e1cb9.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column level_proficiency_tier
+		dataType: string
+		lineageTag: 12dbf9af-fc06-412f-a27a-cbcec0ad9ec9
+		summarizeBy: none
+		sourceColumn: level_proficiency_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	column skills_started
+		dataType: int64
+		formatString: 0
+		lineageTag: be2ad10f-64d2-4c66-a985-abb40ae6083b
+		summarizeBy: sum
+		sourceColumn: skills_started
+
+		annotation SummarizationSetBy = Automatic
+
+	column skills_active
+		dataType: int64
+		formatString: 0
+		lineageTag: b9e52f43-e37f-4158-bad0-1e81d9762c29
+		summarizeBy: sum
+		sourceColumn: skills_active
+
+		annotation SummarizationSetBy = Automatic
+
+	column skills_to_review
+		dataType: int64
+		formatString: 0
+		lineageTag: e208a57c-1bb0-470f-b90d-11e657b14a4c
+		summarizeBy: sum
+		sourceColumn: skills_to_review
+
+		annotation SummarizationSetBy = Automatic
+
+	column domain
+		dataType: string
+		lineageTag: a121dac2-1193-47fb-b647-33a9022e8ff2
+		summarizeBy: none
+		sourceColumn: domain
+
+		annotation SummarizationSetBy = Automatic
+
+	column level_name
+		dataType: string
+		lineageTag: 4c29cb21-02ac-46a5-86e1-fd44d2d21d20
+		summarizeBy: none
+		sourceColumn: level_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_name
+		dataType: string
+		lineageTag: 4126ddff-93d1-447f-af85-ee31e049df11
+		summarizeBy: none
+		sourceColumn: student_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Merge = m
+		mode: import
+		source = ```
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"a5f0c46e-748b-4616-8d20-e50b216e3f5e" = Workspaces{[workspaceId=WorkspaceId]}[Data],
+				    #"89d1552e-5906-434a-b85f-3dc0d4fc5486" = #"a5f0c46e-748b-4616-8d20-e50b216e3f5e"{[dataflowId=Dataflow]}[Data],
+				    df = #"89d1552e-5906-434a-b85f-3dc0d4fc5486"{[entity="Merge",version=""]}[Data],
+				    #"Kept First Rows" = if 
+				     FilterRows = 0 
+				    then 
+				     df
+				    else 
+				     Table.FirstN(df, FilterRows)
+				in
+				    #"Kept First Rows"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

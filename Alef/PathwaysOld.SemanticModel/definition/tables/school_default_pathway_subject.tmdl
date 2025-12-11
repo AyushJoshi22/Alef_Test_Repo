@@ -1,0 +1,43 @@
+table school_default_pathway_subject
+	isHidden
+	lineageTag: 6edb5a63-15f3-4ff0-a06e-a7066bc0b7c5
+
+	column school_id
+		dataType: string
+		isHidden
+		lineageTag: 9995bd13-5b27-4ca6-9e92-be857db47072
+		summarizeBy: none
+		sourceColumn: school_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column default_subject
+		dataType: string
+		isHidden
+		lineageTag: 4ea977b9-241e-469c-bd79-1453c74904ee
+		summarizeBy: none
+		sourceColumn: default_subject
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition school_default_pathway_subject = m
+		mode: import
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    Workspace = Source{[workspaceId=Workspace]}[Data],
+				    Data = Workspace{[dataflowId=Defaultsubject]}[Data],
+				    school_default_pathway_subject = Data{[entity="school_default_pathway_subject"]}[Data]
+				in
+				    school_default_pathway_subject
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

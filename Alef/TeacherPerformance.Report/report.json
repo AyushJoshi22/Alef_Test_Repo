@@ -1,0 +1,129 @@
+{
+  "config": "{\"version\":\"5.66\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY21SU11\",\"type\":2,\"version\":{\"visual\":\"1.8.64\",\"report\":\"2.0.64\",\"page\":\"1.3.64\"}},\"customTheme\":{\"name\":\"Helvetica9526649695218714.json\",\"type\":1,\"version\":{\"visual\":\"1.8.64\",\"report\":\"2.0.64\",\"page\":\"1.3.64\"}}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"slowDataSourceSettings\":{\"isCrossHighlightingDisabled\":false,\"isSlicerSelectionsButtonEnabled\":false,\"isFilterSelectionsButtonEnabled\":false,\"isFieldWellButtonEnabled\":false,\"isApplyAllButtonEnabled\":false},\"linguisticSchemaSyncVersion\":2,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"exportDataMode\":1,\"allowDataPointLassoSelect\":true,\"useEnhancedTooltips\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}]}}",
+  "filters": "[{\"name\":\"Filterfb7f2b3e785a52a80ded\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"School_performance\"}},\"Property\":\"school_name\"}},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{\"general\":[{\"properties\":{}}]}}]",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY21SU11",
+            "path": "BaseThemes/CY21SU11.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    },
+    {
+      "resourcePackage": {
+        "items": [
+          {
+            "name": "Helvetica9526649695218714.json",
+            "path": "Helvetica9526649695218714.json",
+            "type": 100
+          }
+        ],
+        "name": "RegisteredResources",
+        "type": 1
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "TeacherPerformance",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"10b84b6b465756620c7a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":365,\"y\":30,\"width\":110,\"height\":29,\"z\":4000,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Teacher Name\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"10pt\",\"color\":\"#b6bbc1\"}}],\"horizontalTextAlignment\":\"center\"}]}}]}}}",
+          "filters": "[]",
+          "height": 29.00,
+          "width": 110.00,
+          "x": 365.00,
+          "y": 30.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"3fc82de26f9006b0deba\",\"layouts\":[{\"id\":0,\"position\":{\"x\":900,\"y\":27,\"z\":7000,\"width\":192.84581497797356,\"height\":32.70484581497797,\"tabOrder\":6000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Select week\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"10pt\",\"color\":\"#b6bbc1\"}}],\"horizontalTextAlignment\":\"right\"}]}}]}}}",
+          "filters": "[]",
+          "height": 32.70,
+          "width": 192.85,
+          "x": 900.00,
+          "y": 27.00,
+          "z": 7000.00
+        },
+        {
+          "config": "{\"name\":\"622b92dd8a380f5c1ac7\",\"layouts\":[{\"id\":0,\"position\":{\"x\":460,\"y\":21,\"z\":5000,\"width\":175,\"height\":48,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"School_performance.teacher_name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"School_performance\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"teacher_name\"},\"Name\":\"School_performance.teacher_name\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}},\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"selection\":[{\"properties\":{\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"strictSingleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"items\":[{\"properties\":{\"textSize\":{\"expr\":{\"Literal\":{\"Value\":\"8D\"}}}}}],\"general\":[{\"properties\":{}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}],\"title\":[{\"properties\":{\"titleWrap\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"'12'\"}}},\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'Signika'\"}}}}}],\"visualTooltip\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"'12'\"}}},\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'Signika'\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeaderTooltip\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"'12'\"}}},\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'Signika'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 48.00,
+          "width": 175.00,
+          "x": 460.00,
+          "y": 21.00,
+          "z": 5000.00
+        },
+        {
+          "config": "{\"name\":\"6d2ec7796de66d2860b9\",\"layouts\":[{\"id\":0,\"position\":{\"x\":76,\"y\":20.89002356637863,\"z\":2000,\"width\":125,\"height\":48.26394344069128,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"School_performance.class_gen_subject\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"School_performance\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"class_gen_subject\"},\"Name\":\"School_performance.class_gen_subject\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}},\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"selection\":[{\"properties\":{\"strictSingleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"general\":[{\"properties\":{}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"items\":[{\"properties\":{\"textSize\":{\"expr\":{\"Literal\":{\"Value\":\"8D\"}}}}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 48.26,
+          "width": 125.00,
+          "x": 76.00,
+          "y": 20.89,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"81b96943d4b6ac126e87\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1092.2796352583587,\"y\":19.45288753799392,\"z\":8000,\"width\":175,\"height\":43.76899696048633,\"tabOrder\":7000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"School_performance.WeekFormat\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"School_performance\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"WeekFormat\"},\"Name\":\"School_performance.WeekFormat\",\"NativeReferenceName\":\"WeekFormat\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"WeekFormat\"}}}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}},\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"general\":[{\"properties\":{}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"items\":[{\"properties\":{\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"textSize\":{\"expr\":{\"Literal\":{\"Value\":\"10D\"}}}}}],\"selection\":[{\"properties\":{\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"vcObjects\":{\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 43.77,
+          "width": 175.00,
+          "x": 1092.28,
+          "y": 19.45,
+          "z": 8000.00
+        },
+        {
+          "config": "{\"name\":\"916d41be07099ac91d0c\",\"layouts\":[{\"id\":0,\"position\":{\"x\":249,\"y\":21,\"width\":125,\"height\":48,\"z\":6000,\"tabOrder\":5000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"School_performance.IntGrade\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"School_performance\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"IntGrade\"},\"Name\":\"School_performance.IntGrade\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}},\"isInvertedSelectionMode\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"items\":[{\"properties\":{\"textSize\":{\"expr\":{\"Literal\":{\"Value\":\"8D\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"general\":[{\"properties\":{}}],\"selection\":[{\"properties\":{\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 48.00,
+          "width": 125.00,
+          "x": 249.00,
+          "y": 21.00,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"93d226269c4823fc4a3f\",\"layouts\":[{\"id\":0,\"position\":{\"x\":21,\"y\":30,\"z\":1000,\"width\":70,\"height\":29,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Subject\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"10pt\",\"color\":\"#b6bbc1\"}}],\"horizontalTextAlignment\":\"center\"}]}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 29.00,
+          "width": 70.00,
+          "x": 21.00,
+          "y": 30.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"a3b7928200bcd0415fb8\",\"layouts\":[{\"id\":0,\"position\":{\"x\":194,\"y\":30,\"z\":3000,\"width\":62,\"height\":29,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Grade\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"10pt\",\"color\":\"#b6bbc1\"}}],\"horizontalTextAlignment\":\"right\"}]}}]}}}",
+          "filters": "[]",
+          "height": 29.00,
+          "width": 62.00,
+          "x": 194.00,
+          "y": 30.00,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"b65dd9c1ca94cde66127\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":93.37386018237082,\"z\":0,\"width\":1280,\"height\":626.3829787234043,\"tabOrder\":8000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"School_performance.teacher_name\"},{\"queryRef\":\"School_performance.SubjectsList\"},{\"queryRef\":\"School_performance.GradesList\"},{\"queryRef\":\"School_performance.TeacherLogin\"},{\"queryRef\":\"School_performance.CompletionRate\"},{\"queryRef\":\"School_performance.Average Score average per lo_to_finish\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"School_performance\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"teacher_name\"},\"Name\":\"School_performance.teacher_name\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"CompletionRate\"},\"Name\":\"School_performance.CompletionRate\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Average Score average per lo_to_finish\"},\"Name\":\"School_performance.Average Score average per lo_to_finish\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"SubjectsList\"},\"Name\":\"School_performance.SubjectsList\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"GradesList\"},\"Name\":\"School_performance.GradesList\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"Teacher Login\"},\"Name\":\"School_performance.TeacherLogin\"}]},\"columnProperties\":{\"School_performance.Average Score average per lo_to_finish\":{\"displayName\":\"Average Class Score\"},\"School_performance.CompletionRate\":{\"displayName\":\"Completion Rate\"},\"School_performance.GradesList\":{\"displayName\":\"Grade\"},\"School_performance.SubjectsList\":{\"displayName\":\"Subject\"},\"School_performance.teacher_name\":{\"displayName\":\"Teacher\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"183.93669999610944D\"}}}},\"selector\":{\"metadata\":\"School_performance.GradesList\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"214.43900832711498D\"}}}},\"selector\":{\"metadata\":\"School_performance.SubjectsList\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"181.8666303544333D\"}}}},\"selector\":{\"metadata\":\"School_performance.CompletionRate\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"194.01959796806804D\"}}}},\"selector\":{\"metadata\":\"School_performance.Average Score average per lo_to_finish\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"298.28549196591837D\"}}}},\"selector\":{\"metadata\":\"School_performance.teacher_name\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"178.62047231840643D\"}}}},\"selector\":{\"metadata\":\"School_performance.TeacherLogin\"}}],\"columnHeaders\":[{\"properties\":{\"wordWrap\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Center'\"}}},\"fontColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#485465'\"}}}}},\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'''Segoe UI Bold'', wf_segoe-ui_bold, helvetica, arial, sans-serif'\"}}},\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"10D\"}}}}}],\"values\":[{\"properties\":{\"wordWrap\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"11D\"}}}}}],\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"columnFormatting\":[{\"properties\":{\"dataBars\":{\"positiveColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#D3F2F0'\"}}}}},\"negativeColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'minColor'\"}}}}},\"axisColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#b3b3b3'\"}}}}},\"reverseDirection\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"hideText\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}},\"selector\":{\"metadata\":\"School_performance.CompletionRate\"}},{\"properties\":{\"dataBars\":{\"positiveColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#D3F2F0'\"}}}}},\"negativeColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'minColor'\"}}}}},\"axisColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#b3b3b3'\"}}}}},\"reverseDirection\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"hideText\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}},\"selector\":{\"metadata\":\"School_performance.Average Score average per lo_to_finish\"}},{\"properties\":{\"dataBars\":{\"positiveColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#D3F2F0'\"}}}}},\"negativeColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'minColor'\"}}}}},\"axisColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#B3B3B3'\"}}}}},\"reverseDirection\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"hideText\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}},\"selector\":{\"metadata\":\"School_performance.TeacherLogin\"}}],\"grid\":[{\"properties\":{\"rowPadding\":{\"expr\":{\"Literal\":{\"Value\":\"6D\"}}},\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#21BCB6'\"}}}}}}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Minimal'\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Export'\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[{\"name\":\"Filtere79d9e023bde6bebace3\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"School_performance\"}},\"Property\":\"teacher_name\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"School_performance\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Not\":{\"Expression\":{\"Contains\":{\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"teacher_name\"}},\"Right\":{\"Literal\":{\"Value\":\"'ssigned'\"}}}}}}}]},\"type\":\"Advanced\",\"howCreated\":0,\"isHiddenInViewMode\":true},{\"name\":\"Filter3e7b45fab2efe0c48074\",\"expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"School_performance\"}},\"Property\":\"SubjectsList\"}},\"type\":\"Advanced\",\"howCreated\":0,\"isHiddenInViewMode\":true}]",
+          "height": 626.38,
+          "width": 1280.00,
+          "x": 0.00,
+          "y": 93.37,
+          "z": 0.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ],
+  "theme": "Helvetica9526649695218714.json"
+}

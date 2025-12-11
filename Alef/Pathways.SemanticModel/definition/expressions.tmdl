@@ -1,0 +1,21 @@
+expression Workspace = "a5f0c46e-748b-4616-8d20-e50b216e3f5e" meta [IsParameterQuery=true, List={"a5f0c46e-748b-4616-8d20-e50b216e3f5e", "7bbb17d8-30b9-4def-8550-9902e089b604"}, DefaultValue="a5f0c46e-748b-4616-8d20-e50b216e3f5e", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: d562b79c-57fc-4b3c-b5cd-8ace43991a4c
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+
+expression Pathwaydata = "9813d941-dbb1-4964-ae9f-93d84718481b" meta [IsParameterQuery=true, List={"9813d941-dbb1-4964-ae9f-93d84718481b", "efa8c4b8-dca1-47d3-a1b2-131cb6fe95f1"}, DefaultValue="9813d941-dbb1-4964-ae9f-93d84718481b", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: f42fe6ef-a9bb-43b9-aa30-29f63201be81
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+
+expression Dailyview = "945a180a-eff5-4071-b116-7b568a473d16" meta [IsParameterQuery=true, List={"945a180a-eff5-4071-b116-7b568a473d16", "64e8a256-2c67-4fd2-8b6c-2764f79c4587"}, DefaultValue="945a180a-eff5-4071-b116-7b568a473d16", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 797323b9-eb87-4f1c-a300-8aa80d8f2a48
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+

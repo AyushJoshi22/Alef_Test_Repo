@@ -1,0 +1,24 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Workspace","Dataflow","interim_checkpoint","month_range","FilterRows"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DaxQueryView_Desktop"]
+
+ref table DateTableTemplate_48f2f402-f9fc-46eb-90aa-27c1f2ef474c
+ref table interim_checkpoint
+ref table LocalDateTable_995a307d-bfba-45ec-92ba-4adfd330c6c4
+ref table month_range
+ref table LocalDateTable_65528c43-5ba7-467b-aba5-a503ef1eb1e0
+
+ref role School
+
+ref cultureInfo en-US
+

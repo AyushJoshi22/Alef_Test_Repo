@@ -1,0 +1,50 @@
+table Partition
+	lineageTag: bc1660b2-ce18-45af-8365-472c37f843a6
+
+	column Partition
+		lineageTag: 1a097023-9efc-4166-ad4d-c4fcf1b11725
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Partition Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Partition Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Partition Fields'
+		isHidden
+		lineageTag: 387e65e2-c1e9-4b4c-b7d9-3f01e3da9247
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Partition Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Partition Order'
+		isHidden
+		formatString: 0
+		lineageTag: ab36ac95-840f-467f-8603-9aa71f8be3c1
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Partition = calculated
+		mode: import
+		source =
+				{
+				    ("Level", NAMEOF('pathway_nlf_principal_dm_view'[level_name]), 3),
+				    ("Grade", NAMEOF('pathway_nlf_principal_dm_view'[grade_name]), 1),
+				    ("Domain", NAMEOF('pathway_nlf_principal_dm_view'[domain]), 2),
+				    ("Subject", NAMEOF('pathway_nlf_principal_dm_view'[subject_name]), 0)
+				}
+
+	annotation PBI_Id = 2386cced7edd488181ad46c226761d23
+

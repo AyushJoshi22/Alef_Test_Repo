@@ -1,0 +1,7 @@
+role school
+	modelPermission: read
+
+	tablePermission student_absentees = [school_id] = USERPRINCIPALNAME()
+
+	annotation PBI_Id = 84f06b221dd0486bb092fcbd63634761
+

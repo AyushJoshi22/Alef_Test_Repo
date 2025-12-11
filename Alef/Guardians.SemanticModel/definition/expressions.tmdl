@@ -1,0 +1,19 @@
+expression Schema = "eagles_alefdw_dev" meta [IsParameterQuery=true, List={"eagles_alefdw_dev", "eagles_alefdw"}, DefaultValue="eagles_alefdw_dev", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 60e04534-aed4-4fdc-9d16-135e0ee191eb
+
+	annotation PBI_ResultType = Text
+
+expression Workspace = "a5f0c46e-748b-4616-8d20-e50b216e3f5e" meta [IsParameterQuery=true, List={"a5f0c46e-748b-4616-8d20-e50b216e3f5e", "7bbb17d8-30b9-4def-8550-9902e089b604"}, DefaultValue="a5f0c46e-748b-4616-8d20-e50b216e3f5e", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 848b08d1-2789-4d71-a12e-25b31e5fc089
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression Dataflow = "fc62dcc7-ef7e-4d0a-891f-4466df19cf3c" meta [IsParameterQuery=true, List={"fc62dcc7-ef7e-4d0a-891f-4466df19cf3c", "37bc4361-2340-4170-98f9-60e61ac040f6"}, DefaultValue="fc62dcc7-ef7e-4d0a-891f-4466df19cf3c", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: a282514f-e01c-45f9-b0e6-0cf790b9858e
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

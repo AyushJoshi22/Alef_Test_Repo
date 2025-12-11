@@ -1,0 +1,65 @@
+relationship b421bed3-eff6-4f90-8ea8-787f07652bed
+	joinOnDateBehavior: datePartOnly
+	fromColumn: pathway_nlf_principal_dm_view.academic_year_start_date
+	toColumn: LocalDateTable_cd554d8b-78d8-47cf-897a-843a8327ed16.Date
+
+relationship a7b43ad4-33db-48bd-8c3f-68d96cb541ca
+	joinOnDateBehavior: datePartOnly
+	fromColumn: pathway_nlf_principal_dm_view.academic_year_end_date
+	toColumn: LocalDateTable_1bb6fee4-f24f-43e7-b712-7746608f6124.Date
+
+relationship 39a1b501-6d1f-4c0b-a843-ce5172fca078
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.Date
+	toColumn: LocalDateTable_7c1afe32-c381-47ad-b6c0-e8ca03595b2d.Date
+
+relationship c0c55149-e323-2563-677d-50aadf3e4271
+	crossFilteringBehavior: bothDirections
+	fromColumn: pathway_nlf_principal_dm_view.month
+	toColumn: Date.Date
+
+relationship 0b33c17f-40b0-48bc-b7b8-12ef8d2e6900
+	joinOnDateBehavior: datePartOnly
+	fromColumn: pathway_student_daily_activity.datest
+	toColumn: LocalDateTable_6bd9f612-45e2-4090-ad49-ca2f7891e7d5.Date
+
+relationship 4c5a1cc6-95de-e35c-ef82-3bc5e3dbfbd5
+	toCardinality: many
+	fromColumn: pathway_student_daily_activity.student_dw_id
+	toColumn: pathway_nlf_principal_dm_view.active_student_dw_id
+
+relationship ecbe7602-3e58-4716-8225-6da11250272b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.MonthStartDate
+	toColumn: LocalDateTable_df76436a-050f-41e4-8709-8d070da48b7e.Date
+
+relationship 27ed406e-1cf3-443b-85b0-6d2fa5715271
+	joinOnDateBehavior: datePartOnly
+	fromColumn: pathway_student_daily_activity.datemonth
+	toColumn: LocalDateTable_bd5c502b-7151-45be-9ef3-6ff943347443.Date
+
+relationship 9d0c716d-7da5-25c7-705e-96a074c5fee5
+	toCardinality: many
+	fromColumn: LevelsCompleted.active_student_dw_id
+	toColumn: pathway_nlf_principal_dm_view.active_student_dw_id
+
+relationship 16ad8dca-69f7-4ce3-8307-1b74258b7c2a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: LevelsCompleted.month
+	toColumn: LocalDateTable_9842d367-7afb-4e09-9463-6dc01598a9be.Date
+
+relationship 2768efdd-7a2b-4ea2-bff4-8b52655d885d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimMonth.MonthStartDate
+	toColumn: LocalDateTable_337f37be-01a0-4384-9315-f4c0dbc7c07d.Date
+
+relationship fb99784d-04a4-4ba8-b514-94d53fe5a017
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimMonth_Start.MonthStartDate
+	toColumn: LocalDateTable_3cf056a2-dc4a-4287-8250-92bcaf140735.Date
+
+relationship cda8383c-756f-45d1-ad77-0a32db4bbec2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimMonth_End.MonthStartDate
+	toColumn: LocalDateTable_487646f1-6b4e-401a-a1c3-913a2b69117a.Date
+

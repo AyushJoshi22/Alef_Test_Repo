@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Warehouse",
+    "displayName": "Alef-Practise"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "1a4b0151-2be0-bcae-46bd-bf65ddf3e287"
+  }
+}

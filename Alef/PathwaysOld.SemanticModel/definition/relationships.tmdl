@@ -1,0 +1,46 @@
+relationship 984155fb-8bd3-4d88-b044-02bfc072de1f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: pathway_activity_principal_dm_view.flr_created_time
+	toColumn: LocalDateTable_c7b8a08c-25fc-43fb-8448-d51d11b42116.Date
+
+relationship 53caea14-2454-4e89-ae4c-f2de579106ac
+	joinOnDateBehavior: datePartOnly
+	fromColumn: pathway_activity_principal_dm_view.fle_activity_time_local
+	toColumn: LocalDateTable_d4744552-541b-4f5a-8966-acae4120a802.Date
+
+relationship 16d82bf5-78e1-435b-ba0f-b72adb41e6c2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: pathway_activity_principal_dm_view.level_completed_time
+	toColumn: LocalDateTable_44470479-d0f5-43ba-ba2b-a0b2ac9e8b2e.Date
+
+relationship fbd43cb1-f0e6-46bd-b522-f208256455eb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.Date
+	toColumn: LocalDateTable_7c1afe32-c381-47ad-b6c0-e8ca03595b2d.Date
+
+relationship fbd3ac40-c626-4042-a059-33300534a8e9
+	crossFilteringBehavior: bothDirections
+	fromColumn: pathway_activity_principal_dm_view.fle_activity_date
+	toColumn: Date.Date
+
+relationship 025df3b4-d968-49c2-8a98-796ff770b7bd
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromColumn: pathway_activity_principal_dm_view.'level_completed_time - Copy'
+	toColumn: Date.Date
+
+relationship 512979f7-9e91-15ef-2b95-70162b99d1ea
+	toCardinality: many
+	fromColumn: pathway_activity_principal_dm_view.curr_subject_name
+	toColumn: school_default_pathway_subject.default_subject
+
+relationship 1f3ee5e6-aa5e-41f3-80a0-fb877b458080
+	joinOnDateBehavior: datePartOnly
+	fromColumn: pathway_activity_principal_dm_view.academic_year_start_date
+	toColumn: LocalDateTable_f76ee0f0-be28-444a-b860-32a99d309be8.Date
+
+relationship feb9e77b-5bf9-4878-964b-805b9e38f9a6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: pathway_activity_principal_dm_view.complted_activity_date_local
+	toColumn: LocalDateTable_a19d0923-d5e5-4db8-b930-2460a78fee24.Date
+

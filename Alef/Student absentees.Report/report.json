@@ -1,0 +1,204 @@
+{
+  "config": "{\"version\":\"5.66\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY21SU04\",\"type\":2,\"version\":{\"visual\":\"1.8.59\",\"report\":\"2.0.59\",\"page\":\"1.3.59\"}},\"customTheme\":{\"name\":\"Helvetica20347399474166128.json\",\"type\":1,\"version\":{\"visual\":\"1.8.60\",\"report\":\"2.0.60\",\"page\":\"1.3.60\"}}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"slowDataSourceSettings\":{\"isCrossHighlightingDisabled\":false,\"isSlicerSelectionsButtonEnabled\":false,\"isFilterSelectionsButtonEnabled\":false,\"isFieldWellButtonEnabled\":false,\"isApplyAllButtonEnabled\":false},\"linguisticSchemaSyncVersion\":2,\"settings\":{\"isPersistentUserStateDisabled\":false,\"hideVisualContainerHeader\":true,\"useStylableVisualContainerHeader\":true,\"exportDataMode\":1,\"useNewFilterPaneExperience\":true,\"optOutNewFilterPaneExperience\":false,\"defaultFilterActionIsDataFilter\":false,\"useCrossReportDrillthrough\":false,\"allowChangeFilterTypes\":false,\"allowInlineExploration\":false,\"disableFilterPaneSearch\":false,\"enableDeveloperMode\":false,\"useEnhancedTooltips\":false,\"allowDataPointLassoSelect\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}],\"outspacePane\":[{\"properties\":{\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}",
+  "filters": "[{\"name\":\"Filter64cde8a805820ebfa545\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"student_absentees\"}},\"Property\":\"school_name\"}},\"type\":\"Categorical\",\"howCreated\":1,\"objects\":{\"general\":[{\"properties\":{}}]}}]",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY21SU04",
+            "path": "BaseThemes/CY21SU04.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    },
+    {
+      "resourcePackage": {
+        "items": [
+          {
+            "name": "Helvetica20347399474166128.json",
+            "path": "Helvetica20347399474166128.json",
+            "type": 100
+          }
+        ],
+        "name": "RegisteredResources",
+        "type": 1
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{\"objects\":{\"outspacePane\":[{\"properties\":{\"width\":{\"expr\":{\"Literal\":{\"Value\":\"284L\"}}}}}]}}",
+      "displayName": "AbsentStudents",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"0909e6c015729479c148\",\"layouts\":[{\"id\":0,\"position\":{\"x\":245,\"y\":22,\"z\":8000,\"width\":140,\"height\":48,\"tabOrder\":7000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"absent_student.section\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"student_absentees\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"section\"},\"Name\":\"absent_student.section\"}]},\"syncGroup\":{\"groupName\":\"section\",\"fieldChanges\":true,\"filterChanges\":true},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"items\":[{\"properties\":{\"textSize\":{\"expr\":{\"Literal\":{\"Value\":\"8D\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"general\":[{\"properties\":{}}],\"selection\":[{\"properties\":{\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 48.00,
+          "width": 140.00,
+          "x": 245.00,
+          "y": 22.00,
+          "z": 8000.00
+        },
+        {
+          "config": "{\"name\":\"243b9b882a41da5e90ae\",\"layouts\":[{\"id\":0,\"position\":{\"x\":420,\"y\":22,\"z\":6000,\"width\":140,\"height\":48,\"tabOrder\":5000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"absent_student.Status\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"student_absentees\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Status\"},\"Name\":\"absent_student.Status\"}]},\"syncGroup\":{\"groupName\":\"Status\",\"fieldChanges\":true,\"filterChanges\":true},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"items\":[{\"properties\":{\"textSize\":{\"expr\":{\"Literal\":{\"Value\":\"8D\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"general\":[{\"properties\":{}}],\"selection\":[{\"properties\":{\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 48.00,
+          "width": 140.00,
+          "x": 420.00,
+          "y": 22.00,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"38d398ccafb2d90070d6\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1144.814462416746,\"y\":51.15128449096099,\"z\":0,\"width\":130,\"height\":59.67649857278782,\"tabOrder\":10000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":{\"propertyIdentifier\":{\"objectName\":\"values\",\"propertyName\":\"expr\"},\"selector\":{\"id\":\"MinDate\"}},\"textStyle\":{\"fontSize\":\"8pt\",\"color\":\"#cccccc\"}},{\"value\":\" \",\"textStyle\":{\"fontSize\":\"8pt\",\"color\":\"#cccccc\"}},{\"value\":{\"propertyIdentifier\":{\"objectName\":\"values\",\"propertyName\":\"expr\"},\"selector\":{\"id\":\"Dash\"}},\"textStyle\":{\"fontSize\":\"8pt\",\"color\":\"#cccccc\"}},{\"value\":{\"propertyIdentifier\":{\"objectName\":\"values\",\"propertyName\":\"expr\"},\"selector\":{\"id\":\"MaxDate\"}},\"textStyle\":{\"fontSize\":\"8pt\",\"color\":\"#cccccc\"}}]}]}}],\"values\":[{\"properties\":{\"expr\":{\"expr\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"Subquery\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Date\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Date\"},\"Name\":\"Date.Date\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Weeknum\"},\"Name\":\"Date.Weeknum\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"WeekStartDate\"},\"Name\":\"Date.WeekStartDate\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"WeekEndDate\"},\"Name\":\"Date.WeekEndDate\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Yearweek\"},\"Name\":\"Date.Yearweek\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Week\"},\"Name\":\"Date.Week\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"WeeksFilter\"},\"Name\":\"Date.WeeksFilter\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"ExcludeToday\"},\"Name\":\"Date.ExcludeToday\"}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"WeeksFilter\"}},\"Right\":{\"Literal\":{\"Value\":\"'This Week'\"}}}}}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Date\"}}}]}}},\"Property\":\"Date.Date\"}},\"Function\":3},\"Annotations\":{\"NaturalLanguage\":{\"version\":1,\"kind\":\"NaturalLanguage\",\"annotation\":{\"name\":\"MinDate\",\"utterance\":\"MInimal date if This Week (weeks filter)\"}}}}},\"formatString\":{\"expr\":{\"Literal\":{\"Value\":\"'dd/MM/yyyy'\"}}}},\"selector\":{\"id\":\"MinDate\"}},{\"properties\":{\"expr\":{\"expr\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"Subquery\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Date\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Dash\"},\"Name\":\"Date.Dash\"}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"WeeksFilter\"}},\"Right\":{\"Literal\":{\"Value\":\"'This Week'\"}}}}}]}}},\"Property\":\"Date.Dash\"}},\"Function\":3},\"Annotations\":{\"NaturalLanguage\":{\"version\":1,\"kind\":\"NaturalLanguage\",\"annotation\":{\"name\":\"Dash\",\"utterance\":\"Dash if This Week (weeks filter)\"}}}}}},\"selector\":{\"id\":\"Dash\"}},{\"properties\":{\"expr\":{\"expr\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"Subquery\":{\"Query\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Date\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"WeekEndDate\"},\"Name\":\"Date.WeekEndDate\"}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"WeeksFilter\"}},\"Right\":{\"Literal\":{\"Value\":\"'This Week'\"}}}}}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"WeekEndDate\"}}}]}}},\"Property\":\"Date.WeekEndDate\"}},\"Function\":3},\"Annotations\":{\"NaturalLanguage\":{\"version\":1,\"kind\":\"NaturalLanguage\",\"annotation\":{\"name\":\"MaxDate\",\"utterance\":\"week end date if This Week (weeks filter)\"}}}}},\"formatString\":{\"expr\":{\"Literal\":{\"Value\":\"'dd/MM/yyyy'\"}}}},\"selector\":{\"id\":\"MaxDate\"}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 59.68,
+          "width": 130.00,
+          "x": 1144.81,
+          "y": 51.15,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"47f1f0dd38c1a5852455\",\"layouts\":[{\"id\":0,\"position\":{\"x\":750,\"y\":22.37082066869301,\"z\":10000,\"width\":209.11854103343467,\"height\":47.65957446808511,\"tabOrder\":9000}}],\"singleVisual\":{\"visualType\":\"multiRowCard\",\"projections\":{\"Values\":[{\"queryRef\":\"absent_student.total rows\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"student_absentees\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"total rows\"},\"Name\":\"absent_student.total rows\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"total rows\"}}}]},\"columnProperties\":{\"absent_student.total rows\":{\"displayName\":\"Absent Students\"}},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"categoryLabels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"8D\"}}},\"color\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#B6BBC1'\"}}}}}}}],\"dataLabels\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":-0.6}}}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"12D\"}}}}}],\"card\":[{\"properties\":{\"barColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#B6BBC1'\"}}}}}}}]},\"vcObjects\":{\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 47.66,
+          "width": 209.12,
+          "x": 750.00,
+          "y": 22.37,
+          "z": 10000.00
+        },
+        {
+          "config": "{\"name\":\"4a594860924ee3cd60ed\",\"layouts\":[{\"id\":0,\"position\":{\"x\":735.5844155844155,\"y\":69.6103896103896,\"z\":11000,\"width\":20.77922077922078,\"height\":51.94805194805195,\"tabOrder\":11000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"\"}]}]}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 51.95,
+          "width": 20.78,
+          "x": 735.58,
+          "y": 69.61,
+          "z": 11000.00
+        },
+        {
+          "config": "{\"name\":\"75c07a8791606c7d651d\",\"layouts\":[{\"id\":0,\"position\":{\"x\":8,\"y\":80.72948328267478,\"z\":1000,\"width\":1266,\"height\":639.0273556231003,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"student_absentees.student_name\"},{\"queryRef\":\"Sum(student_absentees.available_student_dw_id)\"},{\"queryRef\":\"student_absentees.Append.email\"},{\"queryRef\":\"Sum(absent_student.grade)\"},{\"queryRef\":\"absent_student.section\"},{\"queryRef\":\"student_absentees.Login Ratio %\"},{\"queryRef\":\"Sum(student_absentees.total_absent_days)\"},{\"queryRef\":\"student_absentees.absent_days\"},{\"queryRef\":\"absent_student.Last Login Date\"},{\"queryRef\":\"absent_student.Days from last login\"},{\"queryRef\":\"absent_student.Onboarding Flag\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"student_absentees\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Status\"},\"Name\":\"absent_student.Onboarding Flag\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Last Login Date\"}},\"Function\":4},\"Name\":\"absent_student.Last Login Date\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Days from last login\"},\"Name\":\"absent_student.Days from last login\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"grade\"},\"Name\":\"Sum(absent_student.grade)\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"section\"},\"Name\":\"absent_student.section\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"student_name\"},\"Name\":\"student_absentees.student_name\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"available_student_dw_id\"},\"Name\":\"Sum(student_absentees.available_student_dw_id)\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"absent_days\"},\"Name\":\"student_absentees.absent_days\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"total_absent_days\"}},\"Function\":0},\"Name\":\"Sum(student_absentees.total_absent_days)\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Append.email\"},\"Name\":\"student_absentees.Append.email\",\"NativeReferenceName\":\"Email\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"Login %\"},\"Name\":\"student_absentees.Login Ratio %\",\"NativeReferenceName\":\"Login %\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"grade\"}}}]},\"columnProperties\":{\"Sum(absent_student.grade)\":{\"displayName\":\"Grade\"},\"absent_student.section\":{\"displayName\":\"Section\"},\"student_absentees.student_name\":{\"displayName\":\"Student Name\"},\"Sum(student_absentees.available_student_dw_id)\":{\"displayName\":\"Student Id (internal usage only)\"},\"student_absentees.absent_days\":{\"displayName\":\"Days Absent\"},\"Sum(student_absentees.total_absent_days)\":{\"displayName\":\"Total Days Absent\"},\"absent_student.Last Login Date\":{\"displayName\":\"Last Login Date\"},\"student_absentees.Append.email\":{\"displayName\":\"Email\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"columnHeaders\":[{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Center'\"}}},\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'''Segoe UI Bold'', wf_segoe-ui_bold, helvetica, arial, sans-serif'\"}}},\"fontColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":-0.6}}}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"9D\"}}},\"wordWrap\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"autoSizeColumnWidth\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"values\":[{\"properties\":{\"fontColorPrimary\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#5B5B5B'\"}}}}},\"backColorSecondary\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}},\"fontColorSecondary\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#5B5B5B'\"}}}}},\"backColorPrimary\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#F4F5F7'\"}}}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"10D\"}}},\"wordWrap\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"grid\":[{\"properties\":{\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#B3B3B3'\"}}}}},\"gridHorizontalColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#E5E5E5'\"}}}}}}}],\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"139.66293292469473D\"}}}},\"selector\":{\"metadata\":\"absent_student.Onboarding Flag\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"99.20295941806056D\"}}}},\"selector\":{\"metadata\":\"Sum(absent_student.grade)\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"150.58150909002916D\"}}}},\"selector\":{\"metadata\":\"absent_student.section\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"117.01567355271112D\"}}}},\"selector\":{\"metadata\":\"absent_student.Last Login Date\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"123.37993051856817D\"}}}},\"selector\":{\"metadata\":\"absent_student.Days from last login\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"364.25095057034224D\"}}}},\"selector\":{\"metadata\":\"student_absentees.student_name\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"4D\"}}}},\"selector\":{\"metadata\":\"Sum(student_absentees.available_student_dw_id)\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"4D\"}}}},\"selector\":{\"metadata\":\"student_absentees.absent_days\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"129.2445339631797D\"}}}},\"selector\":{\"metadata\":\"Sum(student_absentees.total_absent_days)\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"4D\"}}}},\"selector\":{\"metadata\":\"student_absentees.Append.email\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"105.01334210898155D\"}}}},\"selector\":{\"metadata\":\"student_absentees.Login Ratio %\"}}],\"columnFormatting\":[{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Center'\"}}}},\"selector\":{\"metadata\":\"absent_student.Days from last login\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Center'\"}}}},\"selector\":{\"metadata\":\"absent_student.Onboarding Flag\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Center'\"}}}},\"selector\":{\"metadata\":\"Sum(absent_student.grade)\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Center'\"}}}},\"selector\":{\"metadata\":\"absent_student.Last Login Date\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Center'\"}}}},\"selector\":{\"metadata\":\"Sum(student_absentees.total_absent_days)\"}},{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Center'\"}}}},\"selector\":{\"metadata\":\"student_absentees.Login Ratio %\"}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Minimal'\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}],\"visualTooltip\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"8D\"}}},\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'Helvetica'\"}}},\"section\":{\"expr\":{\"Literal\":{\"Value\":\"'ReportSectionb74aa7b16466b4c6b2ae'\"}}},\"background\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#485465'\"}}}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Export'\"}}},\"titleWrap\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"'12'\"}}},\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'Helvetica'\"}}}}}],\"lockAspect\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"visualHeaderTooltip\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"'12'\"}}},\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'Helvetica'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 639.03,
+          "width": 1266.00,
+          "x": 8.00,
+          "y": 80.73,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"8102cc5aa39ba007df15\",\"layouts\":[{\"id\":0,\"position\":{\"x\":190,\"y\":30,\"z\":9000,\"width\":70,\"height\":29,\"tabOrder\":8000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Section\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"10pt\",\"color\":\"#b6bbc1\"}}],\"horizontalTextAlignment\":\"center\"}]}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 29.00,
+          "width": 70.00,
+          "x": 190.00,
+          "y": 30.00,
+          "z": 9000.00
+        },
+        {
+          "config": "{\"name\":\"9a8c03dcc597c34c1b78\",\"layouts\":[{\"id\":0,\"position\":{\"x\":555,\"y\":30,\"z\":12000,\"width\":110,\"height\":29,\"tabOrder\":12000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Special needs\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"10pt\",\"color\":\"#b6bbc1\"}}],\"horizontalTextAlignment\":\"center\"}]}}]}}}",
+          "filters": "[]",
+          "height": 29.00,
+          "width": 110.00,
+          "x": 555.00,
+          "y": 30.00,
+          "z": 12000.00
+        },
+        {
+          "config": "{\"name\":\"d1ecc21476d4b033ee53\",\"layouts\":[{\"id\":0,\"position\":{\"x\":650.3896103896104,\"y\":22,\"z\":13000,\"width\":100,\"height\":48,\"tabOrder\":13000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"student_absentees.special_needs\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"student_absentees\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"special_needs\"},\"Name\":\"student_absentees.special_needs\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"selection\":[{\"properties\":{\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"items\":[{\"properties\":{\"textSize\":{\"expr\":{\"Literal\":{\"Value\":\"8D\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"titleWrap\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"'12'\"}}},\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'Helvetica'\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}],\"visualTooltip\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"'12'\"}}},\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'Helvetica'\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeaderTooltip\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"'12'\"}}},\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'Helvetica'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 48.00,
+          "width": 100.00,
+          "x": 650.39,
+          "y": 22.00,
+          "z": 13000.00
+        },
+        {
+          "config": "{\"name\":\"d6899253973a8690939c\",\"layouts\":[{\"id\":0,\"position\":{\"x\":62,\"y\":22,\"z\":2000,\"width\":140,\"height\":48,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"absent_student.grade\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"student_absentees\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"grade\"},\"Name\":\"absent_student.grade\"}]},\"syncGroup\":{\"groupName\":\"grade\",\"fieldChanges\":true,\"filterChanges\":true},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}],\"items\":[{\"properties\":{\"textSize\":{\"expr\":{\"Literal\":{\"Value\":\"8D\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"selection\":[{\"properties\":{\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 48.00,
+          "width": 140.00,
+          "x": 62.00,
+          "y": 22.00,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"e1e251763cb3ad9add57\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1035,\"y\":30,\"z\":4000,\"width\":110,\"height\":29,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Select Week\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"10pt\",\"color\":\"#b6bbc1\"}}],\"horizontalTextAlignment\":\"right\"}]}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 29.00,
+          "width": 110.00,
+          "x": 1035.00,
+          "y": 30.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"f0a5c8f72fa99f03a7bb\",\"layouts\":[{\"id\":0,\"position\":{\"x\":10,\"y\":30,\"z\":7000,\"width\":60,\"height\":29,\"tabOrder\":6000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Grade\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"10pt\",\"color\":\"#b6bbc1\"}}],\"horizontalTextAlignment\":\"right\"}]}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 29.00,
+          "width": 60.00,
+          "x": 10.00,
+          "y": 30.00,
+          "z": 7000.00
+        },
+        {
+          "config": "{\"name\":\"f13508f5376d370dba99\",\"layouts\":[{\"id\":0,\"position\":{\"x\":375,\"y\":30,\"z\":5000,\"width\":60,\"height\":29,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Status\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"10pt\",\"color\":\"#b6bbc1\"}}],\"horizontalTextAlignment\":\"center\"}]}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 29.00,
+          "width": 60.00,
+          "x": 375.00,
+          "y": 30.00,
+          "z": 5000.00
+        },
+        {
+          "config": "{\"name\":\"f7e277796c4c7f3050a8\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1135.0759878419453,\"y\":22,\"z\":3000,\"width\":140,\"height\":48,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Date.WeeksFilter\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Date\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"WeeksFilter\"},\"Name\":\"Date.WeeksFilter\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"WeeksFilter\"}}}]},\"syncGroup\":{\"groupName\":\"WeeksFilter\",\"fieldChanges\":true,\"filterChanges\":true},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"Date\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"WeeksFilter\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'This Week'\"}}]]}}}]}}}}],\"selection\":[{\"properties\":{\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"strictSingleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"items\":[{\"properties\":{\"textSize\":{\"expr\":{\"Literal\":{\"Value\":\"8D\"}}}}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 48.00,
+          "width": 140.00,
+          "x": 1135.08,
+          "y": 22.00,
+          "z": 3000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{\"objects\":{\"outspacePane\":[{\"properties\":{\"width\":{\"expr\":{\"Literal\":{\"Value\":\"284L\"}}}}}]},\"visibility\":1,\"type\":1}",
+      "displayName": "Tooltip",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 69.00,
+      "name": "ReportSectionb74aa7b16466b4c6b2ae",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"9f7b236a264cb0d00055\",\"layouts\":[{\"id\":0,\"position\":{\"x\":735.5844155844155,\"y\":69.6103896103896,\"z\":11000,\"width\":20.77922077922078,\"height\":51.94805194805195,\"tabOrder\":11000}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"\"}]}]}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 51.95,
+          "width": 20.78,
+          "x": 735.58,
+          "y": 69.61,
+          "z": 11000.00
+        },
+        {
+          "config": "{\"name\":\"c4203c9bda652831b172\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":2,\"z\":1000,\"width\":600,\"height\":66,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"student_absentees.student_name\"},{\"queryRef\":\"Sum(student_absentees.available_student_dw_id)\"},{\"queryRef\":\"student_absentees.absent_days\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"a\",\"Entity\":\"student_absentees\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"student_name\"},\"Name\":\"student_absentees.student_name\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"available_student_dw_id\"},\"Name\":\"Sum(student_absentees.available_student_dw_id)\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"a\"}},\"Property\":\"absent_days\"},\"Name\":\"student_absentees.absent_days\"}]},\"columnProperties\":{\"student_absentees.student_name\":{\"displayName\":\"Student Name\"},\"Sum(student_absentees.available_student_dw_id)\":{\"displayName\":\"Student Id (internal usage only)\"},\"student_absentees.absent_days\":{\"displayName\":\"Days absent excluding weekends and holidays\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"columnHeaders\":[{\"properties\":{\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Center'\"}}},\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'''Segoe UI Bold'', wf_segoe-ui_bold, helvetica, arial, sans-serif'\"}}},\"fontColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":-0.6}}}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"8D\"}}},\"wordWrap\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"autoSizeColumnWidth\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"values\":[{\"properties\":{\"fontColorPrimary\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#5B5B5B'\"}}}}},\"backColorSecondary\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}},\"fontColorSecondary\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#5B5B5B'\"}}}}},\"backColorPrimary\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#F4F5F7'\"}}}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"8D\"}}},\"wordWrap\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"grid\":[{\"properties\":{\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#B3B3B3'\"}}}}},\"gridHorizontalColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#E5E5E5'\"}}}}}}}],\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"285.72996125714786D\"}}}},\"selector\":{\"metadata\":\"student_absentees.student_name\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"4D\"}}}},\"selector\":{\"metadata\":\"Sum(student_absentees.available_student_dw_id)\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"295.3610876882958D\"}}}},\"selector\":{\"metadata\":\"student_absentees.absent_days\"}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'Minimal'\"}}}}}],\"visualHeader\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"background\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"transparency\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}],\"visualTooltip\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"'12'\"}}},\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'Helvetica'\"}}}}}],\"title\":[{\"properties\":{\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Export'\"}}},\"titleWrap\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"'12'\"}}},\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'Helvetica'\"}}}}}],\"lockAspect\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"visualHeaderTooltip\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"'12'\"}}},\"fontFamily\":{\"expr\":{\"Literal\":{\"Value\":\"'Helvetica'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 66.00,
+          "width": 600.00,
+          "x": 0.00,
+          "y": 2.00,
+          "z": 1000.00
+        }
+      ],
+      "width": 601.00
+    }
+  ],
+  "theme": "Helvetica20347399474166128.json"
+}

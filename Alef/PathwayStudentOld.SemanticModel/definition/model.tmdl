@@ -1,0 +1,25 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["WorkspaceId","Dataflow","Merge","FilterRows"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+ref table DateTableTemplate_a1397d82-14f6-410f-bee1-903c28c0e896
+ref table Date
+ref table Merge
+ref table LocalDateTable_abd35901-85eb-4b1e-b355-497c70971c61
+ref table LocalDateTable_e40ae7d0-d841-4761-b33e-8680c334194a
+ref table LocalDateTable_e1891e40-cd29-4344-9ee4-3dc432cc1918
+ref table LocalDateTable_aadd2272-6ad2-48ec-8c6c-8932ea70fef0
+ref table LocalDateTable_9a882ee5-ada0-447f-a8d6-aef703479bb5
+
+ref role school
+
+ref cultureInfo en-US
+

@@ -1,0 +1,420 @@
+table guardian_enrollment
+	lineageTag: 39288233-d41c-475f-923f-3deceaed8c2c
+
+	measure 'Total Students' =
+			
+			var _totalstudents = SUMX(
+				KEEPFILTERS(VALUES('guardian_enrollment'[section])),
+				CALCULATE(MAX('guardian_enrollment'[total_students])
+			))
+			return
+			if (ISBLANK(_totalstudents),0,_totalstudents)
+		formatString: #,0
+		lineageTag: f0a977d6-bb36-46ee-a792-f37db905d4df
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "MaxPerCategory"
+				}
+
+		changedProperty = FormatString
+
+	measure Students_wth_guardian =
+			
+			var st_guardian  = DISTINCTCOUNTNOBLANK(guardian_enrollment[guardian_student_dw_id])
+			return
+			st_guardian
+			--if(ISBLANK(st_guardian),0,st_guardian)
+		formatString: 0
+		lineageTag: 46d45200-ab3f-4169-a130-9c9fbe14abfa
+
+	measure 'Student Coverage' = ```
+			
+			 var stud_coverage = Divide ([Students_wth_guardian],guardian_enrollment[RT Total Students2],0)
+			 return
+			 if (ISBLANK(stud_coverage),0,stud_coverage)
+			```
+		formatString: 0%;-0%;0%
+		lineageTag: 51fd4c2f-257f-4888-aff3-e9e36e4b23b8
+
+		changedProperty = FormatString
+
+	measure 'Student Coverage running total in guardian_registered_date' = ```
+			
+			CALCULATE(
+				[Student Coverage_chart],
+				FILTER(
+					ALL('Date'[Date]),
+					'Date'[Date]<= MAX('Date'[Date])), 
+			        'Date'[Date])
+			```
+		formatString: 0%;-0%;0%
+		lineageTag: 5e91d208-f0ce-476b-9048-e32996c1f2bd
+
+		extendedProperty MeasureTemplate =
+				{
+				  "version": 0,
+				  "daxTemplateName": "RunningTotal"
+				}
+
+		changedProperty = FormatString
+
+	measure 'RT Student wth Guardian' = ```
+			
+			CALCULATE(
+				[Students_wth_guardian],
+				FILTER(
+					ALL('Date'[Date]),
+					'Date'[Date]<= MAX('Date'[Date])), 
+			        'Date'[Date])
+			
+			```
+		formatString: #,0
+		lineageTag: b6c98dc1-3051-448d-b2c6-918a14866e29
+
+		changedProperty = FormatString
+
+	measure 'Total Guardians' = ```
+			
+			var guardians = DISTINCTCOUNTNOBLANK(guardian_enrollment[guardian_dw_id])
+			return 
+			if(ISBLANK(guardians),0,guardians)
+			```
+		formatString: 0
+		lineageTag: 2aaf0c3a-9332-4716-97eb-76a74571b0ed
+
+		changedProperty = FormatString
+
+	measure 'Guardians Last7d' = ```
+			
+			var gaurdian7d = CALCULATE(guardian_enrollment[Total Guardians],
+			FILTER(guardian_enrollment,
+			    guardian_enrollment[guardian_registered_date]>TODAY()-7))
+			return
+			if(ISBLANK(gaurdian7d),0,gaurdian7d)
+			
+			```
+		formatString: 0
+		lineageTag: 03386210-0f0d-433f-be3c-8a13e9890c3d
+
+	measure 'Guardians Last30d' =
+			
+			var guardian30d = CALCULATE(guardian_enrollment[Total Guardians],
+			FILTER(guardian_enrollment,
+			    guardian_enrollment[guardian_registered_date]>TODAY()-30))
+			return
+			if (isblank(guardian30d),0,guardian30d)
+		formatString: 0
+		lineageTag: 842b84d0-f331-4f24-837c-13df01499e06
+
+	measure 'RT Guardians' = ```
+			
+			CALCULATE(
+				[Total Guardians_chart],
+				FILTER(
+					ALL('Date'[Date]),
+					'Date'[Date]<= MAX('Date'[Date])), 
+			        'Date'[Date])
+			```
+		formatString: 0
+		lineageTag: ba16f749-c98c-4915-a0a0-6c4e786ef642
+
+	measure 'RT Total Students' = ```
+			
+			CALCULATE(
+				[Total Students],
+				FILTER(
+					ALL('Date'[Date]),
+					'Date'[Date]<= MAX('Date'[Date])), 
+			        'Date'[Date])
+			```
+		formatString: 0
+		lineageTag: be44f5f1-df94-40bd-a6d1-b4af576c3980
+
+	measure MaxDate = MAX(guardian_enrollment[guardian_registered_date])
+		formatString: General Date
+		lineageTag: 9ecd49dc-7833-41c9-a4e8-8212ef730753
+
+	measure Mindate = MIN(guardian_enrollment[guardian_registered_date])
+		formatString: General Date
+		lineageTag: d898cb20-40e2-4659-bf07-2d6269c42008
+
+	measure 'Guardians Last60' =
+			
+			var guardian30d = CALCULATE(guardian_enrollment[Total Guardians],
+			FILTER(guardian_enrollment,
+			    guardian_enrollment[guardian_registered_date]>TODAY()-60))
+			return
+			if (isblank(guardian30d),0,guardian30d)
+		formatString: 0
+		lineageTag: 747c1764-58c5-4cd3-af27-c9cc2978565c
+
+	measure DynGuardiansLast30 = DIVIDE(guardian_enrollment[Guardians Last30d],(guardian_enrollment[Guardians Last60]-guardian_enrollment[Guardians Last30d]),0)-1
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 0c67a5eb-af8e-4342-9ece-292980164219
+
+		changedProperty = FormatString
+
+	measure Measure
+		lineageTag: bfa7397d-aa05-4c43-8be5-b83348c6846a
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'Guardians Last14d' = ```
+			
+			var gaurdian7d = CALCULATE(guardian_enrollment[Total Guardians],
+			FILTER(guardian_enrollment,
+			    guardian_enrollment[guardian_registered_date]>TODAY()-14))
+			return
+			if(ISBLANK(gaurdian7d),0,gaurdian7d)
+			
+			```
+		formatString: 0
+		lineageTag: 7b09854a-064f-468b-953f-26feb0de706b
+
+	measure DynGuardiansLast7 = DIVIDE(guardian_enrollment[Guardians Last7d],(guardian_enrollment[Guardians Last14d]-guardian_enrollment[Guardians Last7d]),0)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 84cd40a7-5249-45b9-b4a4-59094a315229
+
+		changedProperty = FormatString
+
+	measure DrillUp = IF (SELECTEDVALUE(guardian_enrollment[grade]),"▲","")
+		lineageTag: 4e99a53e-c9d3-48da-925e-133ec5c6074a
+
+	measure DrillUpText = IF (SELECTEDVALUE(guardian_enrollment[grade]),"drill-up","")
+		lineageTag: 454a20ea-4a89-468c-9ef1-88ca899e6139
+
+	measure 'Avg Guardians per Student' = DiVIDE(guardian_enrollment[Total Guardians],[Students_wth_guardian])
+		formatString: 0.0
+		lineageTag: fc1d499a-ae85-4bc6-a421-b3e3bc335970
+
+		changedProperty = FormatString
+
+	measure Students_multiple_guardians =
+			COUNTROWS(
+			  FILTER(
+			      SUMMARIZE(guardian_enrollment,guardian_enrollment[guardian_student_dw_id],
+			      "NumGuardians",guardian_enrollment[Total Guardians]),
+			      [NumGuardians]>=2
+			  )
+			)
+		formatString: 0
+		lineageTag: 32b7d059-3a50-4500-b369-f5f0d36c6a6e
+
+	measure 'Percentage Students multiple Guardians' = DIVIDE([Students_multiple_guardians],[Students_wth_guardian],0)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 3bac2c33-f603-4dca-80ad-19df873bd4c0
+
+		changedProperty = FormatString
+
+	measure 'RT Total Students2' =
+			
+			CALCULATE(
+				[Total Students],
+			ALL('Date'))
+		formatString: 0
+		lineageTag: cc21c5b3-406e-4bdf-a6c4-04ccd5ffe4c0
+
+	measure 'Student Coverage report' = [Student Coverage]
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: a0e7909e-cdc1-4bca-8e6d-672ecf7d3f76
+
+		changedProperty = FormatString
+
+	measure StudentCoverageAxis = [Student Coverage running total in guardian_registered_date]*1.1
+		lineageTag: d146419c-284e-452d-a53a-923a0f209b32
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Guardians_chart' = ```
+			
+			var guardians = DISTINCTCOUNTNOBLANK(guardian_enrollment[guardian_dw_id])
+			return 
+			guardians
+			```
+		formatString: 0
+		lineageTag: b7cfadad-4aa7-40c9-b095-e30444d717c8
+
+	measure 'Student Coverage_chart' = ```
+			
+			 var stud_coverage = Divide ([Students_wth_guardian],guardian_enrollment[RT Total Students2],0)
+			 return
+			stud_coverage
+			```
+		lineageTag: 8831b433-bb1b-4e8d-88d8-6e1955330771
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column guardian_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9a128c7f-44a4-4dc8-83cf-2493c7cfc529
+		summarizeBy: sum
+		sourceColumn: guardian_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column guardian_student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9d7e5bcd-7689-4db9-ac01-f6355fd7b7e9
+		summarizeBy: sum
+		sourceColumn: guardian_student_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c8a691b4-ca79-4b55-bd5a-d5b21284e1bc
+		summarizeBy: sum
+		sourceColumn: school_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_id
+		dataType: string
+		lineageTag: 0fda48e8-4d0b-4a7a-ab28-807869ea9b35
+		summarizeBy: none
+		sourceColumn: school_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_name
+		dataType: string
+		lineageTag: 0092d66d-405e-4c74-9e5e-c613dc3dd93c
+		summarizeBy: none
+		sourceColumn: school_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_city_name
+		dataType: string
+		lineageTag: 32509faf-9fbc-4c12-9067-82fee060ac31
+		summarizeBy: none
+		sourceColumn: school_city_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_country_name
+		dataType: string
+		lineageTag: dceefe87-c859-434c-8803-a531516d7707
+		summarizeBy: none
+		sourceColumn: school_country_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_composition
+		dataType: string
+		lineageTag: 80803ca3-7735-4e49-91d9-71a10bcfb61f
+		summarizeBy: none
+		sourceColumn: school_composition
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_organisation
+		dataType: string
+		lineageTag: 325d9240-0fbf-4526-a0a6-2279c08a4fba
+		summarizeBy: none
+		sourceColumn: school_organisation
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenant_name
+		dataType: string
+		lineageTag: 92a3ba27-a57d-4bb9-a476-ebd049be4bca
+		summarizeBy: none
+		sourceColumn: tenant_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_special_needs
+		dataType: string
+		lineageTag: c95061fc-7806-44a1-9d99-773a57a55168
+		summarizeBy: none
+		sourceColumn: student_special_needs
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_tags
+		dataType: string
+		lineageTag: 8822a7f4-2e05-400f-97a5-282b81825e91
+		summarizeBy: none
+		sourceColumn: student_tags
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_label
+		dataType: string
+		lineageTag: bac88006-d3dd-4ff6-ad0a-e2eb537eca77
+		summarizeBy: none
+		sourceColumn: school_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_students
+		dataType: int64
+		formatString: 0
+		lineageTag: 3a88e4de-e446-4c62-bfe4-9b16170df154
+		summarizeBy: sum
+		sourceColumn: total_students
+
+		annotation SummarizationSetBy = Automatic
+
+	column guardian_association_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 25c6247a-2f52-4e8b-a9b9-0ebdbc0fad5e
+		summarizeBy: none
+		sourceColumn: guardian_association_date
+
+		variation Variation
+			isDefault
+			relationship: 7e81d9b9-2347-48d3-a0a2-f05ceb86fc4a
+			defaultHierarchy: LocalDateTable_d3c68c5a-59f4-467d-82cc-5bc4ca2d90c2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column guardian_registered_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 88383fe0-ea09-49cc-ab45-3289d4db30d3
+		summarizeBy: none
+		sourceColumn: guardian_registered_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column grade
+		dataType: int64
+		formatString: 0
+		lineageTag: 10708427-eddf-4df3-b301-2be1e05e5b9d
+		summarizeBy: sum
+		sourceColumn: grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column section
+		dataType: string
+		lineageTag: 6a38308f-69ed-4f62-a910-26b7245852bc
+		summarizeBy: none
+		sourceColumn: section
+
+		annotation SummarizationSetBy = Automatic
+
+	partition guardian_enrollment-a2b60447-5dd8-4d58-b6fb-f198d54abbab = m
+		mode: import
+		source =
+				let
+				    Source = AmazonRedshift.Database("rs-ireland-db.ctn3ztfzpl8g.eu-west-1.redshift.amazonaws.com:5439","alefdatalake"),
+				    Schema = Source{[Name=Schema]}[Data],
+				    guardian_enrollment1 = Schema{[Name="guardian_enrollment_p"]}[Data]
+				in
+				    guardian_enrollment1
+
+	annotation PBI_ResultType = Table
+

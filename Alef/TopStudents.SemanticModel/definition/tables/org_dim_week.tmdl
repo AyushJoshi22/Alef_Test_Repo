@@ -1,0 +1,91 @@
+table org_dim_week
+	lineageTag: a1a7b87e-77e6-4ac8-b3a9-1d8d3d222ee4
+
+	column organisation_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 49fed6fb-dca1-4c7e-b2c6-85b13ccc5f9d
+		summarizeBy: sum
+		sourceColumn: organisation_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column week
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 0213ed05-44c8-4032-a375-9d3040036d8a
+		summarizeBy: none
+		sourceColumn: week
+
+		variation Variation
+			isDefault
+			relationship: 65a9a425-bc3a-4f59-bab5-e5d7c7284913
+			defaultHierarchy: LocalDateTable_e742e735-f0eb-4494-9e5f-3fdeb3b1c7e6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column week_days
+		dataType: int64
+		formatString: 0
+		lineageTag: c4483f15-a91d-43b4-a982-33917258ff67
+		summarizeBy: sum
+		sourceColumn: week_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 61494d30-fbbe-4336-838f-18a1f1ed70c6
+		summarizeBy: none
+		sourceColumn: school_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_id
+		dataType: string
+		lineageTag: 772a9c00-0d6c-412c-93c0-ca158821c2b7
+		summarizeBy: none
+		sourceColumn: school_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_name
+		dataType: string
+		lineageTag: f611cc97-d457-44b7-ab3e-b5046ba3805d
+		summarizeBy: none
+		sourceColumn: school_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeeksFilter = IF(WEEKNUM(org_dim_week[week])=WEEKNUM(Today()-1,2)&&Year(org_dim_week[week])=YEAR(TODAY()),"This Week",org_dim_week[WeekFormat])
+		lineageTag: 15058b88-0b7c-4ba4-8157-3a1f340e3cfd
+		summarizeBy: none
+		sortByColumn: week
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekFormat = Format(org_dim_week[week],"mmm")&" "&DAY(org_dim_week[week])&" - "&Day(org_dim_week[week]+6)&", "&year(org_dim_week[week])
+		lineageTag: c783bc44-8701-4a00-8ca1-f04cba9fba7c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition org_dim_week = m
+		mode: import
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"a5f0c46e-748b-4616-8d20-e50b216e3f5e" = Workspaces{[workspaceId=workspace]}[Data],
+				    #"daf1796b-c6f3-46ce-b14f-0e7214f3eb78" = #"a5f0c46e-748b-4616-8d20-e50b216e3f5e"{[dataflowId=school_dim_week]}[Data],
+				    org_dim_week_ = #"daf1796b-c6f3-46ce-b14f-0e7214f3eb78"{[entity="org_dim_week",version=""]}[Data]
+				in
+				    org_dim_week_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

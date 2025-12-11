@@ -1,0 +1,25 @@
+{
+  "name": "Helvetica",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "*": [
+          {
+            "fontSize": 12,
+            "fontFamily": "Helvetica",
+            "color": {
+              "solid": {}
+            }
+          }
+        ]
+      }
+    }
+  },
+  "textClasses": {
+    "callout": {
+      "color": "#485465",
+      "fontFace": "'Helvetica Bold', Helvetica Bold, wf_segoe-ui_bold, signika",
+      "fontSize": 42
+    }
+  }
+}

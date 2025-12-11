@@ -1,0 +1,98 @@
+table Date
+	lineageTag: 19dc6548-2f22-432f-9982-bc4c72b40f6b
+
+	measure Dash = " - "
+		lineageTag: c67d9663-36d7-4f11-b487-7ea356037df0
+
+	column Date
+		formatString: dd/mm/yyyy
+		lineageTag: 778376b3-b4a7-43cc-9b29-41ef3512af2a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: b4043b20-581a-4c62-8ddf-0782b3f699d3
+			defaultHierarchy: LocalDateTable_be22c4d3-6ee2-4550-9d28-81efc90c8bba.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Weeknum = WEEKNUM('Date'[Date],2)
+		formatString: 0
+		lineageTag: 6b793ac8-1f2a-4960-8f3b-73bceee6a9b6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekStartDate =
+			
+			var weekSun = 'Date'[Date]-  WEEKDAY('Date'[Date],1)+1
+			var weekMon = 'Date'[Date]-  WEEKDAY('Date'[Date],2)+1
+			return
+			IF(YEAR('Date'[Date])=2021,weekSun,weekMon)
+		formatString: General Date
+		lineageTag: 52f4dba9-b76a-444e-bcb4-026af2d9da6e
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 697754b3-6d43-4455-a3ea-0e6a4d398753
+			defaultHierarchy: LocalDateTable_1f3c2fa5-2c54-4a52-85fa-b1f1abd2dcc3.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekEndDate = 'Date'[WeekStartDate]+6
+		formatString: General Date
+		lineageTag: c0b32747-2562-4c5c-b157-7a4d3e784555
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 9f01aad0-7f03-4da3-8d5d-33f31292ba4a
+			defaultHierarchy: LocalDateTable_63e7d773-dbb9-4edb-80cf-a245f035f575.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Yearweek = IF ('Date'[WeekStartDate]<=Today(),YEAR('Date'[Date])*100+'Date'[Weeknum],Blank())
+		formatString: 0
+		lineageTag: 668d1433-83be-4d37-9fdb-532a587fe15e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Week = Format('Date'[WeekStartDate],"mmm")&" "&DAY('Date'[WeekStartDate])&" - "&Day('Date'[WeekStartDate]+6)&", "&year('Date'[Date])
+		lineageTag: a0293767-49f4-4709-860b-97a7dd457495
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeeksFilter = IF('Date'[Weeknum]=WEEKNUM(Today()-1,2)&&Year('Date'[Date])=YEAR(TODAY()),"This Week",'Date'[Week])
+		lineageTag: 0c7cea7d-dfd7-4492-88b3-3e51452a4d4f
+		summarizeBy: none
+		sortByColumn: WeekStartDate
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExcludeToday =
+			IF(
+			    'Date'[Date]<TODAY(),1,0
+			)
+		formatString: 0
+		lineageTag: 20114ca4-7319-41e3-aa37-c99845fc61eb
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Date-f8d90f75-4f43-4c9e-aafd-1467a2ed1a6a = calculated
+		mode: import
+		source = CALENDAR([MinDate],Today()-1)
+
+	annotation PBI_Id = ba162e98031a4f3c88ee5cfa4ce9695d
+

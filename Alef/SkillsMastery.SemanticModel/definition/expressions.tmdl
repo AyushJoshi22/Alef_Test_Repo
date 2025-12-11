@@ -1,0 +1,28 @@
+expression Workspace = "a5f0c46e-748b-4616-8d20-e50b216e3f5e" meta [IsParameterQuery=true, List={"a5f0c46e-748b-4616-8d20-e50b216e3f5e", "7bbb17d8-30b9-4def-8550-9902e089b604"}, DefaultValue="a5f0c46e-748b-4616-8d20-e50b216e3f5e", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: c5212a31-8970-46ce-9add-2c3f6c4722db
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression DataflowLessons = "30baa242-fe08-4d48-9494-fe4362c955e1" meta [IsParameterQuery=true, List={"30baa242-fe08-4d48-9494-fe4362c955e1", "45f1de0d-9c63-4bb8-a8b4-863a876b3cfd"}, DefaultValue="30baa242-fe08-4d48-9494-fe4362c955e1", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: cde6de00-a2a6-492a-9430-9ccffbcb9be5
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression DataflowStudents = "4996c460-332c-47f7-bb5d-99d7bb575b65" meta [IsParameterQuery=true, List={"4996c460-332c-47f7-bb5d-99d7bb575b65"}, DefaultValue="4996c460-332c-47f7-bb5d-99d7bb575b65", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: e5073c7e-ab2d-4ee2-8471-30bf87c42185
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression FilterRows = 1000 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
+	lineageTag: 610d0734-17ca-4dfa-b7c2-6ed626fc4e9f
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Number
+

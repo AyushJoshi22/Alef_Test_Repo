@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "PathwayTeacher"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "25cd1c96-f167-b7a5-400b-b7f5d500beca"
+  }
+}

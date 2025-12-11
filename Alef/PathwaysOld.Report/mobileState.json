@@ -1,0 +1,5 @@
+{
+  "explorationState": "{\"version\":\"1.8\",\"activeSection\":\"\",\"sections\":{\"ReportSection\":{\"visualContainers\":{\"7750095fdb6034c6396c\":{\"singleVisual\":{\"visualType\":\"textbox\",\"mobileObjects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Average Level Test Score\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"16pt\",\"color\":\"#9198a3\"}}],\"horizontalTextAlignment\":\"center\"}]}}]}}},\"03363fd63725a162ed1e\":{\"singleVisual\":{\"visualType\":\"textbox\",\"mobileObjects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Average Number of Levels Completed\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"16pt\",\"color\":\"#9198a3\"}}],\"horizontalTextAlignment\":\"center\"}]}}]}}}}}}}",
+  "objectId": "",
+  "type": 4
+}

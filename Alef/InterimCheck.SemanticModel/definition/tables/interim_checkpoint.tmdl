@@ -1,0 +1,908 @@
+table interim_checkpoint
+	lineageTag: 9ecc33c6-0469-4400-b287-2c9712d94d65
+
+	measure 'Average Achievement' =
+			
+			COALESCE(AVERAGE(interim_checkpoint[total_score]),0)
+		formatString: 0.0
+		lineageTag: 6d5fdaad-ac2d-44f8-963c-4a9564ca6c5d
+
+		changedProperty = FormatString
+
+	measure CompletedIC = [IC_tobe_completed]*[CompletionRate]
+		lineageTag: 492d02b8-d001-4a9b-b887-ccaff183be77
+
+	measure CompletionRate = COALESCE([Completions]/[TotalAssignments],0)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 7650c477-ad74-4cf6-84c5-9df46dd97f98
+
+		changedProperty = FormatString
+
+	measure Completions = COUNT(interim_checkpoint[fle_student_dw_id])
+		formatString: 0
+		lineageTag: 3f6b0b85-02d4-4659-866c-b82dc6bb642b
+
+		changedProperty = FormatString
+
+	measure IC_tobe_completed =
+			CALCULATE(
+			DISTINCTCOUNT(interim_checkpoint[icp_dw_id]), REMOVEFILTERS(interim_checkpoint[local_date],interim_checkpoint[fle_student_dw_id])
+			)
+		formatString: 0
+		lineageTag: 3fe57884-5cea-479f-80c6-5f41d57c1a90
+
+	measure UniqueICclass =
+			COUNTROWS(
+			    (SUMMARIZE(interim_checkpoint,interim_checkpoint[class_dw_id],interim_checkpoint[icp_dw_id])
+			    )
+			)
+		formatString: 0
+		lineageTag: 4c6c46c7-485b-4ab2-a22a-543057814621
+
+	measure TotalAssignments = ```
+			
+			SUMX(
+			    VALUES(interim_checkpoint[class_dw_id]),
+			    CALCULATE(
+			        MAX(interim_checkpoint[class_total_students]) * 
+			        DISTINCTCOUNT(interim_checkpoint[icp_dw_id]),
+			        ALLEXCEPT(interim_checkpoint, interim_checkpoint[class_dw_id])
+			    )
+			)
+			```
+		formatString: 0
+		lineageTag: 86adaab9-8592-4647-a17e-2dc1b09691e3
+
+	measure StudentsDistrMeets = ```
+			
+			 COUNTROWS(
+				FILTER(
+				SUMMARIZE(interim_checkpoint,
+			interim_checkpoint[fle_student_dw_id],
+			"AvgScores",[Average Achievement]),
+			[AvgScores]>=70) 
+			 )
+			```
+		formatString: 0
+		lineageTag: 5670e152-d525-4c61-a079-bb3f75837d3f
+
+	measure StudentsDistrBelow = ```
+			
+			 COUNTROWS(
+				FILTER(
+				SUMMARIZE(interim_checkpoint,
+			interim_checkpoint[fle_student_dw_id],
+			"AvgScores",[Average Achievement]),
+			[AvgScores]<50&&ISBLANK(interim_checkpoint[fle_student_dw_id])=FALSE()) 
+			 )
+			```
+		formatString: 0
+		lineageTag: 5189b1a1-fdfa-4fcb-9ff5-c43def1d7d1c
+
+	measure StudentsDistrApproaching = ```
+			
+			 COUNTROWS(
+				FILTER(
+				SUMMARIZE(interim_checkpoint,
+			interim_checkpoint[fle_student_dw_id],
+			"AvgScores",[Average Achievement]),
+			[AvgScores]<70&&[AvgScores]>=50)
+			 )
+			```
+		formatString: 0
+		lineageTag: d0ebd8ae-ee91-4c0c-861e-94a2d648ce84
+
+	measure 'Score % difference from prevIC' = ```
+			
+			// VAR CurrentSchool = MAX(interim_checkpoint[school_id])
+			// VAR StudentData = 
+			//     FILTER(
+			//         ALL(interim_checkpoint),
+			//         interim_checkpoint[school_id] = CurrentSchool
+			//         && NOT ISBLANK(interim_checkpoint[fle_student_dw_id])
+			//     )
+			VAR StudentGrowthTable =
+			    SUMMARIZE(
+			        interim_checkpoint,
+			        interim_checkpoint[class_dw_id],
+			        interim_checkpoint[fle_student_dw_id],
+			        interim_checkpoint[ic_order],
+			        "StudentScore", MAX(interim_checkpoint[total_score])
+			    )
+			VAR StudentClassLastAttempt = AVERAGEX(
+			    FILTER(
+			    ADDCOLUMNS(
+			        StudentGrowthTable,
+			        "MaxAttempt",
+			        VAR CurrentStudent = [fle_student_dw_id]
+			        VAR CurrentClass = [class_dw_id]
+			        RETURN MAXX(FILTER(StudentGrowthTable, interim_checkpoint[fle_student_dw_id] = CurrentStudent && [class_dw_id] = CurrentClass), interim_checkpoint[ic_order])),
+				interim_checkpoint[ic_order] = [MaxAttempt]
+				),AVERAGE([StudentScore])
+			)
+			VAR StudentClassPrevAttempt = AVERAGEX(
+			    FILTER(
+			    ADDCOLUMNS(
+			        StudentGrowthTable,
+			        "MaxAttempt",
+			        VAR CurrentStudent = [fle_student_dw_id]
+			        VAR CurrentClass = [class_dw_id]
+			        RETURN MAXX(FILTER(StudentGrowthTable, interim_checkpoint[fle_student_dw_id] = CurrentStudent && [class_dw_id] = CurrentClass), interim_checkpoint[ic_order])),
+				interim_checkpoint[ic_order] = [MaxAttempt]-1
+				),AVERAGE([StudentScore])
+			    )
+			RETURN  StudentClassLastAttempt
+			//DIVIDE( StudentClassLastAttempt,StudentClassPrevAttempt)-1
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 5a828882-dee5-415b-bc13-bb1443db8cdf
+
+		changedProperty = FormatString
+
+	measure ICGrowthClass = ```
+			
+			VAR __MAX_IC = CALCULATE(MAX(interim_checkpoint[ic_order]))
+			VAR __PREVIOUS_IC = __MAX_IC - 1
+			VAR StudentsInPrevious = 
+			    FILTER(
+			        ALL('interim_checkpoint'),
+			        interim_checkpoint[ic_order] = __PREVIOUS_IC
+			    )
+			VAR StudentsInCurrent = 
+			    FILTER(
+			        ALL('interim_checkpoint'),
+			        interim_checkpoint[ic_order] = __MAX_IC
+			    )
+			
+			VAR __CommonStudents = 
+			    SELECTCOLUMNS(
+			        INTERSECT(
+			            SELECTCOLUMNS(StudentsInPrevious, "StudentID", [fle_student_dw_id]),
+			            SELECTCOLUMNS(StudentsInCurrent, "StudentID", [fle_student_dw_id])
+			        ),
+			        "StudentID", [StudentID]
+			    )
+			VAR __MAX_IC_VALUE =
+			     SUMX(
+			        FILTER('interim_checkpoint', 
+			            interim_checkpoint[ic_order] = __MAX_IC && 
+			            interim_checkpoint[fle_student_dw_id] IN __CommonStudents
+			        ),
+			        'interim_checkpoint'[Average Achievement]
+			    )
+			VAR __PREVIOUS_IC_VALUE = 
+			     SUMX(
+			        FILTER('interim_checkpoint', 
+			            interim_checkpoint[ic_order] = __PREVIOUS_IC && 
+			            interim_checkpoint[fle_student_dw_id] IN __CommonStudents
+			        ),
+			        'interim_checkpoint'[Average Achievement]
+			     )   
+			RETURN
+			    IF(ISERROR(__MAX_IC_VALUE/__PREVIOUS_IC_VALUE-1)," ",DIVIDE(__MAX_IC_VALUE,__PREVIOUS_IC_VALUE)-1)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ef95cdf0-8d71-4e40-8ace-5c72ffb6ae26
+
+		changedProperty = FormatString
+
+	measure Students = ```
+			DISTINCTCOUNTNOBLANK(interim_checkpoint[fle_student_dw_id]) 
+			```
+		formatString: 0
+		lineageTag: ffd7cd23-30ee-423d-82bc-0c138ff2bd95
+
+	measure 'Insufficient Data' =
+			
+			[StudentswithIC]-[StudentsIncreased]-[StudentsConstant]-[StudentsDeclined]
+		formatString: 0
+		lineageTag: fc3200e9-57e7-4479-b8f2-fa8d553b5ca2
+
+	measure CurrICValue = ```
+			
+			// AVERAGEX(
+			//     VALUES(interim_checkpoint[fle_student_dw_id]),
+			// VAR __MAX_TERM = 
+			//     CALCULATE(MAX(interim_checkpoint[ic_order]))
+			// VAR __MAX_TERM_VALUE =
+			//       	CALCULATE([Average Achievement],
+			//           interim_checkpoint[ic_order] = __MAX_TERM)
+			// RETURN
+			//     __MAX_TERM_VALUE)
+			VAR CurrentClass = SELECTEDVALUE(interim_checkpoint[class_dw_id])
+			VAR CurrentOrder = [MaxICsPerClass]
+			VAR PreviousOrder = CurrentOrder - 1
+			
+			-- List of students in the current order for the selected class
+			VAR CurrentStudents = 
+			    FILTER(
+			        ALL(interim_checkpoint),
+			        interim_checkpoint[class_dw_id] = CurrentClass &&
+			        interim_checkpoint[ic_order] = CurrentOrder
+			    )
+			
+			-- List of students in the previous order for the selected class
+			VAR PreviousStudents = 
+			    FILTER(
+			        ALL(interim_checkpoint),
+			        interim_checkpoint[class_dw_id] = CurrentClass &&
+			        'interim_checkpoint'[ic_order] = PreviousOrder
+			    )
+			
+			-- Students who exist in both orders
+			VAR CommonStudents = 
+			    INTERSECT(
+			        SELECTCOLUMNS(CurrentStudents, "StudentID", interim_checkpoint[fle_student_dw_id])
+			       , SELECTCOLUMNS(PreviousStudents, "StudentID", interim_checkpoint[fle_student_dw_id])
+			    )
+			
+			-- Total scores for the common students in the current order
+			VAR CurrentTotalScore = 
+			    SUMX(
+			        FILTER(
+			            interim_checkpoint,
+			            interim_checkpoint[class_dw_id] = CurrentClass &&
+			            interim_checkpoint[ic_order] = CurrentOrder &&
+			           interim_checkpoint[fle_student_dw_id] IN CommonStudents
+			        ),
+			        interim_checkpoint[total_score]
+			    )
+			
+			-- Total scores for the common students in the previous order
+			VAR PreviousTotalScore = 
+			    SUMX(
+			        FILTER(
+			            interim_checkpoint,
+			            interim_checkpoint[class_dw_id] = CurrentClass &&
+			            interim_checkpoint[ic_order] = PreviousOrder &&
+			            interim_checkpoint[fle_student_dw_id] IN CommonStudents
+			        ),
+			       interim_checkpoint[total_score]
+			    )
+			
+			-- Calculate growth
+			RETURN
+			CurrentTotalScore
+			```
+		lineageTag: 8a34ee5d-4008-4079-bc6e-43b36e2bfed3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Section = MAX(interim_checkpoint[section_name])
+		lineageTag: 2a5b2694-047e-40d7-b07e-f1e5265a8038
+
+	measure CurrTermValueSt = ```
+			
+			VAR __MAX_TERM = 
+			   CALCULATE(MAX(interim_checkpoint[ic_order]))  
+			VAR __MAX_TERM_VALUE =
+			      	CALCULATE([Average Achievement],
+			          FILTER
+			          (
+			              ALLEXCEPT(
+			                  interim_checkpoint,interim_checkpoint[fle_student_dw_id]
+			              )
+			          ,
+			          interim_checkpoint[ic_order] = __MAX_TERM)
+			          )
+			RETURN
+			    __MAX_TERM_VALUE
+			```
+		lineageTag: 75561bdb-b4f8-4856-89ad-575bebccf142
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ArabicSVG = ```
+			
+			var _SVGStart = "<svg width='36' height='24' viewBox='0 0 36 24' fill='none' xmlns='http://www.w3.org/2000/svg'>"
+			var _SVGFinish = "</svg>"
+			var _SVGAr = 
+			"<g clip-path='url(#clip0_628_7865)'>
+			<path fill-rule='evenodd' clip-rule='evenodd' d='M5.99432 0C7.03004 0 7.92252 0.78 8.53955 2C10.038 1.89 11.228 2.24 11.7349 3C12.2417 3.76 12.0103 4.78 11.1399 5.88C11.1064 5.92241 11.0696 5.96251 11.0297 6C11.0646 6.05419 11.0941 6.11108 11.1178 6.17C11.9883 7.27 12.1976 8.29 11.7128 9.05C11.151 9.76511 10.2064 10.1478 9.24472 10.05C9.01333 10.05 8.75991 10 8.51751 10C7.92252 11.22 7.03004 12 5.99432 12C4.95859 12 4.05509 11.22 3.4601 9.95C3.2177 10 2.96428 10 2.7329 10C1.77158 10.0957 0.828134 9.71341 0.264793 9C-0.220013 8.24 0.0113719 7.22 0.859782 6.12L0.969965 6L0.859782 5.88C0.0113719 4.78 -0.253068 3.81 0.264793 3C0.782654 2.19 1.97263 1.89 3.4601 2.05C4.06611 0.78 4.95859 0 5.99432 0ZM5.99432 9.32C5.53837 9.49007 5.07099 9.63369 4.59499 9.75C5.00267 10.53 5.50951 11 5.99432 11C6.4681 11 6.97495 10.53 7.38262 9.75C6.90974 9.63513 6.44592 9.49147 5.99432 9.32ZM1.70819 6.77C1.16829 7.5 0.980983 8.13 1.22339 8.5C1.45477 8.88 2.21503 9 3.0965 9C2.96133 8.55769 2.86553 8.10624 2.81002 7.65C2.42087 7.38003 2.05272 7.08599 1.70819 6.77ZM10.2804 6.77C9.9337 7.08386 9.5657 7.37776 9.17861 7.65C9.11587 8.09534 9.02017 8.53634 8.89213 8.97C9.82869 9.03 10.5228 8.88 10.7652 8.5C11.0297 8.13 10.8093 7.48 10.2804 6.77ZM5.99432 3.76C5.61716 3.91182 5.24935 4.08207 4.89248 4.27C4.53196 4.45111 4.18587 4.65494 3.85676 4.88C3.76859 5.62452 3.76859 6.37548 3.85676 7.12C4.18587 7.34506 4.53196 7.54889 4.89248 7.73C5.24829 7.91969 5.61622 8.08999 5.99432 8.24C6.37135 8.08795 6.73915 7.91771 7.09615 7.73C7.45357 7.54424 7.79935 7.34059 8.13187 7.12C8.19798 6.76 8.19798 6.39 8.19798 6C8.19798 5.61 8.13187 5.24 8.13187 4.88C7.79935 4.65941 7.45357 4.45576 7.09615 4.27C6.73901 4.08252 6.37122 3.91229 5.99432 3.76ZM5.99432 5C6.60284 5 7.09615 5.44772 7.09615 6C7.09615 6.55228 6.60284 7 5.99432 7C5.38579 7 4.89248 6.55228 4.89248 6C4.89248 5.44772 5.38579 5 5.99432 5ZM8.89213 3C9.01792 3.44374 9.10996 3.8948 9.16759 4.35C9.55469 4.62224 9.92268 4.91614 10.2694 5.23C10.7652 4.5 10.9966 3.87 10.7652 3.5C10.5228 3.12 9.82869 3 8.89213 3ZM2.69984 3C2.14596 2.92738 1.58947 3.11584 1.22339 3.5C0.980983 3.87 1.16829 4.52 1.70819 5.19C2.05272 4.87401 2.42087 4.57997 2.81002 4.31C2.86906 3.86818 2.96109 3.4305 3.08548 3H2.69984ZM5.99432 1C5.52053 1 5.00267 1.47 4.59499 2.25C5.07099 2.36631 5.53837 2.50993 5.99432 2.68C6.44592 2.50853 6.90974 2.36487 7.38262 2.25C6.97495 1.47 6.4681 1 5.99432 1Z' fill='#485465'/>
+			</g>
+			<defs>
+			<clipPath id='clip0_628_7865'>
+			<rect width='12' height='12' fill='white'/>
+			</clipPath>
+			</defs>"
+			return _SVGStart & _SVGAr & _SVGFinish
+			```
+		lineageTag: 0a0792c1-4898-4c06-a21a-67e4f0f765c9
+		dataCategory: ImageUrl
+
+	measure SVGText = "data:image/svg+xml;utf8,"
+		lineageTag: e5fef915-283f-478f-886b-06065fea53bd
+
+	measure SvgArabic = ```
+			[SVGText] & [ArabicSVG] 
+			```
+		lineageTag: 858feed0-6cab-408a-90d3-fca1743bb1d1
+		dataCategory: ImageUrl
+
+	measure One = 1
+		formatString: 0
+		lineageTag: be14aff0-419e-4ab1-b1ca-89f1f11733db
+
+	measure PlotMaxY =
+			MAXX(
+			    SUMMARIZE(interim_checkpoint,
+			                interim_checkpoint[class_dw_id],
+			                interim_checkpoint[school_id],
+			                "ICGrClass",interim_checkpoint[IC_growth_Class]),
+			                [ICGrClass])+0.1
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 0109d936-fe60-429f-a51d-5260689f76b4
+
+	measure PlotMinY = ```
+			
+			VAR _MinY = MINX(
+			    SUMMARIZE(interim_checkpoint,
+			                interim_checkpoint[class_dw_id],
+			                interim_checkpoint[school_id],
+			                interim_checkpoint[school_name],
+			                "ICGrClass",interim_checkpoint[IC_growth_Class]),
+			                [ICGrClass])
+			RETURN
+			    _MinY-0.1           
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: e6c794e3-885c-48a3-bac0-9f0717e7bfb9
+
+	measure Achievement =
+			
+			CALCULATE(SUM(interim_checkpoint[total_score]))
+		lineageTag: c82058bb-a18c-4c07-9ea4-7865bdda2164
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Prev Achievement' = ```
+			
+			VAR CurrentClass = SELECTEDVALUE(interim_checkpoint[class_dw_id])
+			VAR CurrentOrder = CALCULATE(MAX(interim_checkpoint[ic_order]),interim_checkpoint[class_dw_id] = CurrentClass)
+			VAR PreviousOrder = CurrentOrder - 1
+			RETURN                
+			CALCULATE(AVERAGE(interim_checkpoint[total_score]), interim_checkpoint[ic_order] = PreviousOrder)
+			```
+		lineageTag: 37ac80a1-577e-401f-9026-bf696c8dc0c1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure IC_growth_Class = ```
+			
+			VAR CurrentClass = SELECTEDVALUE(interim_checkpoint[class_dw_id])
+			VAR CurrentOrder = MAX(interim_checkpoint[ic_order])
+			VAR PreviousOrder = CurrentOrder - 1
+			
+			-- List of students in the current order for the selected class
+			VAR CurrentStudents = 
+			    FILTER(
+			        ALL(interim_checkpoint),
+			        interim_checkpoint[class_dw_id] = CurrentClass &&
+			        interim_checkpoint[ic_order] = CurrentOrder
+			    )
+			
+			-- List of students in the previous order for the selected class
+			VAR PreviousStudents = 
+			    FILTER(
+			        ALL(interim_checkpoint),
+			        interim_checkpoint[class_dw_id] = CurrentClass &&
+			        'interim_checkpoint'[ic_order] = PreviousOrder
+			    )
+			
+			-- Students who exist in both orders
+			VAR CommonStudents = 
+			    INTERSECT(
+			        SELECTCOLUMNS(CurrentStudents, "StudentID", interim_checkpoint[fle_student_dw_id]),
+			        SELECTCOLUMNS(PreviousStudents, "StudentID", interim_checkpoint[fle_student_dw_id])
+			    )
+			
+			-- Total scores for the common students in the current order
+			VAR CurrentTotalScore = 
+			    SUMX(
+			        FILTER(
+			            interim_checkpoint,
+			            interim_checkpoint[class_dw_id] = CurrentClass &&
+			            interim_checkpoint[ic_order] = CurrentOrder &&
+			           interim_checkpoint[fle_student_dw_id] IN CommonStudents
+			        ),
+			        interim_checkpoint[total_score]
+			    )
+			
+			-- Total scores for the common students in the previous order
+			VAR PreviousTotalScore = 
+			    SUMX(
+			        FILTER(
+			            interim_checkpoint,
+			            interim_checkpoint[class_dw_id] = CurrentClass &&
+			            interim_checkpoint[ic_order] = PreviousOrder &&
+			            interim_checkpoint[fle_student_dw_id] IN CommonStudents
+			        ),
+			       interim_checkpoint[total_score]
+			    )
+			
+			-- Calculate growth
+			RETURN
+			    IF(
+			        ISBLANK(PreviousTotalScore) || PreviousTotalScore = 0,
+			        BLANK(),
+			        DIVIDE(CurrentTotalScore, PreviousTotalScore, 0)
+			    )-1
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 03b7c16e-3617-41ef-b47d-596d9ec89b9a
+
+	measure MaxICsPerClass = ```
+			
+			VAR __class_max_IC = CALCULATE(
+			    MAX(interim_checkpoint[ic_order]),
+			    ISBLANK(interim_checkpoint[fle_student_dw_id]) = FALSE,
+			     KEEPFILTERS(interim_checkpoint[class_dw_id])
+			)
+			RETURN
+			__class_max_IC 
+			```
+		formatString: 0
+		lineageTag: 01e03f00-1c3b-4aa4-a089-236e30474611
+
+	measure StudentsIncreased = ```
+			
+			COUNTROWS(
+			FILTER(
+			        ADDCOLUMNS(
+			            SUMMARIZE(
+			                FILTER(
+			                    interim_checkpoint,
+			                    NOT ISBLANK(interim_checkpoint[fle_student_dw_id]) 
+			                ),
+			                interim_checkpoint[fle_student_dw_id],
+			                interim_checkpoint[class_dw_id],
+			                interim_checkpoint[ic_order]
+			            ),
+			            "AvgScores", [Average Achievement],
+			            "PrevScore", [Prev Achievement],
+			            "MaxICClass", CALCULATE(
+			                MAX(interim_checkpoint[ic_order]),
+			                ALLEXCEPT(interim_checkpoint, interim_checkpoint[class_dw_id]),
+			                NOT ISBLANK(interim_checkpoint[fle_student_dw_id])
+			            ),
+			            "PrevICClass", CALCULATE(
+			                MAX(interim_checkpoint[ic_order]),
+			                FILTER(
+			                    interim_checkpoint,
+			                    interim_checkpoint[class_dw_id] = EARLIER(interim_checkpoint[class_dw_id]) &&
+			                    interim_checkpoint[ic_order] = EARLIER(interim_checkpoint[ic_order]) - 1 &&
+			                    NOT ISBLANK(interim_checkpoint[fle_student_dw_id])
+			                )
+			            )
+			        ),
+			        interim_checkpoint[ic_order] = [MaxICClass] &&
+			        [AvgScores] > [PrevScore] &&
+			        NOT ISBLANK([PrevScore]) &&
+			        [PrevICClass] = [MaxICClass] - 1
+			    )
+			)
+			```
+		formatString: 0
+		lineageTag: 6ea7e868-06fa-48cb-8761-a560056b7ef0
+
+	measure StudentsDeclined = ```
+			
+			COUNTROWS(
+			FILTER(
+			        ADDCOLUMNS(
+			            SUMMARIZE(
+			                FILTER(
+			                    interim_checkpoint,
+			                    NOT ISBLANK(interim_checkpoint[fle_student_dw_id]) 
+			                ),
+			                interim_checkpoint[fle_student_dw_id],
+			                interim_checkpoint[class_dw_id],
+			                interim_checkpoint[ic_order]
+			            ),
+			            "AvgScores", [Average Achievement],
+			            "PrevScore", [Prev Achievement],
+			            "MaxICClass", CALCULATE(
+			                MAX(interim_checkpoint[ic_order]),
+			                ALLEXCEPT(interim_checkpoint, interim_checkpoint[class_dw_id]),
+			                NOT ISBLANK(interim_checkpoint[fle_student_dw_id])
+			            ),
+			            "PrevICClass", CALCULATE(
+			                MAX(interim_checkpoint[ic_order]),
+			                FILTER(
+			                    interim_checkpoint,
+			                    interim_checkpoint[class_dw_id] = EARLIER(interim_checkpoint[class_dw_id]) &&
+			                    interim_checkpoint[ic_order] = EARLIER(interim_checkpoint[ic_order]) - 1 &&
+			                    NOT ISBLANK(interim_checkpoint[fle_student_dw_id])
+			                )
+			            )
+			        ),
+			        interim_checkpoint[ic_order] = [MaxICClass] &&
+			        [AvgScores] < [PrevScore] &&
+			        NOT ISBLANK([PrevScore]) &&
+			        [PrevICClass] = [MaxICClass] - 1
+			    )
+			)
+			```
+		formatString: 0
+		lineageTag: 05492402-77ec-4889-9e49-31a8a9991148
+
+	measure StudentsConstant = ```
+			
+			COUNTROWS(
+			FILTER(
+			        ADDCOLUMNS(
+			            SUMMARIZE(
+			                FILTER(
+			                    interim_checkpoint,
+			                    NOT ISBLANK(interim_checkpoint[fle_student_dw_id]) 
+			                ),
+			                interim_checkpoint[fle_student_dw_id],
+			                interim_checkpoint[class_dw_id],
+			                interim_checkpoint[ic_order]
+			            ),
+			            "AvgScores", [Average Achievement],
+			            "PrevScore", [Prev Achievement],
+			            "MaxICClass", CALCULATE(
+			                MAX(interim_checkpoint[ic_order]),
+			                ALLEXCEPT(interim_checkpoint, interim_checkpoint[class_dw_id]),
+			                NOT ISBLANK(interim_checkpoint[fle_student_dw_id])
+			            ),
+			            "PrevICClass", CALCULATE(
+			                MAX(interim_checkpoint[ic_order]),
+			                FILTER(
+			                    interim_checkpoint,
+			                    interim_checkpoint[class_dw_id] = EARLIER(interim_checkpoint[class_dw_id]) &&
+			                    interim_checkpoint[ic_order] = EARLIER(interim_checkpoint[ic_order]) - 1 &&
+			                    NOT ISBLANK(interim_checkpoint[fle_student_dw_id])
+			                )
+			            )
+			        ),
+			        interim_checkpoint[ic_order] = [MaxICClass] &&
+			        [AvgScores] = [PrevScore] &&
+			        NOT ISBLANK([PrevScore]) &&
+			        [PrevICClass] = [MaxICClass] - 1
+			    )
+			)
+			```
+		formatString: 0
+		lineageTag: 6a8313a4-c6bf-4748-a888-8e7158f2b3a8
+
+	measure StudentswithIC = ```
+			COALESCE(
+			COUNTROWS(
+			    SUMMARIZE(FILTER(
+			                    interim_checkpoint,
+			                    NOT ISBLANK(interim_checkpoint[fle_student_dw_id])),
+			    interim_checkpoint[fle_student_dw_id],
+			    interim_checkpoint[class_dw_id])
+			)  
+			,0)
+			```
+		formatString: 0
+		lineageTag: dc7c7c3d-4203-4f74-9db9-9975ec2c5dbb
+
+	measure Today = TODAY()-1
+		formatString: General Date
+		lineageTag: ce5cdf60-97c4-4f99-8783-a8e3e4f9a686
+
+	measure ClassSelectedShapeColor = ```
+			
+			VAR class_selected = LEN(SELECTEDVALUE(interim_checkpoint[class_dw_id]))>0
+			RETURN 
+			   IF(class_selected, "#FFE2B2", "#FFFFFF00")
+			```
+		lineageTag: bd087acf-42ce-4943-ac9b-dbc5fdf45a01
+
+	measure ClassSelectedShapeBorder = ```
+			
+			VAR class_selected = LEN(SELECTEDVALUE(interim_checkpoint[class_dw_id]))>0
+			RETURN 
+			   IF(class_selected, "#996000", "#FFFFFF00")
+			```
+		lineageTag: 17540316-73a0-4077-af3a-43d39f356f53
+
+	measure HighlightDecreaseStudent = ```
+			
+			VAR CurrentClass = MAX(interim_checkpoint[class_dw_id])
+			VAR MaxICOrder =  CALCULATE(
+			        MAXX(
+			           FILTER(ALL(interim_checkpoint),interim_checkpoint[class_dw_id] = CurrentClass && NOT ISBLANK(interim_checkpoint[fle_student_dw_id])),
+			        interim_checkpoint[ic_order]
+			        )
+			    )
+			VAR LastICOrder = CALCULATE(
+			    MAX(interim_checkpoint[ic_order])
+			    )    
+			VAR PrevICOrder =
+			    CALCULATE(
+			        MAX(interim_checkpoint[ic_order]),
+			        FILTER(
+			            ALL(interim_checkpoint),
+			            interim_checkpoint[fle_student_dw_id]= MAX(interim_checkpoint[fle_student_dw_id]) &&
+			            interim_checkpoint[ic_order] = LastICOrder - 1
+			        )
+			    )
+			VAR LastValue =
+			    CALCULATE(
+			        MAX(interim_checkpoint[total_score]),
+			        interim_checkpoint[ic_order] = LastICOrder
+			    )
+			VAR PrevValue =
+			    CALCULATE(
+			        MAX(interim_checkpoint[total_score]),
+			        interim_checkpoint[ic_order] = PrevICOrder
+			    )
+			RETURN
+			    IF ( LastICOrder = MaxICOrder &&
+			        NOT ISBLANK(PrevValue), 
+			        IF( LastValue < PrevValue,
+			        "#FF6D6D", IF(LastValue = PrevValue, "#6179E6","#70BF42")),  
+			         BLANK() 
+			    )
+			
+			```
+		lineageTag: 89fe13ef-e2e4-4afa-9a3b-59a4ac8340df
+
+	measure ScoreGrowthHighlight =
+			
+			IF([Score % difference from prevIC]>=0,"#70BF42","#FF6D6D")
+		lineageTag: 45cb2375-c0f1-4ca5-aaf3-f103cb5f6a21
+
+	column local_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e2016ce4-dee3-4e66-90d4-1a3971c782cb
+		summarizeBy: none
+		sourceColumn: local_date
+
+		variation Variation
+			isDefault
+			relationship: 0e75983e-7180-4208-810a-86ac81768b31
+			defaultHierarchy: LocalDateTable_995a307d-bfba-45ec-92ba-4adfd330c6c4.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column instructional_plan_id
+		dataType: string
+		lineageTag: bc36af33-cb55-4219-b719-cf9dab263193
+		summarizeBy: none
+		sourceColumn: instructional_plan_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: af02f6ef-d7db-473a-ac5e-5ba38c887fb6
+		summarizeBy: sum
+		sourceColumn: school_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_gen_subject
+		dataType: string
+		lineageTag: 848464e6-caf3-49dc-85aa-13f52bc8fde0
+		summarizeBy: none
+		sourceColumn: class_gen_subject
+
+		annotation SummarizationSetBy = Automatic
+
+	column grade_k12grade
+		dataType: string
+		lineageTag: ffc52cc8-2937-4c0a-a05a-297bc4827118
+		summarizeBy: none
+		sourceColumn: grade_k12grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_name
+		dataType: string
+		lineageTag: 44648df6-2d4d-4110-8ce3-96fe1d37e019
+		summarizeBy: none
+		sourceColumn: school_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenant_name
+		dataType: string
+		lineageTag: 8c6fcf7c-8cfc-420b-b367-d197781135a0
+		summarizeBy: none
+		sourceColumn: tenant_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_organisation
+		dataType: string
+		lineageTag: 25b32e32-d74f-4a19-836d-b0c0402bb17b
+		summarizeBy: none
+		sourceColumn: school_organisation
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b5b98136-13b4-4a02-bb5d-29f1d69dbbaf
+		summarizeBy: none
+		sourceColumn: class_dw_id
+
+		annotation SummarizationSetBy = User
+
+	column section_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8ae16d3b-3eaa-4569-9dc9-335699f49231
+		summarizeBy: sum
+		sourceColumn: section_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_title
+		dataType: string
+		lineageTag: 5a9694b6-5df1-4afb-afbe-cf228fa74130
+		summarizeBy: none
+		sourceColumn: class_title
+
+		annotation SummarizationSetBy = Automatic
+
+	column term_academic_period_order
+		dataType: int64
+		formatString: 0
+		lineageTag: 93e719d6-339a-49e7-a581-b544bcc8eb8b
+		summarizeBy: sum
+		sourceColumn: term_academic_period_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column icp_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ef6e785-8e69-426f-bf4b-cff556534b28
+		summarizeBy: sum
+		sourceColumn: icp_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_total_students
+		dataType: int64
+		formatString: 0
+		lineageTag: ac73bd51-a966-4c78-ace2-59fe3451b231
+		summarizeBy: sum
+		sourceColumn: class_total_students
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_score
+		dataType: double
+		formatString: 0
+		lineageTag: 5b5673fd-3526-4c0e-8098-85a16adc4a18
+		summarizeBy: sum
+		sourceColumn: total_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column fle_student_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: dbd571ef-cfdd-44c1-8e9c-bf035be97d7f
+		summarizeBy: none
+		sourceColumn: fle_student_dw_id
+
+		annotation SummarizationSetBy = User
+
+	column completed_lo_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: aee67dca-009b-4549-8c64-4ded5787979a
+		summarizeBy: sum
+		sourceColumn: completed_lo_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column section_name
+		dataType: string
+		lineageTag: 654aac7e-cd69-40dd-8639-c4bc8e19bc24
+		summarizeBy: none
+		sourceColumn: section_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column StudentClass = COMBINEVALUES("-",interim_checkpoint[fle_student_dw_id],interim_checkpoint[class_dw_id])
+		lineageTag: 2ce15879-d3f1-4af1-afdc-cccdd0c666ce
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_id
+		dataType: string
+		lineageTag: ab688e8d-972a-42e0-af47-f0ebc4136ed3
+		summarizeBy: none
+		sourceColumn: school_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column T = "t"
+		lineageTag: 99ccb214-52ad-42f3-82af-cd1c5e0a4608
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subject = SWITCH(interim_checkpoint[class_gen_subject],"Arabic",[SvgArabic],interim_checkpoint[class_gen_subject])
+		lineageTag: 56cd975f-614d-4de8-8d23-d38eb359f04c
+		dataCategory: ImageUrl
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Class = interim_checkpoint[section_name] & "-" & interim_checkpoint[class_gen_subject]
+		lineageTag: a97ef464-d2bf-4059-b269-06a84d302320
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Grade = INT(interim_checkpoint[grade_k12grade])
+		formatString: 0
+		lineageTag: 39ec43b9-cedc-4c8c-8877-6b0e296666bb
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column pacing_activity_order
+		dataType: int64
+		formatString: 0
+		lineageTag: e56ff7c3-32d2-46b5-bcea-ac94dd3b5b47
+		summarizeBy: sum
+		sourceColumn: pacing_activity_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column ic_order
+		dataType: int64
+		formatString: 0
+		lineageTag: a5a0afab-e63a-46c7-99b7-3c0c78ac423c
+		summarizeBy: sum
+		sourceColumn: ic_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column week_range
+		dataType: string
+		lineageTag: 2b549a39-31e9-4727-879e-49d78b1e9a81
+		summarizeBy: none
+		sourceColumn: week_range
+
+		annotation SummarizationSetBy = Automatic
+
+	column ic_title
+		dataType: string
+		lineageTag: 09604e8b-433b-46f7-9448-6711d0b54214
+		summarizeBy: none
+		sourceColumn: ic_title
+
+		annotation SummarizationSetBy = Automatic
+
+	partition interim_checkpoint-dbf445c6-2cc0-4c83-a079-ad48df3dbcb0 = m
+		mode: import
+		source = ```
+				let
+				    Source = PowerBI.Dataflows(null),
+				    WorkspaceData = Source{[workspaceId=Workspace]}[Data],
+				    DataflowData = WorkspaceData{[dataflowId=Dataflow]}[Data],
+				    interim_checkpoint1 = DataflowData{[entity="interim_checkpoint"]}[Data],
+				    AddRange = Table.CombineColumns(Table.TransformColumnTypes(interim_checkpoint1, {{"week_start_date", type text}, {"week_end_date", type text}}, "en-US"),{"week_start_date", "week_end_date"},Combiner.CombineTextByDelimiter("-", QuoteStyle.None),"week_range"),
+				    DataFilter = if 
+				    FilterRows <= 0 
+				    then 
+				     AddRange
+				    else 
+				     Table.FirstN(AddRange, FilterRows)
+				in
+				    DataFilter
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

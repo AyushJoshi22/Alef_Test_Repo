@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "SkillsMastery"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d28adf0c-5239-9a1e-4054-f00c401556c6"
+  }
+}

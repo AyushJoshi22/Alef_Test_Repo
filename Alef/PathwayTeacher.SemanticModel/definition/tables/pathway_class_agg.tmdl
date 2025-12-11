@@ -1,0 +1,172 @@
+table pathway_class_agg
+	lineageTag: fdbedff6-1e90-403a-a0b8-02f5b5383afe
+
+	measure MinDate = MIN(pathway_class_agg[activity_date])
+		formatString: General Date
+		lineageTag: 71b7537e-fe0a-4e33-b2b0-1785ae3b07bc
+
+	measure 'Activities Completed (Count)' = ```
+			
+			 CALCULATE(
+			    SUM(pathway_class_agg[activity_completed_count])
+			 )
+			```
+		formatString: 0
+		lineageTag: 0296d476-bd92-4ce6-a675-c7f922098366
+
+	measure 'Levels Completed (Count)' = ```
+			
+			 CALCULATE(
+			    SUM(pathway_class_agg[level_completed_count])
+			 )
+			```
+		formatString: 0
+		lineageTag: 042eec2f-41a2-4caf-8846-5940edbd7d53
+
+	measure TotalScoreMeasure = ```
+			
+			 CALCULATE(
+			    SUM(pathway_class_agg[total_score])
+			 )
+			```
+		lineageTag: 4064dabb-76f2-4366-8941-8f437405eb34
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Level Score (Avg)' =
+			
+			DIVIDE([TotalScoreMeasure],[LevelsIC Completed (Count)],"--")
+		formatString: 0.0
+		lineageTag: ef11e217-c56b-47e9-a55f-65e96194da36
+
+	measure 'LevelsIC Completed (Count)' = ```
+			
+			 CALCULATE(
+			    SUM(pathway_class_agg[level_completed_count_ic])
+			 )
+			```
+		formatString: 0
+		lineageTag: 15c62d1b-66fd-458b-b0db-12567febd83f
+
+	column school_id
+		dataType: string
+		lineageTag: f30d9e09-080a-465a-956f-be16f6a5e4cf
+		summarizeBy: none
+		sourceColumn: school_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column school_name
+		dataType: string
+		lineageTag: 754a3b29-fb21-40a5-9fd8-3bc42a81934b
+		summarizeBy: none
+		sourceColumn: school_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column grade_name
+		dataType: int64
+		formatString: 0
+		lineageTag: 0e080c6a-c0fa-487c-8452-1d4375468573
+		summarizeBy: sum
+		sourceColumn: grade_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 74cf33f7-237c-4c71-9130-f67c5f1c57e5
+		summarizeBy: none
+		sourceColumn: class_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_title
+		dataType: string
+		lineageTag: dbaf4b50-f131-44fa-a845-8218ad0192fe
+		summarizeBy: none
+		sourceColumn: class_title
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_section_name
+		dataType: string
+		lineageTag: 2e2b6308-b550-493a-850a-163394e4ec1e
+		summarizeBy: none
+		sourceColumn: class_section_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column curr_subject_name
+		dataType: string
+		lineageTag: a35e910f-fee1-4256-9b7b-a71fca650624
+		summarizeBy: none
+		sourceColumn: curr_subject_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column activity_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7af131f5-793f-42d1-a745-0eb8ec255770
+		summarizeBy: none
+		sourceColumn: activity_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column activity_completed_count
+		dataType: int64
+		formatString: 0
+		lineageTag: d1e27575-386a-4976-a9a0-2a3d50886999
+		summarizeBy: sum
+		sourceColumn: activity_completed_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_score
+		dataType: double
+		lineageTag: 4aef3a10-b7b8-4ad9-80bb-359aa3ee3112
+		summarizeBy: sum
+		sourceColumn: total_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column level_completed_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 2716d1de-a391-4b61-9d16-fc5e4bdb9687
+		summarizeBy: sum
+		sourceColumn: level_completed_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column level_completed_count_ic
+		dataType: int64
+		formatString: 0
+		lineageTag: 5ebb3182-f5c3-41e5-a434-3c22d801dce8
+		summarizeBy: sum
+		sourceColumn: level_completed_count_ic
+
+		annotation SummarizationSetBy = Automatic
+
+	partition pathway_class_agg = m
+		mode: import
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Envs = Source{[Id="Workspaces"]}[Data],
+				    Workspace = Envs{[workspaceId=WorkspaceId]}[Data],
+				    Dataflow = Workspace{[dataflowId=DataflowPath]}[Data],
+				    pathway_class_agg_ = Dataflow{[entity="pathway_class_agg",version=""]}[Data]
+				in
+				    pathway_class_agg_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

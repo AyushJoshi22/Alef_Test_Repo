@@ -1,0 +1,7 @@
+role School
+	modelPermission: read
+
+	tablePermission interim_checkpoint = [school_id] = USERPRINCIPALNAME()
+
+	annotation PBI_Id = 843c79eee3e84f3fa2bf17db4f0ef4ea
+

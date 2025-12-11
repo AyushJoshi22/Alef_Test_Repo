@@ -1,0 +1,16 @@
+relationship 65a9a425-bc3a-4f59-bab5-e5d7c7284913
+	joinOnDateBehavior: datePartOnly
+	fromColumn: org_dim_week.week
+	toColumn: LocalDateTable_e742e735-f0eb-4494-9e5f-3fdeb3b1c7e6.Date
+
+relationship 5c16ae27-0181-5632-8843-d3c0f5d19b94
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: ip_student_level.school_dw_id
+	toColumn: org_dim_week.school_dw_id
+
+relationship 01ccc40b-0af0-4bc1-805a-d4caf22d2a68
+	joinOnDateBehavior: datePartOnly
+	fromColumn: ip_student_level.week
+	toColumn: LocalDateTable_c48d5f6d-43b6-4686-acad-8421ef8fe166.Date
+

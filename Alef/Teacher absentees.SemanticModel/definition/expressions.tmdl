@@ -1,0 +1,14 @@
+/// set the Id according to workpsace
+expression WorkspaceId = "a5f0c46e-748b-4616-8d20-e50b216e3f5e" meta [IsParameterQuery=true, List={"a5f0c46e-748b-4616-8d20-e50b216e3f5e", "d0d5ce2a-826e-47d5-a35f-5d2e9a497276", "7bbb17d8-30b9-4def-8550-9902e089b604"}, DefaultValue="a5f0c46e-748b-4616-8d20-e50b216e3f5e", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 2504b626-fc22-4b99-bf75-d883bb6fd949
+
+	annotation PBI_ResultType = Text
+
+/// Set the teachers_name dataflow according to workpsace
+expression Teachers_name = "51a15554-699b-4afe-a1e9-87fd4ae212dc" meta [IsParameterQuery=true, List={"51a15554-699b-4afe-a1e9-87fd4ae212dc", "7d78ed1a-5310-490c-87ba-e81bc904069c", "37bfd73b-66dd-4a10-97cd-b5d730ec561e", "390d2d08-d40d-409b-b1a3-9c5a4c8b2a7d"}, DefaultValue="51a15554-699b-4afe-a1e9-87fd4ae212dc", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: f09ad4f2-2dec-47da-ac1f-86f02446bda4
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+

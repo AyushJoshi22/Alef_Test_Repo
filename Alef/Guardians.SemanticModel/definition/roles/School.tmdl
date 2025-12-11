@@ -1,0 +1,9 @@
+role School
+	modelPermission: read
+
+	tablePermission guardian_enrollment = [school_id] = USERPRINCIPALNAME()
+
+	tablePermission student_no_guard_name = [school_id] = USERPRINCIPALNAME()
+
+	annotation PBI_Id = 61dc21ddd07a4172ac98033eedb4260a
+

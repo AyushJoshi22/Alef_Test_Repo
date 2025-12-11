@@ -1,0 +1,25 @@
+relationship 7ccf7746-98f7-4942-9eff-028edc6b6f00
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Merge.academic_year_start_date
+	toColumn: LocalDateTable_f20db319-31cb-435e-a9dc-8054d3747d54.Date
+
+relationship 8594f8e2-ea96-4676-9913-7127c1bd37ba
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Merge.academic_year_end_date
+	toColumn: LocalDateTable_40536bd5-ecfd-4bd3-9383-0b7abe174ac5.Date
+
+relationship 4dcfdb76-fd13-4bed-91a2-cead797b3b38
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Merge.month
+	toColumn: LocalDateTable_050e599e-b19a-4009-894a-401ead6e1cb9.Date
+
+relationship 82fff40f-0736-479b-a4a9-9891f9234768
+	joinOnDateBehavior: datePartOnly
+	fromColumn: pathway_student_daily_activity.datest
+	toColumn: LocalDateTable_f6edbbbc-521f-4d38-a34d-ddcd9ea7a493.Date
+
+relationship b568a6d6-3dfb-5020-c7ad-e09fa17d4dbb
+	toCardinality: many
+	fromColumn: pathway_student_daily_activity.student_dw_id
+	toColumn: Merge.active_student_dw_id
+

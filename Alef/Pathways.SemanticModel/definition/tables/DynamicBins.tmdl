@@ -1,0 +1,52 @@
+table DynamicBins
+	lineageTag: 15fcb181-bc60-492a-a016-4db3436851d0
+
+	column Value
+		formatString: 0
+		lineageTag: 40aa9666-340e-4048-979e-b2065f5dc393
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	column BinStart
+		formatString: 0
+		lineageTag: a20b862b-413e-4ea3-b1c9-b4c3d121b6ee
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [BinStart]
+
+		annotation SummarizationSetBy = Automatic
+
+	column BinEnd
+		formatString: 0
+		lineageTag: 26473650-348a-40a1-9f3d-50fae47b723e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [BinEnd]
+
+		annotation SummarizationSetBy = Automatic
+
+	column BinLabel
+		lineageTag: 2a953895-991b-4816-9842-f871909c2bd5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [BinLabel]
+		sortByColumn: BinStart
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DynamicBins = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS(
+				    GENERATESERIES(1, 1000, 5),
+				    "BinStart", [Value],
+				    "BinEnd", [Value] + 4,
+				    "BinLabel", FORMAT([Value], "0") & " - " & FORMAT([Value] + 4, "0")
+				)
+
+	annotation PBI_Id = de8f0c5b172c4361817b58dc2ec3f8a3
+

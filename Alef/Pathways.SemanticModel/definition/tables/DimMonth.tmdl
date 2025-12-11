@@ -1,0 +1,59 @@
+table DimMonth
+	lineageTag: 99597b86-7aee-4c2f-ae34-272f346410f2
+
+	column MonthStartDate
+		formatString: General Date
+		lineageTag: cb95af62-429b-43eb-bc6e-bb789f73e184
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MonthStartDate]
+
+		variation Variation
+			isDefault
+			relationship: 2768efdd-7a2b-4ea2-bff4-8b52655d885d
+			defaultHierarchy: LocalDateTable_337f37be-01a0-4384-9315-f4c0dbc7c07d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthKey
+		formatString: 0
+		lineageTag: f8c7b7f5-7d61-46e7-868f-bd9e49ff3f16
+		summarizeBy: count
+		isNameInferred
+		sourceColumn: [MonthKey]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		lineageTag: 03cbac40-7c6d-421a-bc56-41d72e9b343b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MonthName]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNameFilter
+		lineageTag: d117dd8e-3560-400c-88d8-b8ab105acf27
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MonthNameFilter]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimMonth = calculated
+		mode: import
+		source = ```
+				
+				DISTINCT(
+				    SELECTCOLUMNS(
+				        'Date',
+				        "MonthStartDate", 'Date'[MonthStartDate],   
+				        "MonthKey", 'Date'[MonthKey],              
+				        "MonthName", 'Date'[MonthName],
+				        "MonthNameFilter", 'Date'[MonthNameFilter]               
+				    )
+				)
+				```
+
+	annotation PBI_Id = 2a345e77502b4e65b3f6d3a078534b6e
+

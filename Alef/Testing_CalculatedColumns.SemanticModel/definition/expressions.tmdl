@@ -1,0 +1,21 @@
+expression ExcelPath = "C:\Users\BhaavikaMeghnani\Downloads\Retail_Sales_Data.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: a325ebc4-01fc-480a-bb60-6faf6b5222c1
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression FabricServer = "fkif6v2cnurehb3aehge4sy4ui-prijpu3omdheblrxqzfwil2pau.datawarehouse.fabric.microsoft.com" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 36748044-624c-41dc-903e-852e4ae74699
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression FabricDB = "Alef-Practise" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 67d79399-df57-4ca7-a3fc-a21afb4cbe54
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

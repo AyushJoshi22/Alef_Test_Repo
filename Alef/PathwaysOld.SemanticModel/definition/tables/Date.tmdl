@@ -1,0 +1,27 @@
+table Date
+	lineageTag: 0ec6db95-5944-4bcd-89c2-08f629444221
+
+	measure DaysInterval = DATEDIFF( MIN ('Date'[Date]), MAX('Date'[Date]),DAY)
+		formatString: 0
+		lineageTag: c4def6c1-be59-490a-9699-ec051d67266f
+
+	column Date
+		formatString: Short Date
+		lineageTag: 38695a96-3486-405b-9405-43e11415d458
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: fbd43cb1-f0e6-46bd-b522-f208256455eb
+			defaultHierarchy: LocalDateTable_7c1afe32-c381-47ad-b6c0-e8ca03595b2d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Date = calculated
+		mode: import
+		source = CALENDAR([MinDate],TODAY()-1)
+
+	annotation PBI_Id = 69f25b8824714e5d92f1aa0838bddb4a
+

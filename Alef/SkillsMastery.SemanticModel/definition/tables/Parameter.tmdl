@@ -1,0 +1,29 @@
+table Parameter
+	lineageTag: 54578808-c24b-4c52-bc83-1bcb72be507c
+
+	measure 'Parameter Value' = SELECTEDVALUE('Parameter'[Parameter], 0)
+		formatString: 0
+		lineageTag: 7bd27f64-f89c-4d81-bd16-803b3ff474fa
+
+	measure ColorParameterGreeen = IF (MAX(Parameter[Parameter])=0 && Parameter[Parameter Value]=0,"#70BF42",IF(MAX(Parameter[Parameter])=1 && Parameter[Parameter Value]=1,"#70AB42","#70BF4200"))
+		lineageTag: 367d4e0d-cdbe-4d9f-bf6c-cfc170b35d54
+
+	column Parameter
+		formatString: 0
+		lineageTag: f1ec0442-45e6-4315-b8bf-9c810a8a2e23
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition Parameter = calculated
+		mode: import
+		source = GENERATESERIES(0, 1, 1)
+
+	annotation PBI_Id = 2301e2068bcc4bc38415bfb37194cade
+

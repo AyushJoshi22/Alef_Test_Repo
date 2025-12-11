@@ -1,0 +1,45 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Script1",
+        "type": "Script",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "connectionSettings": {
+          "name": "Alef-Practise",
+          "properties": {
+            "annotations": [],
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "endpoint": "fkif6v2cnurehb3aehge4sy4ui-prijpu3omdheblrxqzfwil2pau.datawarehouse.fabric.microsoft.com",
+              "artifactId": "ddf3e287-bf65-46bd-bcae-2be01a4b0151",
+              "workspaceId": "d397507c-606e-40ce-ae37-864b642f4f05"
+            },
+            "externalReferences": {
+              "connection": "96ed45a3-4b88-4576-b823-bae5a7ae9ee9"
+            }
+          }
+        },
+        "typeProperties": {
+          "scripts": [
+            {
+              "type": "Query",
+              "text": {
+                "value": "select * from sys.dm_exec_requests",
+                "type": "Expression"
+              }
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        }
+      }
+    ]
+  }
+}

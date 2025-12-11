@@ -1,0 +1,127 @@
+table Retail_Sales_Data
+	lineageTag: 24441c9c-eb97-46ef-bd2a-a9d6c5132970
+
+	measure 'Total Revenue' = ```
+			SUM('Retail_Sales_Data'[Total_Sale_Amount])
+			
+			```
+		lineageTag: 3a6a8c8f-d1cd-4bd6-8ea8-823b0fa1f2a1
+
+	measure 'Average Selling Price' = ```
+			
+			DIVIDE(
+			    SUM('Retail_Sales_Data'[Total_Sale_Amount]),
+			    SUM('Retail_Sales_Data'[Quantity_Sold])
+			)
+			
+			```
+		lineageTag: f3241241-2bac-43e6-bdf0-a31bf1fceaaa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Sale_ID
+		dataType: string
+		lineageTag: 6e07c139-074f-477b-a115-d8ea4f0fc846
+		summarizeBy: none
+		sourceColumn: Sale_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product_Name
+		dataType: string
+		lineageTag: fdc92daf-c21e-4c8e-8a87-47ea667d9c97
+		summarizeBy: none
+		sourceColumn: Product_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 673d3ad3-904c-443c-b9e4-83b866d50e2a
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity_Sold
+		dataType: int64
+		formatString: 0
+		lineageTag: e3bba903-2a17-46ea-b8c5-20d7116143ed
+		summarizeBy: sum
+		sourceColumn: Quantity_Sold
+
+		annotation SummarizationSetBy = Automatic
+
+	column Price_per_Unit
+		dataType: double
+		lineageTag: d76fa510-6aad-405c-91c7-6c16e6d4771d
+		summarizeBy: sum
+		sourceColumn: Price_per_Unit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Sale_Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e40a3747-476e-4960-b0e1-6466becbf25b
+		summarizeBy: none
+		sourceColumn: Sale_Date
+
+		variation Variation
+			isDefault
+			relationship: d46bd43f-ef15-41b7-8799-0dd98b0e9761
+			defaultHierarchy: LocalDateTable_2b903c8f-5dab-40e1-b9f2-4380ede8d173.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Payment_Method
+		dataType: string
+		lineageTag: bb766d97-9e2a-419c-a814-29153efd6b33
+		summarizeBy: none
+		sourceColumn: Payment_Method
+
+		annotation SummarizationSetBy = Automatic
+
+	column Store_Location
+		dataType: string
+		lineageTag: 3381b24a-50ab-4650-a6fa-b89bad045ff8
+		summarizeBy: none
+		sourceColumn: Store_Location
+
+		annotation SummarizationSetBy = Automatic
+
+	column Total_Sale_Amount = ```
+			'Retail_Sales_Data'[Quantity_Sold] * 'Retail_Sales_Data'[Price_per_Unit]
+			
+			```
+		lineageTag: 3d357ab7-b9ce-4a73-8f97-3c46dd215b4a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Retail_Sales_Data = m
+		mode: import
+		source = ```
+				let
+				    // Connect to Fabric Data Warehouse
+				    FabricSource = Sql.Database(
+				        "fkif6v2cnurehb3aehge4sy4ui-prijpu3omdheblrxqzfwil2pau.datawarehouse.fabric.microsoft.com", 
+				        "Alef-Practise"
+				    ),
+				
+				    // Load the dbo.Retail_Sales_Data table
+				    dbo_Retail_Sales_Data = FabricSource{[Schema="dbo", Item="Retail_Sales_Data"]}[Data]
+				in
+				    dbo_Retail_Sales_Data
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

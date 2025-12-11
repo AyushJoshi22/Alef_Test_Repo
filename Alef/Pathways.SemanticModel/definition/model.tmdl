@@ -1,0 +1,40 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Workspace","Pathwaydata","Dailyview","pathway_nlf_principal_dm_view","pathway_student_daily_activity"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["CalcGroup","DaxQueryView_Desktop"]
+
+ref table DateTableTemplate_2d19cbc9-0480-4a4c-b8c9-f529bfa02016
+ref table Date
+ref table pathway_nlf_principal_dm_view
+ref table LocalDateTable_cd554d8b-78d8-47cf-897a-843a8327ed16
+ref table LocalDateTable_1bb6fee4-f24f-43e7-b712-7746608f6124
+ref table LevelsCompleted
+ref table Partition
+ref table LocalDateTable_7c1afe32-c381-47ad-b6c0-e8ca03595b2d
+ref table pathway_student_daily_activity
+ref table LocalDateTable_6bd9f612-45e2-4090-ad49-ca2f7891e7d5
+ref table LocalDateTable_df76436a-050f-41e4-8709-8d070da48b7e
+ref table DimMonth
+ref table DimMonth_Start
+ref table DimMonth_End
+ref table LocalDateTable_bd5c502b-7151-45be-9ef3-6ff943347443
+ref table LocalDateTable_9842d367-7afb-4e09-9463-6dc01598a9be
+ref table DynamicBins
+ref table LocalDateTable_337f37be-01a0-4384-9315-f4c0dbc7c07d
+ref table LocalDateTable_3cf056a2-dc4a-4287-8250-92bcaf140735
+ref table LocalDateTable_487646f1-6b4e-401a-a1c3-913a2b69117a
+
+ref role school
+
+ref cultureInfo en-US
+

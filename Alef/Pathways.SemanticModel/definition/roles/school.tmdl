@@ -1,0 +1,7 @@
+role school
+	modelPermission: read
+
+	tablePermission pathway_nlf_principal_dm_view = [school_id] = USERPRINCIPALNAME()
+
+	annotation PBI_Id = eaf55d0d015d41de9bc998c694df9116
+

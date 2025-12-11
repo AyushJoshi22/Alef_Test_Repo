@@ -1,0 +1,24 @@
+relationship 7e81d9b9-2347-48d3-a0a2-f05ceb86fc4a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: guardian_enrollment.guardian_association_date
+	toColumn: LocalDateTable_d3c68c5a-59f4-467d-82cc-5bc4ca2d90c2.Date
+
+relationship e5efc1b5-0eef-4212-a3a4-137e7994334f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.WeekStartDate
+	toColumn: LocalDateTable_f8f9347f-d1b3-400a-9ff0-104a127d2db1.Date
+
+relationship cab4ae78-4455-4697-a476-8e9041601c45
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.Date
+	toColumn: LocalDateTable_a07a3b5d-bda6-488b-abdd-2cb30dc636ad.Date
+
+relationship 6266948d-a09c-44ab-ab90-9fda720c1cac
+	fromColumn: guardian_enrollment.guardian_registered_date
+	toColumn: Date.Date
+
+relationship 9461cb38-5c24-4dcb-bca5-44787c563b6a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.DateMonth
+	toColumn: LocalDateTable_54b71c12-15db-4780-8e65-5fdc6edeed0c.Date
+

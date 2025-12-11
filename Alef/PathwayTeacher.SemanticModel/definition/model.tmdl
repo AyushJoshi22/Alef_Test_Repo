@@ -1,0 +1,20 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["WorkspaceId","DataflowPath","FilterRows","pathway_class_teacher_name","pathway_class_agg","DataflowTeacher"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+ref table Date
+ref table pathway_class_teacher_name
+ref table pathway_class_agg
+
+ref role school
+
+ref cultureInfo en-US
+

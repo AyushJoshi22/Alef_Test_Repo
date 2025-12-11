@@ -1,0 +1,47 @@
+relationship 697754b3-6d43-4455-a3ea-0e6a4d398753
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.WeekStartDate
+	toColumn: LocalDateTable_1f3c2fa5-2c54-4a52-85fa-b1f1abd2dcc3.Date
+
+relationship 9f01aad0-7f03-4da3-8d5d-33f31292ba4a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.WeekEndDate
+	toColumn: LocalDateTable_63e7d773-dbb9-4edb-80cf-a245f035f575.Date
+
+relationship 2f7851de-7ea6-4bfa-a31c-529e44d0f98e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: student_absentees.academic_year_start_date
+	toColumn: LocalDateTable_e339dbf2-8c63-4ee4-88ec-8748b650f304.Date
+
+relationship 862a797c-2377-4afc-9462-3377a20fde79
+	joinOnDateBehavior: datePartOnly
+	fromColumn: student_absentees.academic_year_end_date
+	toColumn: LocalDateTable_bf03aab6-0b76-41d7-b455-49100da23cdf.Date
+
+relationship 9196722b-fece-415b-834f-9e87962e9114
+	joinOnDateBehavior: datePartOnly
+	fromColumn: student_absentees.'student_onboarding.student_last_login_date'
+	toColumn: LocalDateTable_e12e8dc6-39b3-47a0-863b-381a82c6fded.Date
+
+relationship b4043b20-581a-4c62-8ddf-0782b3f699d3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Date.Date
+	toColumn: LocalDateTable_be22c4d3-6ee2-4550-9d28-81efc90c8bba.Date
+
+relationship 528e51d4-9e6f-482b-8906-0ac639ea4a92
+	crossFilteringBehavior: bothDirections
+	securityFilteringBehavior: bothDirections
+	fromColumn: student_absentees.week_start_date
+	toColumn: Date.Date
+
+relationship 8e1e0f78-7dcb-4df7-a005-2d47bcf74310
+	joinOnDateBehavior: datePartOnly
+	fromColumn: org_dim_week.week
+	toColumn: LocalDateTable_27ebc20a-7139-47bd-a4d0-bc96b3d1cfa8.Date
+
+relationship ee000c46-b2c9-d228-4582-f7936ac4d2c3
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: student_absentees.school_id
+	toColumn: org_dim_week.school_id
+

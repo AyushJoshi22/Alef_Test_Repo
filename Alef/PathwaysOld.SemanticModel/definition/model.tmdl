@@ -1,0 +1,32 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["pathway_activity_principal_dm_view","Workspace","Pathwaydata","Defaultsubject","school_default_pathway_subject"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["CalcGroup"]
+
+ref table pathway_activity_principal_dm_view
+ref table DateTableTemplate_2d19cbc9-0480-4a4c-b8c9-f529bfa02016
+ref table LocalDateTable_c7b8a08c-25fc-43fb-8448-d51d11b42116
+ref table LocalDateTable_d4744552-541b-4f5a-8966-acae4120a802
+ref table Date
+ref table Ranges
+ref table LocalDateTable_44470479-d0f5-43ba-ba2b-a0b2ac9e8b2e
+ref table LocalDateTable_7c1afe32-c381-47ad-b6c0-e8ca03595b2d
+ref table school_default_pathway_subject
+ref table 'Calculation group'
+ref table LocalDateTable_f76ee0f0-be28-444a-b860-32a99d309be8
+ref table LocalDateTable_a19d0923-d5e5-4db8-b930-2460a78fee24
+
+ref role school
+
+ref cultureInfo en-US
+

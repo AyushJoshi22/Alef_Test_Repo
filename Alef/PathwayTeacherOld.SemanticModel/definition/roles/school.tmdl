@@ -1,0 +1,7 @@
+role school
+	modelPermission: read
+
+	tablePermission pathway_class_agg = pathway_class_agg[school_id] = USERPRINCIPALNAME()
+
+	annotation PBI_Id = 9f77d1835dea4bcaa228943f4ea26c1c
+

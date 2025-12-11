@@ -1,0 +1,101 @@
+table Ranges
+	lineageTag: d9e8dcbe-7d72-48c5-8e3f-ab65c576a911
+
+	measure CountArea = ```
+			
+			VAR counts = COUNTROWS(
+			    FILTER (SUMMARIZE(
+			         pathway_activity_principal_dm_view, pathway_activity_principal_dm_view[active_student_dw_id], "Bucket",[Bucket]),
+			    [bucket] = SELECTEDVALUE ( Ranges[Range] ) 
+			    && NOT ISBLANK(pathway_activity_principal_dm_view[active_student_dw_id])
+			     )
+			) 
+			RETURN 
+			COALESCE (counts,0)
+			```
+		formatString: 0
+		lineageTag: 9042e56e-aee7-4ac4-b19f-949994d1a757
+
+	measure Remainder = [Active Students] - [CountArea]
+		formatString: 0
+		lineageTag: 0d2cc34a-7a33-4eaa-bc26-b34f7d364726
+
+	measure StudentsDistrApproach = ```
+			
+			VAR _studmeets =  COUNTROWS(
+				FILTER(
+				SUMMARIZE(pathway_activity_principal_dm_view,
+			pathway_activity_principal_dm_view[active_student_dw_id],
+			"AvgScores",[AvgScore], "bucket", [Bucket]),
+			[AvgScores]<=80 &&[AvgScores]>60 && [bucket] = SELECTEDVALUE ( Ranges[Range] )) 
+			 )
+			 RETURN 
+			IF(ISBLANK( _studmeets), "", ">60 and <= 80       " & _studmeets & " students")
+			```
+		lineageTag: eec6f686-d6c6-44cd-8b6c-2beec9ba59f9
+
+	measure StudentsDistrMeets = ```
+			
+			VAR _studmeets =  COUNTROWS(
+				FILTER(
+				SUMMARIZE(pathway_activity_principal_dm_view,
+			pathway_activity_principal_dm_view[active_student_dw_id],
+			"AvgScores",[AvgScore], "bucket", [Bucket]),
+			[AvgScores]>80 && [bucket] = SELECTEDVALUE ( Ranges[Range] )) 
+			 )
+			 RETURN 
+			IF(ISBLANK( _studmeets), "", "80+                      " & _studmeets & " students")
+			```
+		lineageTag: f663ea21-ba12-4dee-9382-03cdd45db12d
+
+	measure StudentsDistrBelow = ```
+			
+			VAR _studmeets =  COUNTROWS(
+				FILTER(
+				SUMMARIZE(pathway_activity_principal_dm_view,
+			pathway_activity_principal_dm_view[active_student_dw_id],
+			"AvgScores",[AvgScore], "bucket", [Bucket]),
+			[AvgScores]<=60 && [AvgScores]>0 && [bucket] = SELECTEDVALUE ( Ranges[Range] )) 
+			 )
+			 RETURN 
+			IF(ISBLANK( _studmeets), "", "<=60                      " & _studmeets & " students")
+			```
+		lineageTag: b4dfb410-1e90-46ef-9a98-693bf48c3aeb
+
+	measure StudentsDistrNone = ```
+			
+			VAR _studmeets =  COUNTROWS(
+				FILTER(
+				SUMMARIZE(pathway_activity_principal_dm_view,
+			pathway_activity_principal_dm_view[active_student_dw_id],
+			"AvgScores",[AvgScore], "bucket", [Bucket]),
+			[AvgScores]<=0 && [bucket] = SELECTEDVALUE ( Ranges[Range] )) 
+			 )
+			 RETURN 
+			IF(ISBLANK( _studmeets), "", "none                    " & _studmeets & " students")
+			```
+		lineageTag: 824b46b5-8008-4f0b-8d54-614c3f00b620
+
+	column Range
+		lineageTag: a481652c-9fa1-4e69-9456-8555029013f5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Range]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Ranges = calculated
+		mode: import
+		source =
+				
+				DATATABLE (
+				    "Range", STRING,
+				    {   { "0" },
+				        { "1 - First" },
+				        { "2 - Second" },
+				        { "3 - Third" }
+				    }
+				)
+
+	annotation PBI_Id = 5913b7f7d70344aeb868a188e7bcda06
+

@@ -1,0 +1,27 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBIDesktopVersion = 2.132.1053.0 (24.08)
+
+annotation PBI_QueryOrder = ["guardian_enrollment","Schema","student_no_guard_name","Workspace","Dataflow"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+ref table guardian_enrollment
+ref table DateTableTemplate_80e639c9-0166-4b13-9679-61c98ab212de
+ref table LocalDateTable_d3c68c5a-59f4-467d-82cc-5bc4ca2d90c2
+ref table Date
+ref table LocalDateTable_f8f9347f-d1b3-400a-9ff0-104a127d2db1
+ref table LocalDateTable_a07a3b5d-bda6-488b-abdd-2cb30dc636ad
+ref table student_no_guard_name
+ref table LocalDateTable_54b71c12-15db-4780-8e65-5fdc6edeed0c
+
+ref role School
+
+ref cultureInfo en-US
+

@@ -1,0 +1,25 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["WorkspaceId","Dataflow","FilterRows","Merge","pathway_student_daily_activity","Dailyview"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+ref table DateTableTemplate_a1397d82-14f6-410f-bee1-903c28c0e896
+ref table Date
+ref table Merge
+ref table LocalDateTable_f20db319-31cb-435e-a9dc-8054d3747d54
+ref table LocalDateTable_40536bd5-ecfd-4bd3-9383-0b7abe174ac5
+ref table LocalDateTable_050e599e-b19a-4009-894a-401ead6e1cb9
+ref table pathway_student_daily_activity
+ref table LocalDateTable_f6edbbbc-521f-4d38-a34d-ddcd9ea7a493
+
+ref role school
+
+ref cultureInfo en-US
+

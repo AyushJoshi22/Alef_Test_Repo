@@ -1,0 +1,21 @@
+expression workspace = "a5f0c46e-748b-4616-8d20-e50b216e3f5e" meta [IsParameterQuery=true, List={"a5f0c46e-748b-4616-8d20-e50b216e3f5e", "d0d5ce2a-826e-47d5-a35f-5d2e9a497276", "7bbb17d8-30b9-4def-8550-9902e089b604"}, DefaultValue="a5f0c46e-748b-4616-8d20-e50b216e3f5e", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 13b03954-994b-444e-a5c6-5cd3951d2899
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression dataflow = "de08f15e-8c3f-4412-8b13-cec807007e98" meta [IsParameterQuery=true, List={"de08f15e-8c3f-4412-8b13-cec807007e98", "be222e5b-b27f-44b9-92ea-3bf131877cf3", "38101b77-89f7-4798-a5c3-103642767ec3"}, DefaultValue="de08f15e-8c3f-4412-8b13-cec807007e98", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 17fd983b-a078-4583-9fd6-c83afdca3e30
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression FilterRows = 0 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
+	lineageTag: 34d7f673-51b5-4493-b813-4c7724efcc02
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Number
+

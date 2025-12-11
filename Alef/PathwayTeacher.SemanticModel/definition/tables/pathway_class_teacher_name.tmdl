@@ -1,0 +1,44 @@
+table pathway_class_teacher_name
+	lineageTag: 45603142-d504-4ea6-af79-11221d3cc076
+
+	column class_dw_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 6d4cd077-dd4a-4a9f-a058-0fd54f585371
+		summarizeBy: none
+		sourceColumn: class_dw_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column teacher_id
+		dataType: string
+		lineageTag: 0bee4c30-7cb3-4785-81ee-0dbb63230182
+		summarizeBy: none
+		sourceColumn: teacher_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column teacher_name
+		dataType: string
+		lineageTag: 72c01288-2714-4683-bca9-2bea8388d175
+		summarizeBy: none
+		sourceColumn: teacher_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition pathway_class_teacher_name = m
+		mode: import
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Env = Source{[Id="Workspaces"]}[Data],
+				    Workspace = Env{[workspaceId=WorkspaceId]}[Data],
+				    Dataflow = Workspace{[dataflowId=DataflowTeacher]}[Data],
+				    pathway_class_teacher_name_ = Dataflow{[entity="pathway_class_teacher_name",version=""]}[Data]
+				in
+				    pathway_class_teacher_name_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

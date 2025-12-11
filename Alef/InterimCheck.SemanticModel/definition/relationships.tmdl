@@ -1,0 +1,16 @@
+relationship 0e75983e-7180-4208-810a-86ac81768b31
+	joinOnDateBehavior: datePartOnly
+	fromColumn: interim_checkpoint.local_date
+	toColumn: LocalDateTable_995a307d-bfba-45ec-92ba-4adfd330c6c4.Date
+
+relationship ed69250e-8f78-4e36-9042-0d2a6b1543a0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: month_range.Month
+	toColumn: LocalDateTable_65528c43-5ba7-467b-aba5-a503ef1eb1e0.Date
+
+relationship 74216afa-5d56-1235-80b2-28250ad64887
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: month_range.range
+	toColumn: interim_checkpoint.week_range
+
