@@ -1,7 +1,0 @@
-role School
-	modelPermission: read
-
-	tablePermission fact_lessons_perf = [school_id] = USERPRINCIPALNAME()
-
-	annotation PBI_Id = 33c022ca429e4b80b0d5d49594518c53
-
